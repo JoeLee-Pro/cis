@@ -1,0 +1,26 @@
+{% extends "website/base_website.html" %}
+
+{% load static %}
+
+{% block content %}
+
+      <div class="container col-md-12" style="height:87vh;overflow-y:scroll;background-color:transparent;margin-top:50px;padding-top:20px;">
+        <div class="col-md-5" style="background-color:transparent;">
+          &nbsp;
+        </div>
+        <div class="col-md-7">
+          <p class="lead">
+            <h1>TCN Calendar</h1>
+            {% for calendar_item in calendar_items %}
+                <div class="lead" style="width:100%;margin:0px;padding:10px;background-color:{% cycle "#dddddd" "#bbbbbb" %};">
+                    {{ calendar_item }}
+                </div>
+            {% endfor %}
+            <div class="lead" style="width:100%;margin:0px;padding:10px;background-color:#ffffff;">
+                &nbsp;
+            </div> 
+          </p>
+        </div>
+      </div>
+
+{% endblock %}

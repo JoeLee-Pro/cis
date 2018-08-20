@@ -1,0 +1,48 @@
+{% extends "website/base_website.html" %}
+
+{% load static %}
+
+{% block content %}
+
+      <div class="container col-md-12" style="height:87vh;overflow-y:scroll;background-color:transparent;margin-top:50px;padding-top:20px;">
+        <div class="col-md-5" style="background-color:transparent;">
+          &nbsp;
+        </div>
+        <div class="col-md-7">
+          <img class="center-block" style="height:30%;width:30%;padding-right:30px;padding-bottom:20px;" src="{% static "website/images/NYI Global Logo.jpg" %}" alt="Generic placeholder image">
+          <p class="lead">
+            <div class="pagination" style="margin-left:10px;font-size:14pt;">
+                <span class="step-links center-block">
+                    {% if sermon_name_list.has_previous %}
+                        <a href="/youth-sermon-library/page{{ sermon_name_list.previous_page_number }}">&laquo;</a>
+                    {% endif %}
+
+                    <span class="current">
+                        Page {{ sermon_name_list.number }} of {{ sermon_name_list.paginator.num_pages }}
+                    </span>
+
+                    {% if sermon_name_list.has_next %}
+                        <a href="/youth-sermon-library/page{{ sermon_name_list.next_page_number }}">&raquo;</a>
+                    {% endif %}
+                </span>
+                <br /><br />
+            </div>
+            <div class="lead" style="width:100%;margin:0px;padding:0px;margin-bottom:20px;">
+                <table style="width:100%">
+                {% for sermon_name in sermon_name_list %}
+                    <tr class="lead" style="width:100%;margin:0px;padding:0px;">
+                        <td style="background-color:{% cycle "#dddddd" "#bbbbbb" %};">&nbsp;&nbsp;{{ sermon_name|slice:"5:7" }}/{{ sermon_name|slice:"8:10" }}/{{ sermon_name|slice:":4" }} | {{ sermon_name|slice:"11:-4" }}</td>
+                        <td style="background-color:{% cycle "#dddddd" "#bbbbbb" %};">
+                            <audio style="background-color:#bbbbbb;float:right" preload="auto" controls class="embed-responsive-item">
+                                <source src="/media/audio/{{ sermon_name }}" type="audio/mp3" />
+                            </audio>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </table>
+            </div>
+          </p>
+        </div>
+      </div>
+
+{% endblock %}

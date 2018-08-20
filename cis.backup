@@ -1,0 +1,4255 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 9.5.6
+-- Dumped by pg_dump version 9.5.6
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: ContactEntries; Type: TABLE; Schema: public; Owner: cisadmin
+--
+
+CREATE TABLE "ContactEntries" (
+    "Id" integer NOT NULL,
+    "PeopleId_id" integer NOT NULL,
+    "ContactTypeId_id" integer NOT NULL,
+    "Address" character varying(254),
+    "City" character varying(100),
+    "State" character varying(2),
+    "Zip" character varying(10),
+    "Phone" character varying(25),
+    "Email" character varying(254)
+);
+
+
+ALTER TABLE "ContactEntries" OWNER TO cisadmin;
+
+--
+-- Name: ContactEntries_Id_seq; Type: SEQUENCE; Schema: public; Owner: cisadmin
+--
+
+CREATE SEQUENCE "ContactEntries_Id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE "ContactEntries_Id_seq" OWNER TO cisadmin;
+
+--
+-- Name: ContactEntries_Id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: cisadmin
+--
+
+ALTER SEQUENCE "ContactEntries_Id_seq" OWNED BY "ContactEntries"."Id";
+
+
+--
+-- Name: ContactTypes; Type: TABLE; Schema: public; Owner: cisadmin
+--
+
+CREATE TABLE "ContactTypes" (
+    "Id" integer NOT NULL,
+    "Type" character varying(30) NOT NULL,
+    "Description" character varying(254)
+);
+
+
+ALTER TABLE "ContactTypes" OWNER TO cisadmin;
+
+--
+-- Name: ContactTypes_Id_seq; Type: SEQUENCE; Schema: public; Owner: cisadmin
+--
+
+CREATE SEQUENCE "ContactTypes_Id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE "ContactTypes_Id_seq" OWNER TO cisadmin;
+
+--
+-- Name: ContactTypes_Id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: cisadmin
+--
+
+ALTER SEQUENCE "ContactTypes_Id_seq" OWNED BY "ContactTypes"."Id";
+
+
+--
+-- Name: Departments; Type: TABLE; Schema: public; Owner: cisadmin
+--
+
+CREATE TABLE "Departments" (
+    "Id" integer NOT NULL,
+    "Name" character varying(40) NOT NULL,
+    "Description" character varying(254)
+);
+
+
+ALTER TABLE "Departments" OWNER TO cisadmin;
+
+--
+-- Name: Departments_Id_seq; Type: SEQUENCE; Schema: public; Owner: cisadmin
+--
+
+CREATE SEQUENCE "Departments_Id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE "Departments_Id_seq" OWNER TO cisadmin;
+
+--
+-- Name: Departments_Id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: cisadmin
+--
+
+ALTER SEQUENCE "Departments_Id_seq" OWNED BY "Departments"."Id";
+
+
+--
+-- Name: Families; Type: TABLE; Schema: public; Owner: cisadmin
+--
+
+CREATE TABLE "Families" (
+    "Id" integer NOT NULL,
+    "Surname" character varying(40) NOT NULL,
+    "Description" character varying(254),
+    "Address" character varying(254),
+    "City" character varying(100),
+    "State" character varying(2),
+    "Zip" character varying(10)
+);
+
+
+ALTER TABLE "Families" OWNER TO cisadmin;
+
+--
+-- Name: Families_Id_seq; Type: SEQUENCE; Schema: public; Owner: cisadmin
+--
+
+CREATE SEQUENCE "Families_Id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE "Families_Id_seq" OWNER TO cisadmin;
+
+--
+-- Name: Families_Id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: cisadmin
+--
+
+ALTER SEQUENCE "Families_Id_seq" OWNED BY "Families"."Id";
+
+
+--
+-- Name: FamilyMembers; Type: TABLE; Schema: public; Owner: cisadmin
+--
+
+CREATE TABLE "FamilyMembers" (
+    "Id" integer NOT NULL,
+    "FamilyId_id" integer NOT NULL,
+    "FamilyRoleId_id" integer NOT NULL,
+    "PeopleId_id" integer NOT NULL
+);
+
+
+ALTER TABLE "FamilyMembers" OWNER TO cisadmin;
+
+--
+-- Name: FamilyMembers_Id_seq; Type: SEQUENCE; Schema: public; Owner: cisadmin
+--
+
+CREATE SEQUENCE "FamilyMembers_Id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE "FamilyMembers_Id_seq" OWNER TO cisadmin;
+
+--
+-- Name: FamilyMembers_Id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: cisadmin
+--
+
+ALTER SEQUENCE "FamilyMembers_Id_seq" OWNED BY "FamilyMembers"."Id";
+
+
+--
+-- Name: FamilyNotes; Type: TABLE; Schema: public; Owner: cisadmin
+--
+
+CREATE TABLE "FamilyNotes" (
+    "Id" integer NOT NULL,
+    "Note" text,
+    "FamilyId_id" integer NOT NULL
+);
+
+
+ALTER TABLE "FamilyNotes" OWNER TO cisadmin;
+
+--
+-- Name: FamilyNotes_Id_seq; Type: SEQUENCE; Schema: public; Owner: cisadmin
+--
+
+CREATE SEQUENCE "FamilyNotes_Id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE "FamilyNotes_Id_seq" OWNER TO cisadmin;
+
+--
+-- Name: FamilyNotes_Id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: cisadmin
+--
+
+ALTER SEQUENCE "FamilyNotes_Id_seq" OWNED BY "FamilyNotes"."Id";
+
+
+--
+-- Name: FamilyRoles; Type: TABLE; Schema: public; Owner: cisadmin
+--
+
+CREATE TABLE "FamilyRoles" (
+    "Id" integer NOT NULL,
+    "Role" character varying(40) NOT NULL,
+    "Description" character varying(254)
+);
+
+
+ALTER TABLE "FamilyRoles" OWNER TO cisadmin;
+
+--
+-- Name: FamilyRoles_Id_seq; Type: SEQUENCE; Schema: public; Owner: cisadmin
+--
+
+CREATE SEQUENCE "FamilyRoles_Id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE "FamilyRoles_Id_seq" OWNER TO cisadmin;
+
+--
+-- Name: FamilyRoles_Id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: cisadmin
+--
+
+ALTER SEQUENCE "FamilyRoles_Id_seq" OWNED BY "FamilyRoles"."Id";
+
+
+--
+-- Name: Grades; Type: TABLE; Schema: public; Owner: cisadmin
+--
+
+CREATE TABLE "Grades" (
+    "Id" integer NOT NULL,
+    "Grade" character varying(12) NOT NULL
+);
+
+
+ALTER TABLE "Grades" OWNER TO cisadmin;
+
+--
+-- Name: Grades_Id_seq; Type: SEQUENCE; Schema: public; Owner: cisadmin
+--
+
+CREATE SEQUENCE "Grades_Id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE "Grades_Id_seq" OWNER TO cisadmin;
+
+--
+-- Name: Grades_Id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: cisadmin
+--
+
+ALTER SEQUENCE "Grades_Id_seq" OWNED BY "Grades"."Id";
+
+
+--
+-- Name: GroupMembers; Type: TABLE; Schema: public; Owner: cisadmin
+--
+
+CREATE TABLE "GroupMembers" (
+    "Id" integer NOT NULL,
+    "PeopleId_id" integer NOT NULL,
+    "GroupId_id" integer NOT NULL,
+    "GroupRoleId_id" integer NOT NULL,
+    "GradeId_id" integer NOT NULL
+);
+
+
+ALTER TABLE "GroupMembers" OWNER TO cisadmin;
+
+--
+-- Name: GroupMembers_Id_seq; Type: SEQUENCE; Schema: public; Owner: cisadmin
+--
+
+CREATE SEQUENCE "GroupMembers_Id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE "GroupMembers_Id_seq" OWNER TO cisadmin;
+
+--
+-- Name: GroupMembers_Id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: cisadmin
+--
+
+ALTER SEQUENCE "GroupMembers_Id_seq" OWNED BY "GroupMembers"."Id";
+
+
+--
+-- Name: GroupNotes; Type: TABLE; Schema: public; Owner: cisadmin
+--
+
+CREATE TABLE "GroupNotes" (
+    "Id" integer NOT NULL,
+    "Note" text,
+    "GroupId_id" integer NOT NULL
+);
+
+
+ALTER TABLE "GroupNotes" OWNER TO cisadmin;
+
+--
+-- Name: GroupNotes_Id_seq; Type: SEQUENCE; Schema: public; Owner: cisadmin
+--
+
+CREATE SEQUENCE "GroupNotes_Id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE "GroupNotes_Id_seq" OWNER TO cisadmin;
+
+--
+-- Name: GroupNotes_Id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: cisadmin
+--
+
+ALTER SEQUENCE "GroupNotes_Id_seq" OWNED BY "GroupNotes"."Id";
+
+
+--
+-- Name: GroupRoles; Type: TABLE; Schema: public; Owner: cisadmin
+--
+
+CREATE TABLE "GroupRoles" (
+    "Id" integer NOT NULL,
+    "Role" character varying(40) NOT NULL,
+    "Description" character varying(254)
+);
+
+
+ALTER TABLE "GroupRoles" OWNER TO cisadmin;
+
+--
+-- Name: GroupRoles_Id_seq; Type: SEQUENCE; Schema: public; Owner: cisadmin
+--
+
+CREATE SEQUENCE "GroupRoles_Id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE "GroupRoles_Id_seq" OWNER TO cisadmin;
+
+--
+-- Name: GroupRoles_Id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: cisadmin
+--
+
+ALTER SEQUENCE "GroupRoles_Id_seq" OWNED BY "GroupRoles"."Id";
+
+
+--
+-- Name: GroupTypes; Type: TABLE; Schema: public; Owner: cisadmin
+--
+
+CREATE TABLE "GroupTypes" (
+    "Id" integer NOT NULL,
+    "Type" character varying(40) NOT NULL,
+    "Description" character varying(254)
+);
+
+
+ALTER TABLE "GroupTypes" OWNER TO cisadmin;
+
+--
+-- Name: GroupTypes_Id_seq; Type: SEQUENCE; Schema: public; Owner: cisadmin
+--
+
+CREATE SEQUENCE "GroupTypes_Id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE "GroupTypes_Id_seq" OWNER TO cisadmin;
+
+--
+-- Name: GroupTypes_Id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: cisadmin
+--
+
+ALTER SEQUENCE "GroupTypes_Id_seq" OWNED BY "GroupTypes"."Id";
+
+
+--
+-- Name: Groups; Type: TABLE; Schema: public; Owner: cisadmin
+--
+
+CREATE TABLE "Groups" (
+    "Id" integer NOT NULL,
+    "Name" character varying(40) NOT NULL,
+    "Description" character varying(254),
+    "DepartmentId_id" integer NOT NULL,
+    "GroupTypeId_id" integer NOT NULL
+);
+
+
+ALTER TABLE "Groups" OWNER TO cisadmin;
+
+--
+-- Name: Groups_Id_seq; Type: SEQUENCE; Schema: public; Owner: cisadmin
+--
+
+CREATE SEQUENCE "Groups_Id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE "Groups_Id_seq" OWNER TO cisadmin;
+
+--
+-- Name: Groups_Id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: cisadmin
+--
+
+ALTER SEQUENCE "Groups_Id_seq" OWNED BY "Groups"."Id";
+
+
+--
+-- Name: People; Type: TABLE; Schema: public; Owner: cisadmin
+--
+
+CREATE TABLE "People" (
+    "Id" integer NOT NULL,
+    "LastName" character varying(40) NOT NULL,
+    "FirstName" character varying(40) NOT NULL,
+    "MiddleName" character varying(40),
+    "Birthday" date,
+    "Anniversary" date
+);
+
+
+ALTER TABLE "People" OWNER TO cisadmin;
+
+--
+-- Name: PeopleNotes; Type: TABLE; Schema: public; Owner: cisadmin
+--
+
+CREATE TABLE "PeopleNotes" (
+    "Id" integer NOT NULL,
+    "Note" text,
+    "PeopleId_id" integer NOT NULL
+);
+
+
+ALTER TABLE "PeopleNotes" OWNER TO cisadmin;
+
+--
+-- Name: PeopleNotes_Id_seq; Type: SEQUENCE; Schema: public; Owner: cisadmin
+--
+
+CREATE SEQUENCE "PeopleNotes_Id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE "PeopleNotes_Id_seq" OWNER TO cisadmin;
+
+--
+-- Name: PeopleNotes_Id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: cisadmin
+--
+
+ALTER SEQUENCE "PeopleNotes_Id_seq" OWNED BY "PeopleNotes"."Id";
+
+
+--
+-- Name: People_Id_seq; Type: SEQUENCE; Schema: public; Owner: cisadmin
+--
+
+CREATE SEQUENCE "People_Id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE "People_Id_seq" OWNER TO cisadmin;
+
+--
+-- Name: People_Id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: cisadmin
+--
+
+ALTER SEQUENCE "People_Id_seq" OWNED BY "People"."Id";
+
+
+--
+-- Name: auth_group; Type: TABLE; Schema: public; Owner: cisadmin
+--
+
+CREATE TABLE auth_group (
+    id integer NOT NULL,
+    name character varying(80) NOT NULL
+);
+
+
+ALTER TABLE auth_group OWNER TO cisadmin;
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE; Schema: public; Owner: cisadmin
+--
+
+CREATE SEQUENCE auth_group_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE auth_group_id_seq OWNER TO cisadmin;
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: cisadmin
+--
+
+ALTER SEQUENCE auth_group_id_seq OWNED BY auth_group.id;
+
+
+--
+-- Name: auth_group_permissions; Type: TABLE; Schema: public; Owner: cisadmin
+--
+
+CREATE TABLE auth_group_permissions (
+    id integer NOT NULL,
+    group_id integer NOT NULL,
+    permission_id integer NOT NULL
+);
+
+
+ALTER TABLE auth_group_permissions OWNER TO cisadmin;
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: cisadmin
+--
+
+CREATE SEQUENCE auth_group_permissions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE auth_group_permissions_id_seq OWNER TO cisadmin;
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: cisadmin
+--
+
+ALTER SEQUENCE auth_group_permissions_id_seq OWNED BY auth_group_permissions.id;
+
+
+--
+-- Name: auth_permission; Type: TABLE; Schema: public; Owner: cisadmin
+--
+
+CREATE TABLE auth_permission (
+    id integer NOT NULL,
+    name character varying(255) NOT NULL,
+    content_type_id integer NOT NULL,
+    codename character varying(100) NOT NULL
+);
+
+
+ALTER TABLE auth_permission OWNER TO cisadmin;
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE; Schema: public; Owner: cisadmin
+--
+
+CREATE SEQUENCE auth_permission_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE auth_permission_id_seq OWNER TO cisadmin;
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: cisadmin
+--
+
+ALTER SEQUENCE auth_permission_id_seq OWNED BY auth_permission.id;
+
+
+--
+-- Name: auth_user; Type: TABLE; Schema: public; Owner: cisadmin
+--
+
+CREATE TABLE auth_user (
+    id integer NOT NULL,
+    password character varying(128) NOT NULL,
+    last_login timestamp with time zone,
+    is_superuser boolean NOT NULL,
+    username character varying(150) NOT NULL,
+    first_name character varying(30) NOT NULL,
+    last_name character varying(30) NOT NULL,
+    email character varying(254) NOT NULL,
+    is_staff boolean NOT NULL,
+    is_active boolean NOT NULL,
+    date_joined timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE auth_user OWNER TO cisadmin;
+
+--
+-- Name: auth_user_groups; Type: TABLE; Schema: public; Owner: cisadmin
+--
+
+CREATE TABLE auth_user_groups (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    group_id integer NOT NULL
+);
+
+
+ALTER TABLE auth_user_groups OWNER TO cisadmin;
+
+--
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE; Schema: public; Owner: cisadmin
+--
+
+CREATE SEQUENCE auth_user_groups_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE auth_user_groups_id_seq OWNER TO cisadmin;
+
+--
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: cisadmin
+--
+
+ALTER SEQUENCE auth_user_groups_id_seq OWNED BY auth_user_groups.id;
+
+
+--
+-- Name: auth_user_id_seq; Type: SEQUENCE; Schema: public; Owner: cisadmin
+--
+
+CREATE SEQUENCE auth_user_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE auth_user_id_seq OWNER TO cisadmin;
+
+--
+-- Name: auth_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: cisadmin
+--
+
+ALTER SEQUENCE auth_user_id_seq OWNED BY auth_user.id;
+
+
+--
+-- Name: auth_user_user_permissions; Type: TABLE; Schema: public; Owner: cisadmin
+--
+
+CREATE TABLE auth_user_user_permissions (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    permission_id integer NOT NULL
+);
+
+
+ALTER TABLE auth_user_user_permissions OWNER TO cisadmin;
+
+--
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: cisadmin
+--
+
+CREATE SEQUENCE auth_user_user_permissions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE auth_user_user_permissions_id_seq OWNER TO cisadmin;
+
+--
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: cisadmin
+--
+
+ALTER SEQUENCE auth_user_user_permissions_id_seq OWNED BY auth_user_user_permissions.id;
+
+
+--
+-- Name: django_admin_log; Type: TABLE; Schema: public; Owner: cisadmin
+--
+
+CREATE TABLE django_admin_log (
+    id integer NOT NULL,
+    action_time timestamp with time zone NOT NULL,
+    object_id text,
+    object_repr character varying(200) NOT NULL,
+    action_flag smallint NOT NULL,
+    change_message text NOT NULL,
+    content_type_id integer,
+    user_id integer NOT NULL,
+    CONSTRAINT django_admin_log_action_flag_check CHECK ((action_flag >= 0))
+);
+
+
+ALTER TABLE django_admin_log OWNER TO cisadmin;
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE; Schema: public; Owner: cisadmin
+--
+
+CREATE SEQUENCE django_admin_log_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE django_admin_log_id_seq OWNER TO cisadmin;
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: cisadmin
+--
+
+ALTER SEQUENCE django_admin_log_id_seq OWNED BY django_admin_log.id;
+
+
+--
+-- Name: django_content_type; Type: TABLE; Schema: public; Owner: cisadmin
+--
+
+CREATE TABLE django_content_type (
+    id integer NOT NULL,
+    app_label character varying(100) NOT NULL,
+    model character varying(100) NOT NULL
+);
+
+
+ALTER TABLE django_content_type OWNER TO cisadmin;
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE; Schema: public; Owner: cisadmin
+--
+
+CREATE SEQUENCE django_content_type_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE django_content_type_id_seq OWNER TO cisadmin;
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: cisadmin
+--
+
+ALTER SEQUENCE django_content_type_id_seq OWNED BY django_content_type.id;
+
+
+--
+-- Name: django_migrations; Type: TABLE; Schema: public; Owner: cisadmin
+--
+
+CREATE TABLE django_migrations (
+    id integer NOT NULL,
+    app character varying(255) NOT NULL,
+    name character varying(255) NOT NULL,
+    applied timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE django_migrations OWNER TO cisadmin;
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE; Schema: public; Owner: cisadmin
+--
+
+CREATE SEQUENCE django_migrations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE django_migrations_id_seq OWNER TO cisadmin;
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: cisadmin
+--
+
+ALTER SEQUENCE django_migrations_id_seq OWNED BY django_migrations.id;
+
+
+--
+-- Name: django_session; Type: TABLE; Schema: public; Owner: cisadmin
+--
+
+CREATE TABLE django_session (
+    session_key character varying(40) NOT NULL,
+    session_data text NOT NULL,
+    expire_date timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE django_session OWNER TO cisadmin;
+
+--
+-- Name: Id; Type: DEFAULT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY "ContactEntries" ALTER COLUMN "Id" SET DEFAULT nextval('"ContactEntries_Id_seq"'::regclass);
+
+
+--
+-- Name: Id; Type: DEFAULT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY "ContactTypes" ALTER COLUMN "Id" SET DEFAULT nextval('"ContactTypes_Id_seq"'::regclass);
+
+
+--
+-- Name: Id; Type: DEFAULT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY "Departments" ALTER COLUMN "Id" SET DEFAULT nextval('"Departments_Id_seq"'::regclass);
+
+
+--
+-- Name: Id; Type: DEFAULT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY "Families" ALTER COLUMN "Id" SET DEFAULT nextval('"Families_Id_seq"'::regclass);
+
+
+--
+-- Name: Id; Type: DEFAULT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY "FamilyMembers" ALTER COLUMN "Id" SET DEFAULT nextval('"FamilyMembers_Id_seq"'::regclass);
+
+
+--
+-- Name: Id; Type: DEFAULT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY "FamilyNotes" ALTER COLUMN "Id" SET DEFAULT nextval('"FamilyNotes_Id_seq"'::regclass);
+
+
+--
+-- Name: Id; Type: DEFAULT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY "FamilyRoles" ALTER COLUMN "Id" SET DEFAULT nextval('"FamilyRoles_Id_seq"'::regclass);
+
+
+--
+-- Name: Id; Type: DEFAULT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY "Grades" ALTER COLUMN "Id" SET DEFAULT nextval('"Grades_Id_seq"'::regclass);
+
+
+--
+-- Name: Id; Type: DEFAULT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY "GroupMembers" ALTER COLUMN "Id" SET DEFAULT nextval('"GroupMembers_Id_seq"'::regclass);
+
+
+--
+-- Name: Id; Type: DEFAULT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY "GroupNotes" ALTER COLUMN "Id" SET DEFAULT nextval('"GroupNotes_Id_seq"'::regclass);
+
+
+--
+-- Name: Id; Type: DEFAULT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY "GroupRoles" ALTER COLUMN "Id" SET DEFAULT nextval('"GroupRoles_Id_seq"'::regclass);
+
+
+--
+-- Name: Id; Type: DEFAULT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY "GroupTypes" ALTER COLUMN "Id" SET DEFAULT nextval('"GroupTypes_Id_seq"'::regclass);
+
+
+--
+-- Name: Id; Type: DEFAULT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY "Groups" ALTER COLUMN "Id" SET DEFAULT nextval('"Groups_Id_seq"'::regclass);
+
+
+--
+-- Name: Id; Type: DEFAULT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY "People" ALTER COLUMN "Id" SET DEFAULT nextval('"People_Id_seq"'::regclass);
+
+
+--
+-- Name: Id; Type: DEFAULT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY "PeopleNotes" ALTER COLUMN "Id" SET DEFAULT nextval('"PeopleNotes_Id_seq"'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY auth_group ALTER COLUMN id SET DEFAULT nextval('auth_group_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY auth_group_permissions ALTER COLUMN id SET DEFAULT nextval('auth_group_permissions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY auth_permission ALTER COLUMN id SET DEFAULT nextval('auth_permission_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY auth_user ALTER COLUMN id SET DEFAULT nextval('auth_user_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY auth_user_groups ALTER COLUMN id SET DEFAULT nextval('auth_user_groups_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY auth_user_user_permissions ALTER COLUMN id SET DEFAULT nextval('auth_user_user_permissions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY django_admin_log ALTER COLUMN id SET DEFAULT nextval('django_admin_log_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY django_content_type ALTER COLUMN id SET DEFAULT nextval('django_content_type_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY django_migrations ALTER COLUMN id SET DEFAULT nextval('django_migrations_id_seq'::regclass);
+
+
+--
+-- Data for Name: ContactEntries; Type: TABLE DATA; Schema: public; Owner: cisadmin
+--
+
+COPY "ContactEntries" ("Id", "PeopleId_id", "ContactTypeId_id", "Address", "City", "State", "Zip", "Phone", "Email") FROM stdin;
+1	1	1	1373 Park Ave 	Hamilton	OH	45013	513-868-7854	
+2	2	1	3457 Cobblestone Way 	Hamilton	OH	45011	513-877-7173	
+3	3	1	3457 Cobblestone Way 	Hamilton	OH	45011	513-877-7173	
+4	4	1	3053 Granny Smith Lane 	Middletown	OH	45044	513-539-8558	
+5	5	1	2137 Grand Teton Ct 	Fairfield	OH	45014	513-858-1940	
+6	6	1	84 Cole Dr 	Fairfield	OH	45014	513-868-9286	
+8	8	1	4231 Grove Ave 	Norwood	OH	45212	513-731-0930	
+9	9	1	3873 Winter Hill Drive 	Indian Springs	OH	45011	513-505-4822	
+10	10	1	1829 Calumet Way 	Fairfield	OH	45014	513-829-8182	
+12	12	1	2201 Hudson Ave. 	Norwood	OH	45212	513-631-5284	
+13	13	1	3363 Indian Meadows Dr. 	Hamilton	OH	45011	513-330-6170	
+15	15	1	5096 Hamilton Scipio Rd. 	Hamilton	OH	45013	513-839-0138	
+16	16	1	18 Ridge Wood 	Monroe	OH	45050	513-860-6480	
+19	19	1	4953 Chablis Court	Fairfield	OH	45014	513-887-9489	joe@sjlee.net
+20	20	1	4953 Chablis Court	Fairfield	OH	45014	513-887-9489	
+22	22	1	4131 Weiser Ct 	Hamilton	OH	45011	513-939-6893	
+23	23	1	5729 Huron Ct. 	Hamilton	OH	45011	513-894-2044	
+26	26	1	17 Cherokee Dr 	Hamilton	OH	45013	513-896-4645	
+27	27	1	8171 Autumn Wood Ln. #207	West Chester	OH	45069	513-942-3955	
+28	28	1	5963 Mindy Dr. 	Hamilton	OH	45011	513-708-9995	
+29	29	1	5883 Greencrest 	Hamilton	OH	45011	513-863-0251	
+30	30	1	5945 Heritage Knoll Terr. 	Fairfield	OH	45014	513-858-2965	
+31	31	1	5945 Heritage Knoll Terr. 	Fairfield	OH	45014	513-858-2965	
+34	34	1	3994 Boomer Rd. 	Cincinnati	OH	45247	513-522-7445	
+35	35	1	2428 Mack Rd 	Fairfield	OH	45014	513-829-5853	
+36	36	1	2428 Mack Rd 	Fairfield	OH	45014	513-829-5853	
+37	37	1	2332 Horning Drive	Fairfield	OH	45014	513-259-8885	
+38	38	1	8375 Prairie Lake Blvd	West Chester	OH	45069	513-889-4142	
+39	39	1	2273 Hulington Rd 	Bethel	OH	45106	513-734-2574	
+40	40	1	5301 Woodcliff Ct. 	West Chester	OH	45069	513-874-2979	
+41	41	1	208 Lancaster Drive 	Fairfield	OH	45011	513-874-4875	
+42	42	1	3994 Boomer Rd. 	Cincinnati	OH	45247	513-522-7445	
+43	43	1	1880 Doral Dr. 	Fairfield	OH	45014	513-829-3142	
+44	44	1	8129 Jeannes Creek Lane 	Indian Springs	OH	45011	513-703-9755	
+45	45	1	1373 Park Ave 	Hamilton	OH	45013	513-868-7854	
+46	46	1	631 Belle Avenue 	Hamilton	OH	45015	513-330-6868	
+47	47	1	1044 Foster Ave. 	Hamilton	OH	45015	479-5358	
+48	48	1	3234 Stahlhebr Rd. 	Hamilton	OH	45013	513-894-8168	
+49	49	1	3053 Granny Smith Lane 	Middletown	OH	45044	513-539-8558	
+50	50	1	934 Resevoir St 	Hamilton	OH	45011	513-856-9808	
+52	52	1	934 Resevoir St 	Hamilton	OH	45011	513-856-9808	
+54	54	1	2137 Grand Teton Ct 	Fairfield	OH	45014	513-858-1940	
+55	55	1	9508 Whippoorwill 	Mason	OH	45040	513-398-1727	
+57	57	1	8441 Rupp Farm Drive 	West Chester	OH	45069	513-889-4869	
+58	58	1	1829 Calumet Way 	Fairfield	OH	45014	513-829-8182	
+60	60	1	1829 Calumet Way 	Fairfield	OH	45014	513-829-8182	
+61	61	1	1829 Calumet Way 	Fairfield	OH	45014	513-829-8182	
+63	63	1	2731 Hamilton Mason Rd. 	Hamilton	OH	45011	513--846-3189	
+64	64	1	2201 Hudson Ave. 	Norwood	OH	45212	513-631-5284	
+66	66	1	39 Thornbill Drive 	Hamilton	OH	45013	513-737-2071	
+67	67	1	 		OH	45247		
+68	68	1	5096 Hamilton Scipio Rd. 	Hamilton	OH	45013	513-839-0140	
+69	69	1	 					
+70	70	1	364 Mollie Drive 	Hamilton	OH	45013	513-907-3044	
+73	73	1	612 Willow Place 	Trenton	OH	45067	513-868-0921	
+74	74	1	612 Willow Place 	Trenton	OH	45067	513-868-0921	
+75	75	1	4858 Bridge Lane Apt 4	Mason	OH	45040	513-578-7273	
+76	76	1	1226 Chestnut St. 	Hamilton	OH	45011	513-863-6368	
+77	77	1	5866 Dickenson Trail 	Liberty Township	OH	45011	513-777-6690	
+78	78	1	4007 West Elkton Road 	Hamilton	OH	45013	513-371-3408	
+79	79	1	3831 Citation Dr. 	Hamilton	OH	45011	513-867-8608	
+81	81	1	3959 Carrington Way 	Hamilton	OH	45011	513-266-4918	
+82	82	1	542 Magie Ave 	Fairfield	OH	45014	513-863-1626	
+84	84	1	713 Meadow Wood Drive Apt 2	Crescent Spring	KY	41017	513-349-5817	
+85	85	1	5729 Huron Ct. 	Hamilton	OH	45011	513-894-2044	
+86	86	1	4401 Kincheloe Rd. 	Georgetown	OH	45121	937-378-0605	
+87	87	1	17 Cherokee Dr 	Hamilton	OH	45013	513-896-4645	
+88	88	1	4838 Van Cleves Plac 	Fairfield	OH	45014	513-863-3067	
+53	53	1	6268 Amberley Court	Liberty Township	OH	45044		
+32	32	1	5466 Tallawanda Dr. 	Fairfield	OH	45014	513-907-8676	
+33	33	1	5466 Tallawanda Dr. 	Fairfield	OH	45014	513-532-6353	
+83	83	1	3357 Old Oxford Rd. 	Hamilton	OH	45013	513-674-8634	
+90	90	1	448 Cleveland Avenue 	Hamilton	OH	45013	513-285-2048	
+91	91	1	 				513-652-1732	
+92	92	1	5148 Pleasantdale 	Fairfield	OH	45014	513-829-0892	
+93	93	1	3115 Werk Rd. 	Cincinnati	OH	45211	513-481-1236	
+14	14	1	2897 Front St	Millville	OH	45013	513-907-9497	
+71	71	1	2897 Front St.	Millville	OH	45013	513-907-3492	
+80	80	1	4068 Jamie Dr.	Indian Springs	OH	45011	513-204-2994	
+59	59	1	4068 Jamie Dr.	Hamilton	OH	45011	513-300-2397	
+11	11	1	7025 Logsdon Rd.	Hamilton	OH	45011	513-801-0531	
+65	65	1	1264 Cold Water Dr.	Monroe	OH	45050	513-227-4343	
+72	72	1	1957 Krucker Road	Hamilton	OH	45013	513-720-0047	
+94	94	1	2273 Hulington Rd 	Bethel	OH	45106	513-734-2574	
+95	95	1	5301 Woodcliff Ct. 	West Chester	OH	45069	513-874-2979	
+96	96	1	5301 Woodcliff Court 	West Chester	OH	45069	513-874-2979	
+98	98	1	3115 Werk Rd. 	Cincinnati	OH	45211	513-481-0769	
+99	99	1	8129 Jeannes Creek Lane 	West Chester	OH	45069	513-703-9755	
+101	101	1	2133 Decamp Rd 	Hamilton	OH	45013	513-756-9533	
+102	102	1	3994 Boomer Rd. 	Cincinnati	OH	45247	513-365-8821	
+103	103	1	3363 Indian Meadows Dr. 	Hamilton	OH	45011	513-330-6170	
+104	104	1	891 Mill St. 	Millville	OH	45013	513-844-8960	
+105	105	1	2631 Rochester Avenue 	Hamilton	OH	45011	513-317-1655	
+106	106	1	1910 Shaker Rd. 	Franklin	OH	45005	513-320-1012	
+107	107	1	3831 Citation Dr. 	Hamilton	OH	k	513-867-8608	
+108	108	1	3234 Stahlheber Rd. 	Hamilton	OH	45013	513-894-8168	
+109	109	1	7075 Berry Blossom Court	Liberty Twp.	OH	45011	513-907-5851	
+110	110	1	2731 Hamilton-Mason Rd. 	Hamilton	OH	45011	513--846-3189	
+111	111	1	2201 Hudson Ave. 	Norwood	OH	45212	513-631-5284	
+112	112	1	5866 Dickenson Trail 	Liberty Township	OH	45011	513-777-6690	
+113	113	1	922 Charles Street 	Trenton	OH	45067	513-470-4736	
+114	114	1	110 Heathwood Lane 	Hamilton	OH	45013	513-894-0373	
+115	115	1	4954 Garver-Elliot Rd. 	Oxford	OH	45056	513-756-9097	
+116	116	1	5148 Pleasantdale 	Fairfield	OH	45014	513-829-0892	
+117	117	1	1541 Silver Lane 	Hamilton	OH	45013	513-896-9018	
+119	119	1	2201 Hudson Ave. 	Cincinnati	OH	45212	513-631-5284	
+120	120	1	46 Ramsey Dr. 	Hamilton	OH	45013	513-896-4532	
+121	121	1	448 Cleveland Avenue 	Hamilton	OH	45013	513-560-3061	
+122	122	1	4858 Bridge Lane Apt 4	Mason	OH	45040	513-578-7273	
+123	123	1	1044 Foster Ave. 	Hamilton	OH	45015	479-5358	
+124	124	1	3220 Tuscarora Ct. 	Indian Springs	OH	45011	513-737-8180	
+125	125	1	2631 Rochester Avenue 	Hamilton	OH	45011	513-615-9729	
+126	126	1	4741 Ouray Ct. 	Hamilton	OH	45011	513-896-1090	
+127	127	1	1880 Doral Dr. 	Fairfield	OH	45014	513-829-3142	
+128	128	1	3831 Citation Dr. 	Hamilton	OH	45011	513-867-8608	
+129	129	1	5963 Mindy Dr. 	Hamilton	OH	45011	513-856-9054	
+131	131	1	110 Heathwood Lane 	Hamilton	OH	45013	513-894-0373	
+132	132	1	5096 Hamilton Scipio Rd. 	Hamilton	OH	45013	513-756-1131	
+134	134	1	704 Nightstar Court 	Monroe	OH	45050	513-403-2920	
+135	135	1	704 Nightstar Court 	Monroe	OH	45050	513-403-2920	
+136	136	1	4544 Aspen Dr. 	Hamilton	OH	45011	513-863-7297	
+137	137	1	704 Nightstar Court 	Monroe	OH	45050	513-403-2920	
+138	138	1	704 Nightstar Court 	Monroe	OH	45050	513-403-2920	
+140	140	1	8441 Rupp Farm Drive 	West Chester	OH	45069	513-889-4869	
+142	142	1	1325 Sipple Ave. 	Hamilton	OH	45011	513-863-6267	
+143	143	1	7019 Morris Rd. 	Hamilton	OH	45011	513-737-7823	
+144	144	1	7592 Dimmick Road	West Chester	OH	45241	513-502-2881	
+145	145	1	5860 N. Highwood Dr. 	Fairfield	OH	45014	513-939-2655	
+146	146	1	4558 Aspen Dr. 	Liberty Twp.	OH	45011	513-887-0820	
+147	147	1	102 Craig Dr. 	Hamilton	OH	45013	513-863-2284	
+148	148	1	4838 Van Cleves Place 	Fairfield	OH	45014	513-863-3067	
+149	149	1	3994 Boomer Road	Cincinnati	OH	45247		
+150	150	1	7850 Shadow Creek Drive #222	Hamilton	OH	45011	513-485-3802	
+151	151	1	 				513-539-6946	
+152	152	1	3393 Woodside Drive 	Fairfield	OH	45014	513-863-3387	
+153	153	1	934 Reservoir St. 	Hamilton	OH	45011	513-856-9808	
+154	154	1	1205 Franklin St. 	Hamilton	OH	45013	513-642-5634	
+155	155	1	8441 Rupp Farm Driv 	West Chester	OH	45069	513-889-4869	
+156	156	1	5816 Megan Dr. 	Hamilton	OH	45011	513-465-0839	
+157	157	1	5866 Dickenson Trail 	Liberty Township	OH	45011	513-777-6690	
+158	158	1	612 Willow Place 	Trenton	OH	45067	513-868-0921	
+159	159	1	7075 Berry Blossom Court	Liberty Twp.	OH	45011	513-907-5851	
+161	161	1	8040 Paradise Cove	Liberty Twp.	OH	45044		
+162	162	1	3959 Carrington Way 	Hamilton	OH	45011	513-266-4918	
+163	163	1	5963 Mindy Drive 	Hamilton	OH	45011	513-856-9054	
+164	164	1	8040 Paradise Cove	Liberty Twp.	OH	45044		
+165	165	1	7314 Chattam Court #D	West Chester	OH	45069	513-895-1001	
+167	167	1	3234 Stahlheber Rd. 	Hamilton	OH	45013	513-894-8168	
+168	168	1	934 Resevoir St 	Hamilton	OH	45011	513-856-9808	
+169	169	1	775 Louise Ave. 	Fairfield	OH	45014	513-417-0599	
+170	170	1	1541 Silver Lane 	Hamilton	OH	45013	513-896-9018	
+171	171	1	1910 Shaker Rd. 	Franklin	OH	45005	513-320-1012	
+173	173	1	5963 Mindy 	Hamilton	OH	45011	513-856-9054	
+174	174	1	5360 Burgundy Place. 	Fairfield	OH	45014	513-829-0747	
+175	175	1	934 Resevoir 	Hamilton	OH	45011	513-856-9808	
+176	176	1	3831 Citation Dr. 	Hamilton	OH	45011	513-867-8608	
+178	178	1	3393 Woodside Drive 	Fairfield	OH	45014	513-863-3387	
+89	89	1	6268 Amberley Court	Liberty Township	OH	45044		
+172	172	1	1910 Shaker Rd 	Franklin	OH	45005	513-464-6651	
+133	133	1	3357 Old Oxford Rd. 	Hamilton	OH	45013	513-607-7593	
+179	179	1	612 Willow Place 	Trenton	OH	45067	868-0921	
+180	180	1	10819 Craigview Ct. 	Cincinnati	OH	45241	513-769-9088	
+181	181	1	10819 Craigview Ct. 	Cincinnati	OH	45241	513-769-9088	
+182	182	1	4558 Aspen Dr. 	Liberty Twp.	OH	45011	513-887-0820	
+139	139	1	5883 Greencrest	Hamilton	OH	45011	513-863-0251	
+166	166	1	3959 Carrington Way	Hamilton	OH	45011	513-266-4918	
+160	160	1	1951 Sunset Dr.	Madison	OH	45013	513-939-8139	
+184	184	1	8375 Prairie Lake Blvd	West Chester	OH	45069	513-889-4142	
+185	185	1	5963 Mindy Dr. 	Hamilton	OH	45011	513-708-9995	
+186	186	1	3220 Tuscarora Ct. 	Hamilton	OH	45011	513-737-8180	
+188	188	1	10819 Craigview Ct. 	Cincinnati	OH	45241	513-769-9088	
+189	189	1	5866 Dickenson Trail 	Liberty Township	OH	45011	513-777-6690	
+190	190	1	2511 Regina Place 	Hamilton	OH	45013	513-895-5589	
+192	192	1	2332 Horning Drive	Fairfield	OH	45014	513-737-9146	
+193	193	1	1910 Shaker Rd. 	Franklin	OH	45005	513-320-1012	
+194	194	1	1895 North Derexa 	Hamilton	OH	45011	513-863-1910	
+195	195	1	1895 North Derexa 	Hamilton	OH	45011	513-863-1910	
+196	196	1	1895 North Derexa 	Hamilton	OH	45011	513-863-1910	
+197	197	1	1895 North Derexa 	Hamilton	OH	45011	513-863-1910	
+198	198	1	7075 Berry Blossom Court	Liberty Twp.	OH	45011	513-907-6015	
+199	199	1	5966 Liberty View Ct. 	Liberty Twp	OH	45044	513-759-5355	
+200	200	1	5966 Liberty View Ct. 	Liberty Twp	OH	45044	513-759-5355	
+201	201	1	3509 Freeman Ave. 	Hamilton	OH	45015	513-887-0886	
+202	202	1	 		OH		513-894-4112	
+203	203	1	9508 Whippoorwhill 	Mason	OH	45040	513-398-1727	
+208	208	1	614 Kenwood Place 	Trenton	OH	45067	513-988-0436	
+209	209	1	7330 Susan Springs Dr. 	West Chester	OH	45069	513-779-8449	
+210	210	1	7825 Birchwood Ct. 	Mason	OH	45040	398-5984	
+211	211	1	 		OH	45247		
+212	212	1	3959 Carrington Way 	Hamilton	OH	45011	513-266-4917	
+213	213	1	7951 Ruth Court 	West Chester	OH	45069	513-777-8854	
+214	214	1	7951 Ruth Court 	West Chester	OH	45069	513-777-8854	
+215	215	1	8080 S State Route 48 Apt 307	Maineville	OH	45039	513-444-4758	
+216	216	1	363 Tanbark St. 	Hamilton	OH	45011	513-887-0459	
+218	218	1	 		OH		513-792-0404	
+220	220	1	 		OH		874-2797	
+222	222	1	1977 Peach Blossom Ln. 	Hebron	KY	41048	859-586-0609	
+223	223	1	1977 Peach Blossom Ln. 	Hebron	KY	41048	859-586-0609	
+224	224	1	1977 Peach Blossom Ln. 	Hebron	KY	41048	859-586-0609	
+225	225	1	6229 Nickel Road 	Lebanon	OH	45036	398-5503	
+226	226	1	 		OH		858-2549	
+227	227	1	 		OH		858-2549	
+228	228	1	1437 Clovernook Dr. 	Hamilton	OH	45013	513-867-8918	
+230	230	1	1205 Franklin St. 	Hamilton	OH	45013		
+231	231	1	1475 N. W. Washington Blvd. 	Hamilton	OH	45013	513-867-8012	
+233	233	1	1691 Sunset Dr. 	Hamilton	OH	45013	513-863-5210	
+234	234	1	822 Southwind Dr. 	Fairfield	OH	45014	513-868-7026	
+235	235	1	7025 Logsdon Rd. 	Hamilton	OH	45011	513-863-5971	
+236	236	1	4858 Bridge Lane Apt 4	Mason	OH	45040	513-578-7273	
+237	237	1	21 W. 65th St. 	Cincinnati	OH	45216	513-608-1283	
+238	238	1	6704 Alana Ct. 	Hamilton	OH	45011	513-737-1802	
+239	239	1	 		OH		513-761-3783	
+240	240	1	 				513-761-3783	
+241	241	1	4881 Meadow Vista Ct. 	Liberty Twp.	OH	45011	513-893-8123	
+242	242	1	4921 Meadow Vista Ct. 	Liberty Twp.	OH	45011	513-892-1112	
+243	243	1	1012 Oakmont 	Hamilton	OH	45013	513-863-5567	
+244	244	1	1012 Oakmont 	Hamilton	OH	45013	513-863-5567	
+245	245	1	 		OH		513-756-0313	
+246	246	1	 		OH		513-756-0313	
+247	247	1	1709 Shirley Ave. 	Hamilton	OH	45011	513-856-8485	
+248	248	1	4740 Ouray Ct. 	Hamilton	OH	45011		
+249	249	1	1709 Shirley Ave. 	Hamilton	OH	45011	513-856-8485	
+250	250	1	3709 Central Ave. 	Middletown	OH	45044	513-425-0420	
+251	251	1	3709 Central Ave. 	Middletown	OH	45044	513-425-0420	
+252	252	1	60 Paddock Ln. 	Monroe	OH	45050	513-539-0329	
+253	253	1	Old Oxford Rd. 	Oxford	OH	45056	513-863-1724	
+254	254	1	875 Beechmeadow Dr. 	Cincinnati	OH	45238	513-922-1639	
+255	255	1	1256 Troy Ct. 	Mason	OH	45215	513-398-2108	
+257	257	1	8007 Miami Avenue 	Cinciinnati	OH	45243	513-936-0016	
+259	259	1	15 Cherokee Dr. 	Hamilton	OH	45013	513-737-8324	
+261	261	1	15 Cherokee Dr. 	Hamilton	OH	45013	513-737-8324	
+262	262	1	2731 Hamilton-Mason Rd. 	Hamilton	OH	45011	513--846-3189	
+263	263	1	 				937-456-4969	
+264	264	1	5860 N. Highwood Dr. 	Fairfield	OH	45014	513-939-2655	
+265	265	1	1904 Swan Circle	Hebron	KY	41048	859-586-8086	
+266	266	1	5860 N. Highwood Dr. 	Fairfield	OH	45014	513-939-2655	
+267	267	1	105 E. Home Ave. 	Trenton	OH	45067	513-737-1567	
+268	268	1	496 Cambridge Ct. Apt. C	Lebanon	OH	45036		
+191	191	1	2731 Hamilton Mason Road 	Hamilton	OH	45011	513-258-5740	
+204	204	1	7282 Dimmick Road 	West Chester	OH	45069	513-777-6705	
+258	258	1	3357 Old Oxford Rd. 	Hamilton	OH	45013	513-607-7593	
+207	207	1	3357 Old Oxford Rd. 	Hamilton	OH	45013	513-607-7593	
+269	269	1	115 West Ross 	St. Bernard	OH	45217	513-641-0336	
+270	270	1	32 Shawnee Dr. 	Hamilton	OH	45013	513-896-1317	
+271	271	1	5451 Hillside 	Cincinnati	OH	45233	513-467-0450	
+272	272	1	 		OH		513-467-0450	
+273	273	1	3739 Mack Rd. 	Fairfield	OH	45014	513-942-7915	
+274	274	1	5276 Garver Elliot Rd. 	Oxford	OH	45056	513-756-9863	
+219	219	1	8839 Brook Knoll Dr.	West Chester	OH	45069	513-746-6482	
+206	206	1	7282 Dimmick Road	West Chester	OH	45069	513-526-5229	
+229	229	1	1437 Clovernook Dr.	Hamilton	OH	45013	513-867-8918	
+256	256	1	5860 N. Highwood Dr.	Fairfield	OH	45014	513-939-2655	
+260	260	1	15 Cherokee Dr.	Hamilton	OH	45013	513-737-8324	
+221	221	1	432 4th St. / PO Box 184	West College Corner	IN	47003	513-551-0861	
+275	275	1	5238 Bridle Ct. 	West Chester	OH	45069	513-874-9298	
+276	276	1	5913 Flaig Dr. 	Fairfield	OH	45014	513-860-4522	
+277	277	1	648 Willow Place 	Trenton	OH	45067	513-894-4009	
+278	278	1	11810 Knollsprings Ct. 	Cincinnati	OH	45246	513-742-3826	
+280	280	1	6756 Grange Ct. 	Cincinnati	OH	45239	513-931-1545	
+281	281	1	8441 Rupp Farm Driv 	West Chester	OH	45069	513-889-4869	
+282	282	1	7075 Berry Blossom Court	Liberty Twp.	OH	45011	513-907-5851	
+283	283	1	666 Franklin 	Hamilton	OH	45013	513-867-8918	
+284	284	1	6756 Grange Court 	Cincinnati	OH	45239	513-931-1545	
+285	285	1	9636 Stone Ct. 	Cincinnati	OH	45241	513-759-0942	
+286	286	1	6756 Grange Court 	Cincinnati	OH	45239	513-931-1545	
+287	287	1	3450 Alamosa Dr. 	Cincinnati	OH	45251	513-385-6813	
+288	288	1	7271 Overland Pk. Ct. 	West Chester	OH	45069		
+289	289	1	1974 Peach Blossom Ln. 	Hebron	KY	41048	513-586-4946	
+290	290	1	4454 Todd's Trail 	Middletown	OH	45044	513-759-0118	
+291	291	1	4454 Todd's Trail 	Middletown	OH	45044	513-759-0118	
+292	292	1	4454 Todd's Trail 	Liberty Twp.	OH	45044	513-759-0118	
+293	293	1	7606 Weatherly Ct. 	West Chester	OH	45069	513-779-4611	
+294	294	1	 		OH		513-777-7349	
+295	295	1	648 Willow Place 	Trenton	OH	45067	513-894-4009	
+296	296	1	5860 N. Highwood Dr. 	Fairfield	OH	45014	513-939-2655	
+297	297	1	615 Ridgelawn 	Hamilton	OH	45013	513-887-2970	
+298	298	1	Main St 	Hamilton	OH	45013	513-467-0074	
+299	299	1	1910 Shaker Rd. 	Franklin	OH	45005	513-320-1012	
+300	300	1	5654 Somerset Dr. 	Liberty Twp.	OH	45011	513-777-7753	
+301	301	1	 				513-943-9907	
+303	303	1	5611 Hamilton Trenton Rd. 	Trenton	OH	45067		
+304	304	1	7831 Red Mill Dr. 	West Chester	OH	45069	513-777-4919	
+305	305	1	7229 Stonebrook Ct. 	Liberty Twp.	OH	45044	779-6423	
+306	306	1	7229 Stonebrook Ct. 	Liberty Twp.	OH	45044	513-779-6423	
+307	307	1	7937 Wakeshire Dr. 	West Chester	OH	45069	513-755-0566	
+308	308	1	5264 Lofton Ct. 	Mason	OH	45040	513-284-5739	
+309	309	1	 		OH	45011	513-371-1782	
+310	310	1	1055 Timberman Ave. 	Hamilton	OH	45013	513-737-3758	
+311	311	1	740 Reading Rd. #25 	Mason	OH	45040	513-336-8606	
+314	314	1	507 Prytania Ave. 	Hamilton	OH	45013	513-896-6563	
+315	315	1	170 Stone Creek 	Oxford	OH	45056	513-523-0154	
+316	316	1	9528 Woodland Hills Dr. 	Hamilton	OH	45011	513-942-2472	
+317	317	1	3593 Mohler Rd. 	Cincinnati	OH	45241	513-891-4962	
+318	318	1	8619 Ptarmigan Ct. 	West Chester	OH	45069	513-755-3665	
+319	319	1	8619 Ptarmigan Ct. 	West Chester	OH	45069	513-755-3665	
+320	320	1	 		OH		513-874-6469	
+323	323	1	8007 Miami Ave. 	Madeira	OH	45243	513-936-0016	
+324	324	1	6713 Weston Ct. 	Hamilton	OH	45011	513-863-8687	
+325	325	1	 	Cincinnati	OH	45241	513-889-0963	
+326	326	1	P.O. Box 18452 	Fairfield	OH	45018	513-858-6866	
+327	327	1	6355 Snowmass Dr. 	Hamilton	OH	45011	513-887-8110	
+328	328	1	7937 Wakeshire Dr. 	West Chester	OH	45069	513-755-0566	
+329	329	1	3393 Woodside Drive 	Fairfield	OH	45014	513-863-3387	
+330	330	1	648 Willow Place 	Trenton	OH	45067	513-894-4009	
+331	331	1	2731 Hamilton Mason Rd. 	Hamilton	OH	45011	513--846-3189	
+332	332	1	9636 Stone Ct. 	Cincinnati	OH	45241	513-759-0942	
+334	334	1	10014 Front St. 	Cincinnati	OH	45241		
+335	335	1	6538 Dimmick Rd. 	West Chester	OH	45069		
+336	336	1	759 Gordon Smith Blvd. #3 	Hamilton	OH	45013	513-892-2221	
+337	337	1	11 Chicamauga Ct. 	West Chester	OH	45069	513-674-0278	
+338	338	1	8619 Ptarmigan Ct. 	West Chester	OH	45069	513-755-3665	
+339	339	1	3959 Carrington Way 	Hamilton	OH	45011	513-266-4918	
+340	340	1	4454 Todd's Trail 	Liberty Twp.	OH	45044	513-759-0118	
+342	342	1	7814 Red Mill Dr. 	West Chester	OH	45069	513-847-4119	
+344	344	1	9119 Red Cedar Dr. 	West Chester	OH	45069		
+345	345	1	1091 Tiffin Ave. 	Hamilton	OH	45015		
+346	346	1	6262 Hollyberry Lane 	Hamilton	OH	45011	513-519-2745	
+347	347	1	4214 Plover St. 	Fairfield	OH	45014	513-738-3837	
+348	348	1	4800 Wallace Rd. 	Oxford	OH	45056	513-524-8246	
+349	349	1	21 W. 65th St. 	Cincinnati	OH	45216	513-641-1503	
+350	350	1	60 Paddock Ln. 	Monroe	OH	45050	513-539-0329	
+351	351	1	2137 Clenery Ave. 	Cincinnati	OH		357-6962	
+352	352	1	3755 Richard Dr. 	Hamilton	OH	45015	844-1973	
+353	353	1	4100 Nichols Rd. 	Oxford	OH	45056	513-523-8175	
+354	354	1	6933 Brady Ct. 	Liberty Twp.	OH	45044	513-755-3089	
+355	355	1	6866 Forest Hill Lane	Hamilton	OH	45011	513-887-7995	
+356	356	1	2660 Gardner Rd. 	Hamilton	OH	45013	513-896-6676	
+357	357	1	1631 Depot Rd. 	Hamilton	OH	45013	513-726-4707	
+358	358	1	7075 Berry Blossom Court	Liberty Township	OH	45011	513-907-5851	
+360	360	1	6505 Calloway Ct. 	Middletown	OH	45044	937-470-6986	
+361	361	1	4036 East Kemper Road 	Sharonville	OH	45241	513-733-4663	
+362	362	1	57 Parkway Ave. 	Cincinnati	OH	45219		
+363	363	1	3610 Darrtown Rd. 	Oxford	OH	45056	513-523-3924	
+279	279	1	6756 Grange Ct.	Cincinnati	OH	45239	513-931-1545	
+333	333	1	8301 Coppernail Drive	West Chester	OH	45069	513-889-3052	
+341	341	1	7814 Red Mill Dr.	West Chester	OH	45069	513-847-4119	
+321	321	1	4192 Valwood Dr.	Cincinnati	OH	45248	513-598-1002	
+322	322	1	4192 Valwood Dr.	Cincinnati	OH	45248	513-598-1002	
+343	343	1	7814 Red Mill Dr.	West Chester	OH	45069		
+312	312	1	c/o Artis 6200 Snider Road	Mason	OH	45040	513-223-3733	
+364	364	1	5753 Green Crest 	Hamilton	OH	45011	513-887-1197	
+365	365	1	5753 Green Crest 	Hamilton	OH	45011	513-887-1197	
+366	366	1	4337 Randall Dr. 	Hamilton	OH	45011	513-868-8099	
+367	367	1	4337 Randall Dr. 	Hamilton	OH	45011	513-868-8099	
+368	368	1	 				513-756-9763	
+369	369	1	 				513-756-9763	
+370	370	1	5331 Burgundy Place 	Fairfield	OH	45014	513-829-6721	
+371	371	1	5331 Burgundy Place 	Fairfield	OH	45014	513-829-6721	
+372	372	1	6570 Windmill Dr. 	Liberty Twp.	OH	45044		
+373	373	1	6570 Windmill Dr. 	Liberty Twp.	OH	45044		
+374	374	1	4869 Willow Ridge Dr. 	Liberty Twp.	OH	45011	513-543-5145	
+376	376	1	3756 Pocahontas Ave. 	Cincinnati	OH	45227	513-271-6570	
+377	377	1	8246 Beckett Station Rd. 	West Chester	OH	45069	513-779-9817	
+378	378	1	7985 Kingfisher Lane 	West Chester	OH	45069	513-777-1933	
+379	379	1	7985 Kingfisher Lane 	West Chester	OH	45069	513-777-1933	
+380	380	1	4869 Willow ridge Dr. 	Liberty Twp.	OH	45011	513-889-0909	
+381	381	1	2 S. Applewood Ct. 	Fairfield	OH	45014	513-874-2308	
+382	382	1	264 Rachel Ln. 	Monroe	OH	45050	513-539-2139	
+383	383	1	264 Rachel Ln. 	Monroe	OH	45050	513-539-2139	
+384	384	1	1161 Southern Hills Blvd. 	Hamilton	OH	45013	513-863-3694	
+385	385	1	740 Ridgewood 	Hamilton	OH	45013		
+386	386	1	507 Prytania Ave. 	Hamilton	OH	45013	513-896-6563	
+387	387	1	 		OH		513-863-6141	
+388	388	1	934 Reservoir St. 	Hamilton	OH	45011	513-856-9808	
+389	389	1	1161 Southern Hills Blvd. 	Hamilton	OH	45013	513-863-3694	
+390	390	1	7924 Ironwood Way 	West Chester	OH	45069	513-377-1913	
+391	391	1	6834 Bake Ave. 	Cincinnati	OH	45239	513-522-2265	
+392	392	1	 	Cincinnati	OH	45241	513-889-0963	
+393	393	1	64 Chapel Hill Dr. 	Fairfield	OH	45014	513-942-0457	
+394	394	1	3755 Richard Dr. 	Hamilton	OH	45015	513-844-1973	
+395	395	1	3755 Richard Dr. 	Hamilton	OH	45015	513-844-1973	
+396	396	1	7037 Logsdon Rd. 	Hamilton	OH	45011	513-887-7009	
+397	397	1	5786 Catawba Ct. 	Hamilton	OH	45011	513-779-0992	
+398	398	1	7171 Darcie Dr. 	Hamilton	OH	45011	513-889-0355	
+399	399	1	10601 Plainfield Rd. 	Sharonville	OH	45241	513-563-2711	
+401	401	1	5956 Penelope Dr. 	Hamilton	OH	45011	513-856-8019	
+402	402	1	1928 Fair Fax Ave. 	Hamilton	OH	45015	513-894-1844	
+403	403	1	7937 Wakeshire Dr. 	West Chester	OH	45069	513-939-5784	
+404	404	1	 				513-807-9690	
+406	406	1	6500 Calloway Ct. 	Middletown	OH	45044	513-705-6845	
+408	408	1	Sugartree Ct. 	Liberty Twp.	OH	45011	513-766-0766	
+409	409	1	616 Fawn Place 	Trenton	OH	45067	513-988-6529	
+410	410	1	1133 Grand Blvd. 	Hamilton	OH	45013	513-737-1745	
+411	411	1	7203 Haverford Dr. 	Hamilton	OH	45011	513-892-0789	
+412	412	1	9353 Erin Drive 	Cincinnati	OH	45259	513-741-1220	
+414	414	1	916 Brookwood Dr. 	Trenton	OH	45067	513-988-0626	
+415	415	1	916 Brookwood Dr. 	Trenton	OH	45067	513-988-0626	
+416	416	1	2110 Caldwerist 	Hamilton	OH	45011	513-892-3704	
+417	417	1	1044 Foster Ave. 	Hamilton	OH	45015	513-642-7021	
+418	418	1	2631 Rochester Ave. 	Hamilton	OH	45011	513-317-1655	
+419	419	1	7596 Newkirk Dr. 	Hamilton	OH	45011	513-519-0609	
+420	420	1	1827 Pater Ave. 	Hamilton	OH	45015	513-896-6985	
+421	421	1	11654 Hamlet Rd. 	Cincinnati	OH	45240	513-674-7775	
+422	422	1	3509 Freeman Ave. 	Hamilton	OH	45015	513-887-0886	
+425	425	1	 	Cincinnati	OH	45241	513-889-0963	
+426	426	1	5936 Keystone Ct. 	Liberty Twp.	OH	45011		
+427	427	1	4257 Parkview Ct. 	Batavia	OH	45103	513-752-6356	
+428	428	1	4052 Bayberry Dr. 	Hamilton	OH	45011		
+429	429	1	2782 Andrew Ave. 	Hamilton	OH	45015	513-856-7909	
+430	430	1	3393 Woodside Drive 	Fairfield	OH	45014	513-863-3387	
+431	431	1	P.O. Box 1552 	West Chester	OH	45071	513-779-8510	
+432	432	1	8765 Anna Ct. 	West Chester	OH	45069	513-779-2145	
+433	433	1	166 Weaver Rd. 	Okeana	OH	45053	513-330-3842	
+434	434	1	5729 Huron Ct. 	Hamilton	OH	45011	513-894-2044	
+435	435	1	775 Louise Ave. 	Fairfield	OH	45014	513-867-8190	
+436	436	1	5265 Grandin Ridge Dr. 	Liberty Twp.	OH	45011	513-867-0337	
+437	437	1	1300 Clearview 	Hamilton	OH	45011	513-289-3142	
+438	438	1	1300 Clearview 	Hamilton	OH	45011	513-289-3142	
+440	440	1	2052 Princeton Rd. 	Hamilton	OH	45011		
+441	441	1	1832 Chase Ave. 	Cincinnati	OH	45223	513-541-0483	
+442	442	1	6505 Calloway Ct. 	Middletown	OH	45044	937-470-6986	
+445	445	1	2332 Horning Drive	Fairfield	OH	45014	513-259-8885	
+446	446	1	2332 Horning Drive	Fairfield	OH	45014	513-259-8885	
+447	447	1	407 Kings Mills Rd. 	Mason	OH	45040	513-398-3451	
+405	405	1	 35 Thornill Drive	Hamilton	OH	45013	513-844-1605	
+359	359	1	3357 Old Oxford Rd. 	Hamilton	OH	45013	513-607-7593	
+448	448	1	5859 Blue Rock Hill Rd. 	Cincinnati	OH	45247	513-253-3605	
+449	449	1	4354 Dane Ave. 	Cincinnati	OH	45223	513-591-2882	
+450	450	1	7025 Logsdon Rd. 	Hamilton	OH	45011	513-894-4246	
+451	451	1	9344 Jericho Dr. 	Cincinnati	OH	45321	513-301-6889	
+452	452	1	10528 Pottinger Rd. 	Cincinnati	OH	45081	513-759-5355	
+453	453	1	651 Blackburn Ave. 	Fairfield	OH	45014	513-856-8896	
+454	454	1	651 Blackburn Ave. 	Fairfield	OH	45014	513-856-8896	
+455	455	1	651 Blackburn Ave. 	Fairfield	OH	45014	513-856-8896	
+407	407	1	925 Reservoir	Hamilton	OH	45011	513-780-5494	
+443	443	1	1805 Damon Court	Fairfield	OH	45014	513-805-7339	
+375	375	1	4869 Willow Ridge Dr.	Liberty Twp.	OH	45011	513-309-0004	
+456	456	1	7723 Tylers Place Blvd 	West Chester	OH	45069		
+457	457	1	407 Kings Mills Rd. 	Mason	OH	45040	513-398-3451	
+458	458	1	1950 Finsbury Ct. 	Anderson	OH	45230	513-233-2144	
+459	459	1	4855 Bridge Lane Apt 4	Mason	OH	45040	513-765-9210	
+460	460	1	6549 Amelia Dr. 	Cincinnati	OH	45241	513-777-8367	
+461	461	1	4921 Redwood Dr. Apt. 17 	Fairfield	OH	45014	513-892-4886	
+462	462	1	3751 Winter Hill Dr. 	Hamilton	OH	45011	544-6667	
+463	463	1	5915 Mindy Dr. 	Hamilton	OH	45011	513-896-6946	
+464	464	1	5915 Mindy Dr. 	Hamilton	OH	45011	513-896-6946	
+465	465	1	1412 Kingswood Dr. 	West Chester	OH	45069	513-238-6092	
+466	466	1	7385 Airy Dr. 	Liberty Twp.	OH	45044	513-755-3828	
+467	467	1	581 Rockwell Rd. 	Cincinnati	OH	45238	513-251-1488	
+468	468	1	651 Blackburn Ave. 	Fairfield	OH	45014	513-856-8896	
+469	469	1	5768 Fairridge Ln. 	Hamilton	OH	45011	513-856-8050	
+470	470	1	12102 Benadir Rd. 	Cincinnati	OH	45246	513-671-0133	
+471	471	1	12102 Benadir Rd. 	Cincinnati	OH	45246	513-671-0133	
+472	472	1	7312 Kingswood Dr. 	West Chester	OH	45069	513-755-1498	
+473	473	1	9344 Jericho Dr. 	Cincinnati	OH	45231	513-490-9952	
+474	474	1	1355 Country Oaks Lane 	Wilmington	OH	45177	513-860-1098	
+475	475	1	1355 Country Oaks Lane 	Wilmington	OH	45177	513-860-1098	
+476	476	1	922 Charles Street 	Trenton	OH	45067	513-470-4736	
+478	478	1	7075 Berry Blossom Court	Liberty Township	OH	45011	513-907-5851	
+480	480	1	3430 Dawn Dr. 	Hamilton	OH	45011	513-907-2091	
+481	481	1	1369 Crestwind Ct. 	Fairfield	OH	45014	513-868-3368	
+482	482	1	6907 Dimmick Rd. 	West Chester	OH	45069	513-777-1271	
+483	483	1	10118 Breezy Lane 	Cincinnati	OH	45241	513-777-3148	
+484	484	1	8097 Glenridge Ct 	West Chester	OH	45069	513-300-9002	
+485	485	1	2631 Rochester Ave. 	Hamilton	OH	45011	513-317-1655	
+486	486	1	 				513-254-2685	
+487	487	1	7816 Bridgewater Lane 	Hamilton	OH	45011	513-887-0117	
+488	488	1	7225 Bahama Drive 	Middletown	OH	45044	513-607-8868	
+489	489	1	7225 Bahama Drive 	Middletown	OH	45044	513-607-8868	
+490	490	1	1605 Chase Ave. 	Cincinnati	OH	45223	513-541-3689	
+492	492	1	729 Sands Ave. 	Monroe	OH	45050		
+493	493	1	631 Belle Avenue 	Hamilton	OH	45015	513-330-6868	
+494	494	1	12043 Elkwood Drive	Cincinnati	OH	45240	513-502-0457	
+495	495	1	1105 Reservoir St. 	Hamilton	OH	45011	513-255-2051	
+497	497	1	364 Mollie Drive 	Hamilton	OH	45013	513-907-3044	
+498	498	1	3802 Caledon Lane 	Cincinnati	OH	45244	513-232-3177	
+499	499	1	3802 Caledon Lane 	Cincinnati	OH	45244	513-232-3177	
+500	500	1	1830 Oxford-Trenton Road 	Oxford	OH	45056	513-461-1455	
+501	501	1	130 Morris Ave. 	Hamilton	OH	45011	513-889-4295	
+502	502	1	130 Morris Ave. 	Hamilton	OH	45011	513-889-4295	
+503	503	1	922 Charles Street 	Trenton	OH	45067	513-470-4736	
+504	504	1	1116 North Wynn Road 	Oakena	OH	45053	513-756-9935	
+505	505	1	39 Thornbill Drive 	Hamilton	OH	45013	513-737-2071	
+506	506	1	7766 Wethersfield Drive 	West Chester	OH	45069	208-899-3962	
+508	508	1	3994 Boomer Road	Cincinnati	OH	43247		
+509	509	1	7766 Wethersfield Drive 	West Chester	OH	45069	208-899-3963	
+510	510	1	3917 Floral Avenue 	Norwood	OH	45212	513-631-1005	
+511	511	1	4018 Sharon Park Lane 	Cincinnati	OH	45241	513-831-1132	
+512	512	1	4018 Sharon Park Lane 	Cincinnati	OH	45241	513-831-1132	
+513	513	1	 				513-652-1732	
+514	514	1	651 Blackburn Avenue 	Fairfield	OH	45014	513-856-8896	
+515	515	1	417 West Church Street 	Mason	OH	45050	254-630-0488	
+516	516	1	417 West Church Street 	Mason	OH	45040	254-630-0488	
+517	517	1	417 West Church Street 	Mason	OH	45040	254-630-0488	
+519	519	1	417 West Church Street 	Mason	OH	45040	254-630-0488	
+520	520	1	385 Cleveland Avenue 	Hamilton	OH	45013	513-863-3105	
+521	521	1	10140 Kingsport Drive 	Cincinnati	OH	45241	513-733-5663	
+522	522	1	417 West Church Street 	Mason	OH	45050	513-593-6548	
+523	523	1	417 West Church Street 	Mason	OH	45050	254-630-0488	
+524	524	1	4007 West Elkton Road 	Hamilton	OH	45013	513-371-3408	
+528	528	1	 				513-807-9690	
+529	529	1	8647 US Route 127 N	West Manchester	OH	45382	937-678-6046	
+533	533	1	922 Charles Street 	Trenton	OH	45067	513-470-4736	
+479	479	1	3430 Dawn Dr. 	Hamilton	OH	45011	513-907-2780	
+496	496	1	18 Ridge Wood Drive	Monroe	OH	45050	513-518-8296	
+535	535	1	3222 Wayne Madison Road 	Trenton	OH	45067	513-988-0664	
+536	536	1	3222 Wayne Madison Road 	Trenton	OH	45067	513-988-0664	
+537	537	1	332 North 6th Street 	Hamilton	OH	45015	513-226-8027	
+538	538	1	12043 Elkwood Drive	Cincinnati	OH	45240		
+539	539	1	Garden Manor 6898 Hamilton-Middletown Road	Middletown	OH	45044		
+540	540	1	2617 North Mason-Montgomery Road 	Mason	OH	45040	513-573-0684	
+541	541	1	1488 Hartwood Drive 	Cincinnati	OH	45240	513-851-0503	
+542	542	1	729 Sands Avenue 	Monroe	OH	45050	513-939-7710	
+543	543	1	8695 Cranfield Drive 	Cincinnati	OH	45251	513-741-0133	
+507	507	1	4882 Pinnacle Ct.	Hamilton	OH	45011	513-967-0952	
+532	532	1	4882 Pinnacle Ct.	Hamilton	OH	45011	513-967-0952	
+544	544	1						
+518	518	1	417 West Church Street	Mason	OH	45040	254-630-0488	
+526	526	1	8720 Huffman Rd.	New Lebanon	OH	45345	937-678-6046	
+527	527	1	8720 Huffman Rd.	New Lebanon	OH	45345	937-678-6046	
+477	477	1	1957 Krucker Road	Hamilton	OH	45013	513-720-0047	
+545	545	1	5729 Huron Ct. 	Hamilton	OH	45011	513-894-2044	
+546	546	1	 					
+547	547	1	4511 Randall Drive 	Liberty Twp.	OH	45011	513-375-3236	
+548	548	1	4001 Crestview 	Loveland	OH	45140	513-295-8226	
+549	549	1	 					
+550	550	1	6897 Founders Row Apt 112	West Chester	OH	45069	317-523-2345	
+551	551	1	3268 Rockacres Court 	Cincinnati	OH	45239	513-967-0952	
+553	553	1	24 Indiana Avenue 	Monroe	OH	45050	513-262-5451	
+555	555	1	6843 Gregory Creek Lane 	West Chester	OH	45069		
+556	556	1	6843 Gregory Creek Lane 	West Chester	OH	45069		
+557	557	1	6843 Gregory Creek Lane 	West Chester	OH	45069		
+558	558	1	3509 Freeman Avenue	Hamilton	OH	45015		
+560	560	1	260 W Kemper Road	Springdale	OH	45246	513-671-0748	
+561	561	1	375 Ringling Avenue	Hamilton	OH	45011		
+563	563	1	4105 Hayfield Way	Prospect	KY	40059		
+564	564	1	8011 Red Mill Drive	West Chester	OH	45069	513-939-5735	
+565	565	1	8741 Ashbrook Drive	West Chester	OH	45069		
+566	566	1	4105 Hayfield Way	Prospect	KY	40059		
+1559	1559	1	4105 Hayfield Way	Prospect	KY	40059		
+1560	1560	1	7757 Wildbranch Road	Fairfield	OH	45011	513-907-2043	
+1561	1561	1	2897 Keever Road	Lebanon	OH	45036		
+1562	1562	1	25 Fallwood Drive	Hamilton	OH	45011	513-737-1682	
+1564	1564	1	5649 Autumn Drive	Middletown	OH	45042	863-443-6468	
+2559	19	3					513-505-7850	joe@sjlee.net
+2560	19	2	5th & Walnut	Cincinnati	OH	45206		joe.lee@scripps.com
+3559	2559	1	12043 Elkwood Drive	Cincinnati	OH	45240	513-266-9899	
+3562	2563	1	7721 Bridgewater Lane	Hamilton	OH	45011	513-737-8792	
+562	562	1	3975 Arlington Avenue	Hamilton	OH	45015	513-225-7622	
+3564	2566	1	1482 Cold Water Drive	Monroe	OH	45015	513-226-5525	
+3563	2565	1	1482 Cold Water Drive	Monroe	OH	45015	513-939-8018	
+3565	2567	1	1482 Cold Water Drive	Monroe	OH	45015	513-939-8018	
+3567	2569	1	6234 Cavalcade Drive	Hamilton	OH	45011	513-737-1395	
+3566	2568	1	6234 Cavalcade Drive	Hamilton	OH	45011	513-737-1395	
+525	525	1	91 Meadow Drive	Hamilton	OH	45013	513-429-0695	
+559	559	1	2705 Bradford Drive	Middletown	OH	45044	330-201-6107	
+187	187	1	2705 Bradford Drive	Middletown	OH	45044	513-240-8647	
+232	232	1	7282 Dimmick Road 	West Chester	OH	45069	513-364-4669	
+1563	1563	1	5649 Autumn Drive	Middletown	OH	45042	863-450-0832	
+3569	2571	1	8279 South Port Drive	West Chester	OH	45069	859-321-2232	
+3570	2572	1	1805 Damon Court	Franklin	OH	45014	513-805-7339	
+3571	2573	1	4105 Hayfield Way	Prospect	KY	40059		
+3573	2575	1	261 North F Street	Hamilton	OH	45013	513-368-6834	
+3572	2574	1	261 North F Street	Hamilton	OH	45013	513-368-6834	
+3576	2578	1	9157 Patriot Drive	West Chester	OH	45069	513-716-2188	
+3577	2579	1	8339 Cherry Lane	Cincinnati	OH		810-858-7472	
+3560	2560	1	855 Stalheber Road	Hamilton	OH	45013		
+3579	2581	1	261 North F Street	Hamilton	OH	45013	513-368-6834	
+3580	2582	1	7663 Overblend Drive	West Chester	OH	45069	513-889-6144	
+3581	2564	1	8300 South Port Dr.	West Chester	OH	45069	419-309-8648	
+530	530	1	8839 Brook Knoll Dr.	West Chester	OH	45069	513-746-6482	
+531	531	1	8839 Brook Knoll Dr.	West Chester	OH	45069	513-746-6482	
+552	552	1	4882 Pinnacle Ct.	Hamilton	OH	45011	513-967-0952	
+413	413	1	4882 Pinnacle Ct.	Hamilton	OH	45011	513-967-0952	
+554	554	1	4882 Pinnacle Ct.	Hamilton	OH	45011	513-967-0952	
+177	177	1	6843 Gregory Creek Lane	West Chester	OH	45069	513-583-8875	
+3584	2585	1	4882 Pinnacle Ct.	Hamilton	OH	45011	513-967-0952	
+302	302	1	3509 Freeman Ave.	Hamilton	OH	45015	513-887-0886	
+3585	2586	1	4501 Randall Dr	Liberty Township	OH	45011	513-375-6192	
+130	130	1	4558 Aspen Drive	Hamilton	OH	45011	513-887-2967	
+313	313	1	1957 Krucker Road	Hamilton	OH	45013	513-349-3209	
+534	534	1	1957 Krucker Road	Hamilton	OH	45013	513-720-0047	
+3586	2588	1	12043 Elkwood Drive	Cincinnat,	OH	45250	513-502-0457	
+3587	2589	1	1482 Cold Water Drive	Monroe	OH	45050	513-502-8018	
+18	18	1	1805 Damon Court	Fairfield	OH	45014	513-805-7339	
+444	444	1	1805 Damon Court	Fairfield	OH	45014	513-805-7339	
+3588	2593	1	4307 Stone Meadow Drive	Hamilton	OH	45011		
+3589	2594	1	3873 Belleau Wood Drive #8	Lexington	KY	40517	859-619-6382	
+3590	2595	1	6906 Chestnet Oak Court	Fairfield Township	OH	45011		
+3591	2596	1	262 Hudson Avenue	Hamilton	OH	45011	513-737-1256	
+3592	2597	1	709 Holbrook Avenue	Lebanon	OH	45036	513-932-7250	
+\.
+
+
+--
+-- Name: ContactEntries_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: cisadmin
+--
+
+SELECT pg_catalog.setval('"ContactEntries_Id_seq"', 3592, true);
+
+
+--
+-- Data for Name: ContactTypes; Type: TABLE DATA; Schema: public; Owner: cisadmin
+--
+
+COPY "ContactTypes" ("Id", "Type", "Description") FROM stdin;
+1	Home	Contact information for home.
+3	Mobile	Mobile contact information.
+4	School	Contact information for school.
+2	Work	Contact information for work location.
+\.
+
+
+--
+-- Name: ContactTypes_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: cisadmin
+--
+
+SELECT pg_catalog.setval('"ContactTypes_Id_seq"', 4, true);
+
+
+--
+-- Data for Name: Departments; Type: TABLE DATA; Schema: public; Owner: cisadmin
+--
+
+COPY "Departments" ("Id", "Name", "Description") FROM stdin;
+1	Children	Children's ministries at TCN.
+2	Youth	Youth ministries of TCN.
+3	Adult	Adult ministries at TCN.
+4	Senior Adult	Senior adult ministries at TCN.
+\.
+
+
+--
+-- Name: Departments_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: cisadmin
+--
+
+SELECT pg_catalog.setval('"Departments_Id_seq"', 4, true);
+
+
+--
+-- Data for Name: Families; Type: TABLE DATA; Schema: public; Owner: cisadmin
+--
+
+COPY "Families" ("Id", "Surname", "Description", "Address", "City", "State", "Zip") FROM stdin;
+2	Huff	The Bill Huff Family	2897 Front Street	Hamilton	OH	45013
+1	Lee	The Joe Lee Family	4953 Chablis Court	Fairfield	OH	45014
+3	Huff	The Bob Huff Family	5096 Hamilton-Scipio Road	Hamilton	OH	45013
+\.
+
+
+--
+-- Name: Families_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: cisadmin
+--
+
+SELECT pg_catalog.setval('"Families_Id_seq"', 3, true);
+
+
+--
+-- Data for Name: FamilyMembers; Type: TABLE DATA; Schema: public; Owner: cisadmin
+--
+
+COPY "FamilyMembers" ("Id", "FamilyId_id", "FamilyRoleId_id", "PeopleId_id") FROM stdin;
+1	2	4	14
+2	2	3	71
+3	1	4	19
+4	1	3	20
+5	3	4	15
+6	3	3	68
+\.
+
+
+--
+-- Name: FamilyMembers_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: cisadmin
+--
+
+SELECT pg_catalog.setval('"FamilyMembers_Id_seq"', 6, true);
+
+
+--
+-- Data for Name: FamilyNotes; Type: TABLE DATA; Schema: public; Owner: cisadmin
+--
+
+COPY "FamilyNotes" ("Id", "Note", "FamilyId_id") FROM stdin;
+\.
+
+
+--
+-- Name: FamilyNotes_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: cisadmin
+--
+
+SELECT pg_catalog.setval('"FamilyNotes_Id_seq"', 1, false);
+
+
+--
+-- Data for Name: FamilyRoles; Type: TABLE DATA; Schema: public; Owner: cisadmin
+--
+
+COPY "FamilyRoles" ("Id", "Role", "Description") FROM stdin;
+1	Father	Father of a family.
+2	Mother	Mother of a family.
+3	Wife	Wife of a family.
+4	Husband	Husband of a family.
+5	Son	Male child / teen of a family.
+6	Daughter	Female child / teen of a family.
+\.
+
+
+--
+-- Name: FamilyRoles_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: cisadmin
+--
+
+SELECT pg_catalog.setval('"FamilyRoles_Id_seq"', 6, true);
+
+
+--
+-- Data for Name: Grades; Type: TABLE DATA; Schema: public; Owner: cisadmin
+--
+
+COPY "Grades" ("Id", "Grade") FROM stdin;
+1	Grade 1
+2	Grade 2
+3	Grade 3
+4	Grade 4
+5	Grade 5
+6	Grade 6
+7	Grade 7
+8	Grade 8
+9	Freshman
+10	Sophmore
+11	Junior
+12	Senior
+13	Kindergarten
+14	Adult
+15	Pre-Primary
+\.
+
+
+--
+-- Name: Grades_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: cisadmin
+--
+
+SELECT pg_catalog.setval('"Grades_Id_seq"', 15, true);
+
+
+--
+-- Data for Name: GroupMembers; Type: TABLE DATA; Schema: public; Owner: cisadmin
+--
+
+COPY "GroupMembers" ("Id", "PeopleId_id", "GroupId_id", "GroupRoleId_id", "GradeId_id") FROM stdin;
+1	1	1	4	14
+2	2	3	6	14
+3	3	3	6	14
+4	4	1	6	14
+5	5	1	4	14
+6	6	1	4	14
+8	8	1	4	14
+9	9	1	4	14
+10	10	5	4	14
+11	11	1	4	14
+12	12	5	4	14
+13	13	1	4	14
+15	15	5	4	14
+16	16	1	4	14
+19	19	1	4	14
+20	20	1	4	14
+22	22	1	3	14
+23	23	1	4	14
+26	26	3	4	14
+27	27	1	4	14
+28	28	2	4	14
+29	29	3	4	14
+30	30	1	4	14
+31	31	1	4	14
+32	32	2	4	14
+33	33	2	4	14
+34	34	10	3	14
+35	35	3	4	14
+36	36	3	4	14
+37	37	5	4	14
+38	38	5	4	14
+39	39	1	4	14
+40	40	1	4	14
+41	41	1	4	14
+42	42	3	4	14
+43	43	6	4	14
+44	44	3	4	14
+45	45	1	4	14
+46	46	1	4	14
+48	48	6	6	14
+49	49	1	4	14
+50	50	6	6	14
+52	52	16	3	14
+54	54	1	4	14
+55	55	12	3	14
+57	57	5	3	14
+59	59	1	4	14
+60	60	5	4	14
+61	61	6	4	14
+63	63	9	3	14
+64	64	11	3	14
+65	65	6	4	14
+66	66	21	6	14
+67	67	5	6	14
+68	68	5	4	14
+69	69	6	6	14
+70	70	21	6	14
+72	72	5	4	14
+73	73	6	6	14
+74	74	6	6	14
+75	75	21	6	14
+76	76	1	4	14
+77	77	5	4	14
+78	78	21	6	14
+80	80	1	4	14
+81	81	5	4	14
+82	82	1	4	14
+83	83	5	4	14
+84	84	6	6	14
+85	85	1	4	14
+86	86	1	4	14
+87	87	3	4	14
+88	88	1	4	14
+90	90	2	4	14
+91	91	6	4	14
+92	92	2	6	14
+93	93	1	4	14
+94	94	1	4	14
+95	95	1	4	14
+98	98	3	4	14
+99	99	3	4	14
+101	101	2	4	14
+103	103	1	4	14
+104	104	6	6	14
+105	105	5	4	14
+108	108	1	6	14
+110	110	6	4	14
+111	111	3	4	14
+112	112	6	4	14
+113	113	21	6	14
+114	114	21	6	14
+115	115	6	6	14
+116	116	2	6	14
+117	117	3	4	14
+120	120	6	6	14
+121	121	2	4	14
+123	123	5	6	14
+124	124	6	6	14
+125	125	5	4	14
+126	126	6	6	14
+127	127	6	6	14
+128	128	1	4	14
+129	129	6	4	14
+130	130	3	4	14
+131	131	21	6	14
+132	132	21	4	14
+133	133	5	4	14
+134	134	1	4	14
+135	135	1	4	14
+136	136	6	6	14
+137	137	6	6	14
+138	138	6	6	14
+139	139	3	4	14
+140	140	5	4	14
+142	142	5	6	14
+143	143	1	4	14
+145	145	21	6	14
+146	146	3	4	14
+147	147	1	4	14
+148	148	1	4	14
+150	150	6	4	14
+151	151	5	6	14
+152	152	5	4	14
+154	154	6	4	14
+155	155	7	4	14
+156	156	3	4	14
+157	157	6	4	14
+158	158	1	4	14
+159	159	8	3	14
+160	160	21	6	14
+161	161	2	4	14
+163	163	5	4	14
+164	164	2	3	14
+165	165	6	4	14
+96	96	7	4	14
+102	102	7	4	14
+167	167	1	6	14
+168	168	6	6	14
+169	169	2	4	14
+14	14	3	4	14
+47	47	15	4	11
+166	166	7	4	14
+79	79	7	6	14
+107	107	7	6	14
+58	58	7	6	14
+119	119	7	6	14
+162	162	7	6	14
+18	18	14	3	14
+149	149	7	6	14
+170	170	3	4	14
+171	171	5	4	14
+172	172	5	4	14
+173	173	5	4	14
+174	174	7	6	14
+175	175	7	6	14
+176	176	1	4	14
+178	178	5	4	14
+179	179	1	4	14
+180	180	5	4	14
+181	181	5	4	14
+182	182	6	6	14
+184	184	5	4	14
+185	185	2	4	14
+186	186	1	4	14
+188	188	6	4	14
+189	189	5	4	14
+190	190	3	4	14
+191	191	9	3	14
+192	192	5	4	14
+193	193	15	4	12
+194	194	5	4	14
+195	195	5	4	14
+197	197	6	4	14
+198	198	8	3	14
+199	199	2	4	14
+200	200	2	4	14
+203	203	6	4	14
+204	204	6	4	14
+209	209	7	4	14
+210	210	6	4	14
+211	211	5	6	14
+212	212	5	4	14
+213	213	1	4	14
+214	214	1	4	14
+215	215	3	4	14
+216	216	3	6	14
+218	218	6	6	14
+219	219	6	6	14
+221	221	5	4	14
+222	222	5	4	14
+223	223	6	4	14
+224	224	5	4	14
+225	225	6	6	14
+226	226	6	6	14
+227	227	6	6	14
+228	228	6	6	14
+230	230	3	6	14
+231	231	1	4	14
+232	232	1	4	14
+233	233	6	6	14
+234	234	3	4	14
+235	235	6	6	14
+237	237	6	6	14
+238	238	6	6	14
+239	239	6	6	14
+240	240	6	6	14
+241	241	6	6	14
+242	242	6	6	14
+243	243	6	6	14
+245	245	6	6	14
+246	246	6	6	14
+247	247	6	6	14
+248	248	6	6	14
+249	249	6	6	14
+251	251	6	6	14
+252	252	6	4	14
+253	253	6	6	14
+254	254	6	6	14
+257	257	6	4	14
+259	259	3	6	14
+261	261	6	6	14
+265	265	1	4	14
+267	267	6	6	14
+268	268	6	6	14
+269	269	6	6	14
+270	270	6	6	14
+271	271	6	6	14
+272	272	6	6	14
+273	273	5	6	14
+274	274	6	6	14
+275	275	6	6	14
+276	276	6	6	14
+277	277	6	6	14
+278	278	6	6	14
+284	284	7	6	14
+285	285	6	4	14
+286	286	6	4	14
+287	287	6	6	14
+288	288	2	6	14
+289	289	6	6	14
+290	290	3	6	14
+291	291	3	6	14
+293	293	6	6	14
+294	294	6	6	14
+295	295	6	6	14
+297	297	6	6	14
+298	298	6	6	14
+300	300	6	6	14
+301	301	6	6	14
+302	302	3	4	14
+303	303	6	6	14
+304	304	6	6	14
+305	305	6	6	14
+306	306	6	6	14
+307	307	2	6	14
+308	308	6	6	14
+309	309	2	6	14
+310	310	2	6	14
+311	311	3	6	14
+312	312	2	4	14
+313	313	5	4	14
+314	314	3	4	14
+315	315	6	6	14
+316	316	6	6	14
+317	317	6	6	14
+318	318	5	4	14
+319	319	5	4	14
+320	320	6	6	14
+321	321	1	4	14
+322	322	1	4	14
+323	323	6	6	14
+324	324	6	6	14
+325	325	21	6	14
+326	326	6	6	14
+327	327	6	6	14
+328	328	2	6	14
+177	177	3	6	14
+201	201	15	4	12
+229	229	7	6	14
+256	256	7	4	14
+260	260	7	6	14
+281	281	9	4	8
+282	282	9	4	8
+296	296	9	4	8
+299	299	9	4	8
+202	202	8	6	6
+220	220	8	6	6
+244	244	8	6	6
+250	250	8	6	6
+283	283	8	6	6
+262	262	15	4	9
+258	258	15	4	9
+329	329	9	4	7
+279	279	7	6	14
+196	196	7	6	14
+330	330	6	6	14
+334	334	6	6	14
+335	335	6	6	14
+336	336	6	6	14
+337	337	6	6	14
+342	342	3	4	14
+343	343	3	4	14
+344	344	6	6	14
+345	345	6	6	14
+346	346	6	6	14
+347	347	6	6	14
+348	348	6	6	14
+351	351	6	6	14
+352	352	6	6	14
+353	353	6	6	14
+354	354	6	6	14
+356	356	6	6	14
+357	357	6	6	14
+361	361	3	6	14
+362	362	3	6	14
+363	363	6	6	14
+364	364	3	6	14
+365	365	3	6	14
+366	366	3	6	14
+367	367	3	6	14
+368	368	5	6	14
+369	369	5	6	14
+370	370	5	6	14
+371	371	5	6	14
+372	372	5	6	14
+373	373	5	6	14
+374	374	3	4	14
+376	376	3	6	14
+377	377	6	6	14
+378	378	1	4	14
+379	379	1	4	14
+380	380	6	4	14
+381	381	6	6	14
+382	382	3	6	14
+383	383	3	6	14
+384	384	3	6	14
+385	385	3	6	14
+386	386	3	6	14
+387	387	6	6	14
+389	389	3	6	14
+390	390	6	6	14
+391	391	6	6	14
+392	392	21	6	14
+393	393	6	6	14
+394	394	5	6	14
+395	395	5	6	14
+396	396	1	6	14
+397	397	6	6	14
+398	398	6	6	14
+399	399	6	6	14
+401	401	6	6	14
+402	402	6	6	14
+403	403	5	6	14
+404	404	3	6	14
+408	408	6	6	14
+409	409	6	6	14
+411	411	3	6	14
+412	412	6	6	14
+414	414	14	6	15
+415	415	14	6	15
+419	419	6	6	14
+420	420	6	6	14
+421	421	5	6	14
+422	422	3	4	14
+426	426	5	6	14
+427	427	14	6	15
+428	428	6	6	14
+429	429	6	4	14
+431	431	2	6	14
+432	432	6	6	14
+433	433	6	6	14
+436	436	6	6	14
+440	440	2	6	14
+441	441	6	6	14
+447	447	2	4	14
+448	448	6	6	14
+449	449	3	6	14
+450	450	6	6	14
+451	451	3	4	14
+452	452	6	6	14
+453	453	3	6	14
+456	456	2	4	14
+457	457	2	4	14
+459	459	5	6	14
+460	460	1	4	14
+461	461	14	6	15
+462	462	6	6	14
+463	463	1	4	14
+464	464	1	4	14
+465	465	6	6	14
+466	466	6	6	14
+467	467	6	6	14
+468	468	21	4	14
+469	469	6	4	14
+470	470	2	4	14
+471	471	2	4	14
+472	472	6	6	14
+473	473	6	6	14
+474	474	21	6	14
+475	475	21	6	14
+476	476	21	6	14
+479	479	1	4	14
+480	480	1	4	14
+481	481	6	6	14
+482	482	6	4	14
+483	483	6	4	14
+484	484	6	6	14
+486	486	6	4	14
+487	487	6	6	14
+490	490	6	6	14
+492	492	6	4	14
+493	493	5	4	14
+333	333	7	6	14
+341	341	7	4	14
+407	407	7	6	14
+406	406	9	6	8
+416	416	9	6	8
+425	425	9	6	8
+339	339	8	4	6
+349	349	8	6	6
+405	405	11	4	4
+418	418	11	4	4
+430	430	11	4	4
+434	434	11	4	4
+489	489	11	6	4
+477	477	13	4	2
+478	478	13	4	2
+485	485	13	4	2
+458	458	8	4	5
+388	388	8	4	5
+358	358	8	4	5
+331	331	9	4	7
+340	340	9	6	7
+355	355	9	4	7
+437	437	15	6	9
+338	338	15	4	9
+443	443	14	3	14
+494	494	13	3	14
+495	495	21	6	14
+497	497	21	6	14
+498	498	3	6	14
+499	499	3	6	14
+500	500	6	4	14
+501	501	3	6	14
+502	502	3	6	14
+504	504	21	6	14
+505	505	21	6	14
+506	506	1	6	14
+509	509	6	6	14
+511	511	3	6	14
+512	512	3	6	14
+513	513	6	6	14
+514	514	21	4	14
+515	515	6	6	14
+517	517	7	6	14
+520	520	3	4	14
+521	521	1	4	14
+522	522	21	4	14
+523	523	21	4	14
+524	524	21	6	14
+526	526	3	3	14
+527	527	3	4	14
+528	528	3	6	14
+532	532	14	4	15
+533	533	14	4	15
+534	534	14	4	15
+538	538	13	3	14
+539	539	3	4	14
+540	540	3	6	14
+542	542	3	6	14
+543	543	3	4	14
+545	545	21	4	14
+546	546	21	4	14
+547	547	7	4	14
+548	548	1	4	14
+549	549	14	6	15
+550	550	15	3	14
+551	551	3	4	14
+552	552	3	4	14
+553	553	1	4	14
+557	557	3	4	14
+560	63	5	20	14
+561	191	5	20	14
+562	64	5	20	14
+563	89	5	4	14
+564	53	5	4	14
+566	85	12	20	14
+568	206	16	20	14
+569	494	3	20	14
+570	538	3	20	14
+572	34	3	20	14
+573	52	1	20	14
+576	560	1	4	14
+577	561	1	4	14
+578	206	1	4	14
+579	562	2	4	14
+580	455	2	6	14
+581	454	2	6	14
+584	565	14	6	15
+1561	526	2	20	14
+1562	527	2	20	14
+1563	1562	3	6	14
+1564	1563	1	4	14
+1565	1564	1	4	14
+2558	2559	12	4	15
+2559	2560	1	6	14
+2561	20	19	1	14
+2562	20	20	1	14
+2563	144	7	3	14
+144	144	3	20	14
+2565	2564	1	4	14
+2566	2565	3	4	14
+2567	2566	3	4	14
+2572	2571	12	4	15
+2573	2572	12	4	15
+2574	2573	12	6	15
+2575	2574	14	4	15
+559	559	7	4	14
+187	187	7	4	14
+2583	2582	7	4	14
+2586	2585	12	4	15
+2587	206	12	20	14
+2588	177	12	20	14
+2589	2586	1	4	14
+71	71	3	4	14
+2582	2581	7	4	14
+2590	2587	7	4	14
+2568	2567	16	4	15
+558	558	16	4	15
+106	106	15	4	12
+109	109	15	4	11
+122	122	15	6	11
+153	153	15	4	12
+207	207	15	4	12
+208	208	15	6	12
+236	236	15	6	10
+255	255	15	6	10
+263	263	15	6	11
+264	264	15	4	10
+266	266	15	4	11
+280	280	15	4	10
+292	292	15	4	12
+332	332	15	6	10
+350	350	15	6	12
+360	360	15	6	12
+410	410	15	6	12
+417	417	15	6	10
+516	516	15	4	10
+537	537	15	6	12
+541	541	15	6	12
+556	556	15	4	12
+583	564	15	6	12
+1559	1560	15	6	10
+1560	1561	15	4	12
+2570	2569	15	4	10
+2579	2578	15	4	10
+519	519	9	4	8
+555	555	9	4	8
+2569	2568	9	4	8
+1558	1559	8	6	6
+2564	2563	8	6	6
+544	544	11	4	4
+535	535	13	6	2
+508	508	13	4	1
+525	525	13	6	1
+2576	2575	13	4	1
+507	507	13	4	1
+529	529	13	6	1
+503	503	13	4	1
+582	563	11	6	3
+510	510	8	4	5
+536	536	9	4	7
+496	496	9	4	7
+530	530	9	6	7
+531	531	9	6	7
+518	518	7	6	14
+2580	2579	7	6	14
+585	566	14	6	15
+554	554	14	4	15
+571	375	3	4	14
+435	435	15	4	10
+359	359	8	4	6
+446	446	8	4	6
+488	488	8	6	6
+438	438	9	6	7
+413	413	9	4	7
+444	444	9	4	7
+445	445	9	4	7
+442	442	9	6	7
+2591	2588	12	4	15
+2592	2589	12	4	15
+2593	2590	14	4	15
+2594	2591	14	4	15
+2595	2592	9	4	7
+2596	2593	7	4	14
+2597	2594	7	4	14
+2598	2595	1	4	14
+2599	2596	1	4	14
+2600	2597	1	4	14
+\.
+
+
+--
+-- Name: GroupMembers_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: cisadmin
+--
+
+SELECT pg_catalog.setval('"GroupMembers_Id_seq"', 2600, true);
+
+
+--
+-- Data for Name: GroupNotes; Type: TABLE DATA; Schema: public; Owner: cisadmin
+--
+
+COPY "GroupNotes" ("Id", "Note", "GroupId_id") FROM stdin;
+\.
+
+
+--
+-- Name: GroupNotes_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: cisadmin
+--
+
+SELECT pg_catalog.setval('"GroupNotes_Id_seq"', 1, false);
+
+
+--
+-- Data for Name: GroupRoles; Type: TABLE DATA; Schema: public; Owner: cisadmin
+--
+
+COPY "GroupRoles" ("Id", "Role", "Description") FROM stdin;
+1	List Member	Member of an email list.
+2	Leader	Leader of a group.
+3	Teacher	Teacher of a class group.
+4	Student	Individual member of a group.
+5	Helper	Helper within a group.
+6	Prospect	Prospective member of a group.
+7	Inactive	Inactive member of  a group.
+20	Other Member	Members who have another Sunday School class also.
+21	Outreach	Members who are infrequent visitors and need outreach efforts.
+\.
+
+
+--
+-- Name: GroupRoles_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: cisadmin
+--
+
+SELECT pg_catalog.setval('"GroupRoles_Id_seq"', 21, true);
+
+
+--
+-- Data for Name: GroupTypes; Type: TABLE DATA; Schema: public; Owner: cisadmin
+--
+
+COPY "GroupTypes" ("Id", "Type", "Description") FROM stdin;
+1	Sunday School Class	Classes within our Sunday School system.
+2	Email List	List for sending group emails.
+\.
+
+
+--
+-- Name: GroupTypes_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: cisadmin
+--
+
+SELECT pg_catalog.setval('"GroupTypes_Id_seq"', 2, true);
+
+
+--
+-- Data for Name: Groups; Type: TABLE DATA; Schema: public; Owner: cisadmin
+--
+
+COPY "Groups" ("Id", "Name", "Description", "DepartmentId_id", "GroupTypeId_id") FROM stdin;
+1	Middle Adult 1	Ron Lewis' Adult Sunday School Class.	3	1
+2	Middle Adult 2	Greg Crace's Sunday School Class.	3	1
+3	Middle Adult 3	Daniel Perschke's Sunday School class.	3	1
+4	Young Married 1	Young marrieds Sunday School class.	3	1
+5	Young Married	Danny Walter's Sunday School Class.	3	1
+6	College & Career [Inactive]	Inactive College & Career Sunday School Class.	2	1
+12	Nursery	Nursery roll.	1	1
+14	Preschool	Preschool Sunday School class.	1	1
+16	Toddler	Toddler Sunday School class.	1	1
+17	Parents of Teens	Email list for parents of teens.	3	2
+18	Parents of Children	Email list for parents of children.	3	2
+19	TCN Family	Email list of the entire TCN community.	3	2
+20	Prayer Chain	Email list of people who will receive prayer requests by email.	3	2
+21	Young Married [Inactive]	Inactive Young married.	3	1
+15	Senior High	Senior High Sunday School class.	2	1
+8	Preteen	Preteen Sunday School class.	1	1
+11	Middler	Middler Sunday School class.	1	1
+13	Primary	Primary Sunday School Class.	1	1
+10	Kindergarten	Kindergarten Sunday School Class.	1	1
+7	College & Career	Ryan Bible Active College & Career Sunday School class.	2	1
+9	Junior High	Junior High Sunday School class.	2	1
+\.
+
+
+--
+-- Name: Groups_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: cisadmin
+--
+
+SELECT pg_catalog.setval('"Groups_Id_seq"', 21, true);
+
+
+--
+-- Data for Name: People; Type: TABLE DATA; Schema: public; Owner: cisadmin
+--
+
+COPY "People" ("Id", "LastName", "FirstName", "MiddleName", "Birthday", "Anniversary") FROM stdin;
+1	Barkley	Jack		2000-10-17	2000-07-23
+2	Bishop	Aneta		2000-10-21	1974-06-14
+3	Bishop	Mike		1954-04-05	1974-06-14
+4	Black	Chuck		2000-12-26	1966-12-09
+5	Chasteen	Jim		2000-08-22	1977-02-05
+6	Clemmons	Ora Lee		2000-12-29	\N
+8	Cox	Jerry		2000-07-24	1953-12-26
+9	Lindsey	Geneva		2000-07-30	\N
+10	Farmer	Dave		1962-05-11	1987-08-01
+12	Hale	Bill		1966-04-08	2000-07-15
+13	Helton	Wayne		1954-03-24	2000-03-27
+15	Huff	Bob		1958-03-13	\N
+16	Iliff	Bill		1954-07-19	1975-12-27
+19	Lee	Steven	Joseph	1960-01-05	1989-07-08
+22	Lewis	Ron		2000-12-13	1969-03-22
+23	Lindsey	Tom		2000-10-12	\N
+26	McCoy	John		2000-10-12	2000-12-30
+27	McGuire	Evelyn		2000-10-03	\N
+28	Williams	Robert		1944-12-12	1964-10-24
+29	Sando	Ron		1938-10-04	2000-11-17
+30	Norris	Brenda		1951-04-13	1970-06-20
+31	Norris	Rick		1952-01-29	1970-06-20
+34	Salway	Shirley		2000-09-22	\N
+35	Schmidt	Dennis		1947-10-23	2000-09-23
+36	Schmidt	Mary		2000-10-28	1967-09-23
+37	Schmidt	Jennifer		1976-09-15	1998-06-06
+38	Walters	Jody		1979-09-08	2001-06-09
+39	Walters	Dale		2000-09-12	2000-01-05
+40	Walters	Dan		2000-10-09	2000-09-05
+41	Zawadzki	Mady		2000-05-04	\N
+42	Wilkins	Tina		2000-02-20	\N
+43	Bingle	Kristen		1993-07-02	\N
+44	Zimmer	Harold		1948-05-03	1990-09-01
+45	Barkley	Doris		2000-03-12	2000-07-23
+46	Barkley	Kay		2000-01-26	2000-08-01
+47	Lawless	Taylor		1999-08-18	\N
+48	Barnhill	Kendra		1987-01-31	\N
+49	Black	Barbara		2000-09-17	1966-12-09
+50	Butz	Bryan		1984-01-12	\N
+52	Butz	Mary		1952-03-12	\N
+54	Chasteen	Thelma		2000-02-28	1977-02-05
+55	Compton	Mary		2000-10-24	2000-11-23
+57	Walters	Danny Scot		1970-12-10	1994-03-26
+58	Farmer	Lara		1995-05-24	\N
+60	Farmer	Carol		1963-10-17	1987-08-01
+61	Farmer	Hayden	D	1991-04-08	\N
+63	Farmer	Susan		1964-08-06	2000-09-02
+64	Hale	Kathy		2000-08-05	2000-07-15
+66	Burns	Ashley		1988-05-06	\N
+67	Huff	Brandon		1979-07-30	\N
+68	Huff	Crystal		1964-12-24	1985-07-12
+69	Huff	Joshua		1985-08-19	\N
+70	Robinson	Kara		1988-03-20	\N
+73	Hurst	Danielle		1986-07-10	\N
+74	Hurst	Kyle		1987-09-25	\N
+75	Iliff	Melissa		1977-07-04	2002-09-12
+76	Jackson	Shirley		2000-08-18	1967-08-26
+77	Boone	Tim		1965-10-06	1989-04-15
+78	Lakes	Jacob		1986-02-09	\N
+79	Bunger	Allison		1993-04-07	\N
+81	Berter	Carrie		1979-01-12	\N
+82	Lewis	Eunice		2000-01-28	2000-03-09
+84	Lindsey	Danielle		1985-03-29	\N
+85	Lindsey	Tammy		2000-09-04	\N
+86	McCarter	Sue		2000-11-09	2000-06-04
+87	McCoy	Mary		2000-03-18	2000-12-30
+88	Monday	JoAnn		2000-02-24	2000-01-02
+90	Grafner	Dave		1955-08-02	\N
+91	James	Zackary		1985-03-09	\N
+92	Kearney	Jim		\N	\N
+93	Sloan	Bonnie		\N	\N
+94	Walters	Carol		2000-01-03	2000-01-05
+95	Walters	Darlene		2000-04-09	2000-09-05
+98	Sloan	Ruth		1945-07-01	\N
+99	Zimmer	June		1949-01-29	2000-09-01
+101	Eichler	Wanda		2000-05-10	2000-06-11
+103	Helton	Patty		1952-03-09	2000-03-27
+104	McCarnan	Jeremy		1985-02-10	\N
+105	Lewis	Amy		1975-12-09	1998-10-17
+106	Salyer	Coleman	B	1999-02-09	\N
+107	Bunger	Laurie		1994-08-30	\N
+108	Barnhill	Doug		1962-05-24	1982-07-24
+109	Oldfield	Ethan	S	1999-09-07	\N
+110	Farmer	Christopher		1992-07-18	\N
+111	Hale	Nathanael		1991-12-13	\N
+112	Boone	Sarah		1991-10-16	\N
+113	Robinson	Lauren		1987-09-22	\N
+114	Huff	Chris		1982-09-14	\N
+115	Dean	Teri Lynn		1983-04-23	\N
+116	Kearney	Linda		\N	\N
+117	Johnson	John		2000-05-06	2000-06-04
+119	Hale	Hannah		1994-10-29	\N
+120	Willis	Dillon		1989-03-21	\N
+121	Grafner	Jackie		1963-08-23	\N
+122	Iliff	Branden		1999-08-11	\N
+123	Lawless	Davina		1980-02-25	1999-02-20
+124	Reeves	Carissa		1983-04-04	\N
+125	Lewis	Scott		1970-02-10	1998-10-17
+126	Brown	Jon		\N	\N
+127	Bingle	Tyler		1996-12-02	\N
+128	Bunger	Randy		2011-06-28	1984-09-08
+129	Williams	Emily		1992-08-30	\N
+131	Huff	Tara		\N	\N
+132	Huff	Austin		1992-09-18	\N
+134	Edwards	Mark		2000-07-23	2000-01-12
+135	Edwards	Liz		2000-02-07	2000-01-12
+136	Brooks	Jayme		\N	\N
+137	Edwards	Adam Mark		1986-07-03	\N
+138	Edwards	Brittany		1989-04-02	\N
+140	Walters	Jenny		1969-12-07	1994-03-26
+142	Richardson	Rhonda		1965-04-09	\N
+143	Carpenter	Margaret		2000-03-05	2000-09-03
+144	Bible	Ryan Mitchell		1994-05-19	\N
+145	Zoeller	Michelle		2000-01-23	2002-04-06
+146	Mulhern	Sue		2000-06-12	\N
+147	Clark	Ishmael		2000-02-25	\N
+148	Monday	Dennis		2000-08-14	2000-01-02
+150	Atwood	Heather		1986-01-04	\N
+151	Jackson	Jimmy		\N	\N
+152	Pottenger	Eric		1976-02-06	1998-06-20
+53	Perschke	Katie		1982-06-23	2002-11-23
+32	Perschke	Gary		1953-08-04	1976-06-05
+33	Perschke	Pam		1955-05-05	1976-06-05
+83	Schomaker	Brian		1977-06-03	1998-12-05
+133	Schomaker	Michelle		1976-12-15	1998-12-05
+96	Walters	Devon		1979-06-21	\N
+102	Tomczewski	Erik		1993-08-04	\N
+153	Butz	Lee Anna		1998-11-03	\N
+154	Quatman	Ashlee		1995-09-18	\N
+155	Walters	Makenzie Lea		1994-11-03	\N
+156	McCurry	Kathy		1950-12-05	2000-03-23
+157	Boone	Bryan		1994-02-20	\N
+80	Drake	James		1945-09-19	1967-03-04
+14	Huff	Bill		1954-05-11	1980-04-26
+71	Huff	Kathy		1959-12-20	1980-04-26
+59	Drake	Shirley		1947-10-30	1967-03-04
+11	Farmer	Gordon		2000-04-29	2000-07-19
+65	Helton	Stephanie		1988-07-19	\N
+130	Voorhis	Edythe		\N	\N
+72	Tackett	Denessa		1982-02-19	\N
+149	Tomczewski	Stephanie		1990-06-19	\N
+158	Lawson	Regina		2000-05-25	2000-07-21
+159	Oldfield	Misty Lynn		1978-11-15	1998-09-11
+161	Crace	Dana		1960-04-16	1980-10-04
+162	Lewis	Christian	T	1996-01-13	\N
+163	Williams	Kenneth		1965-12-12	1986-11-22
+164	Crace	Greg		1958-04-10	1980-10-04
+165	Crace	Kim		1985-05-07	\N
+167	Barnhill	Tonya		1963-03-04	1982-07-24
+168	Butz	Melissa		1980-12-15	\N
+169	Clark	Doug		\N	\N
+170	Johnson	Cindy		2000-12-29	2000-06-04
+171	Salyer	Heather		1973-09-19	1994-06-09
+173	Williams	Tricia		1968-02-27	1986-11-22
+174	Bible	Kristan	R	1996-11-11	\N
+175	Blevins	Nathaniel		1996-10-16	\N
+176	Bunger	Denise		1999-08-05	1984-09-08
+178	Pottenger	Tami		1976-12-18	1998-06-20
+179	Lawson	James		2000-08-10	2000-07-21
+180	Bookman	Darian		1969-09-10	1988-06-25
+181	Bookman	Michelle		1969-08-31	1988-06-25
+182	Mulhern	Kristie		1990-07-04	\N
+184	Walters	Darren	J	1976-03-04	2001-06-09
+185	Williams	Betty		1944-05-03	1964-10-24
+186	Reeves	Leroy		1953-04-15	1981-07-02
+188	Bookman	Cody		1993-07-17	\N
+189	Boone	Patsy		1968-02-27	1989-04-15
+190	Brockman	Walter		\N	\N
+192	Schmidt	Matthew		1969-04-21	1998-06-06
+193	Salyer	Brett		1997-11-13	\N
+194	Turner	Beth		1970-03-14	1990-05-19
+195	Turner	Lee		1965-11-10	1990-05-19
+196	Turner	Megan		1994-09-13	\N
+197	Turner	Jacob		1991-08-20	\N
+198	Oldfield	Tim		1978-06-14	1998-09-11
+199	Richards	Ken		1945-03-09	1966-08-25
+200	Richards	Linda		2000-07-20	1966-08-25
+201	Jasso	Nicholas		1999-09-25	\N
+202	Cole	Ian		\N	\N
+203	Compton	Alex		1995-09-12	\N
+208	Williams	Bradley		\N	\N
+209	Hawkins	Ashlynn		1993-12-04	\N
+210	Goforth	Sarah		1991-12-09	\N
+211	Huff	Kim		\N	\N
+212	Berter	Ryan		1980-02-16	\N
+213	Meadows	Jim		2000-04-22	2000-06-20
+214	Meadows	Rosalie		2000-09-22	2000-06-20
+215	Cobb	Judy		2000-01-17	\N
+216	Bishop	Nola		\N	\N
+218	Moore	Beth		1994-04-06	\N
+220	Kelley	Alicia		\N	\N
+222	Goforth	Vicki		1972-09-22	2001-07-21
+223	Scalf	Megan		1994-08-01	\N
+224	Goforth	Rodger		1960-01-11	2001-07-21
+225	Williams	Andrea		\N	\N
+226	Burton	Amber		\N	\N
+227	Burton	Ashley		\N	\N
+228	Lewis	Sydney		\N	\N
+230	Carberry	Robyn		2000-08-15	\N
+231	Barkley	Eleanor		2000-08-05	\N
+233	Webb	Megan		\N	\N
+234	Murphy	Vivian		\N	\N
+235	Williams	Austin		\N	\N
+236	Iliff	Conner	L	2001-06-28	\N
+237	Clauss	Emil		1988-08-31	\N
+238	Bernhardt	Becky		\N	\N
+239	Clauss	Lisa		1987-02-11	\N
+240	Martin	Shea		2001-07-29	\N
+241	Lariccia	Danny		\N	\N
+242	Synder	Amanda		\N	\N
+243	Wepking	Madison		\N	\N
+244	Wepking	Kendall		\N	\N
+245	Walters	Kayla		\N	\N
+246	Moore	Taylor		\N	\N
+247	Napier	Molly		\N	\N
+248	Trentman	Alex		\N	\N
+249	Napier	Megan		\N	\N
+250	Lentz	Jacob		\N	\N
+251	Lentz	Joshua		\N	\N
+252	Key	Kayla		\N	\N
+253	Hornsby	Sam		1993-12-20	\N
+254	Jackman	Callen		\N	\N
+255	Blair	Ariana		2001-07-08	\N
+257	Franke	Brandon		1989-12-07	\N
+259	Hall	Melinda		\N	\N
+261	Hall	Tommy		1993-08-10	\N
+262	Farmer	Katelyn	J	2001-11-10	\N
+263	George	Trace		1999-09-14	\N
+264	Parm	Riley		2001-06-12	\N
+265	Fuqua	Joanne		\N	\N
+266	Parm	Ryan		1999-08-11	\N
+267	Campbell	Greg		\N	\N
+268	Pharris	Ashly		\N	\N
+269	Lipp	Beth		1987-12-31	\N
+270	Owens	Kristy		1985-12-12	\N
+271	Smith	China		\N	\N
+272	Smith	Ronald		\N	\N
+273	Thomas	Don		\N	\N
+274	Thyen	Alex		1992-09-30	\N
+275	Handley	Chris		1988-03-19	\N
+276	Mayer	Tricia		1985-09-05	\N
+277	Adams	Cody		\N	\N
+278	O'Bryan	Emily		\N	\N
+280	Adams	Brooke		2001-01-03	\N
+281	Walters	Silas	D.	2002-07-20	\N
+282	Oldfield	Rylee	R.	2002-07-23	\N
+283	Lewis	Ian		\N	\N
+284	Adams	Damon		1996-03-22	\N
+285	Geis	Corri		1996-09-04	\N
+286	Adams	Devon		\N	\N
+287	Smith	Scott		\N	\N
+288	Gerdoney	Richard		\N	\N
+289	Morgan	Miranda		\N	\N
+290	Holtke	Randy		\N	\N
+291	Holtke	Nikki		\N	\N
+292	Holtke	Megan		\N	\N
+293	Christman	Savanah		\N	\N
+294	Silva	J.D.		1987-04-19	\N
+295	Borst	Michael		1990-02-01	\N
+296	Parm	Raygan	B	2002-11-10	\N
+297	Waford/Jones	Paige		\N	\N
+298	Haynes	Kyle		\N	\N
+299	Salyer	Cassandra	L	2002-12-25	\N
+300	Moyer	Caylee		\N	\N
+301	Engle	Shelby		\N	\N
+303	Barkley	Sherita		\N	\N
+304	Carr	Megan		\N	\N
+191	Farmer Jr.	Gordon		1963-12-19	2000-09-02
+232	Newman	Jack		1951-10-23	2000-06-08
+204	Newman	Elizabeth		1991-04-04	\N
+172	Salyer	Jim		1972-09-02	1994-06-09
+258	Schomaker	Austin		2001-10-04	\N
+207	Schomaker	Ian		1999-05-25	\N
+305	Harrison	Danielle		\N	\N
+306	Harrison	James		\N	\N
+307	Chew	Jeanette		\N	\N
+308	Frye	Megan		\N	\N
+309	O'Neal	Peggy		\N	\N
+310	Lakes	Jerry		\N	\N
+311	Nuckols	Barb		\N	\N
+219	Williams	Alex		1995-10-05	\N
+166	Lewis	Caelyn		1998-01-03	\N
+302	Jasso	Cindy		1961-06-07	\N
+206	Newman	Mary		1954-08-02	2000-06-07
+177	Walters	Cara		\N	\N
+229	Lewis	Ciara		\N	\N
+256	Parm	Devon		1997-12-16	\N
+260	Hall	Anna		\N	\N
+279	Adams	Jade		1998-09-17	\N
+160	Johnson	Joey		1989-01-30	\N
+221	Downie	Bob		1959-09-10	2002-11-09
+314	Harden	Shirley		\N	\N
+315	Rhodenbaugh	Kara		\N	\N
+316	Morton	Breanne		1991-01-24	\N
+317	Hensley	Jason		1983-06-30	\N
+318	Dick	Michael		\N	\N
+319	Dick	Traci		\N	\N
+320	Gillenwater	Brittany		1990-09-27	\N
+323	Emery	Cassy		\N	\N
+324	Grohs	Amber		\N	\N
+325	Martin	Brian		\N	\N
+326	Hoff	Brittany		\N	\N
+327	Linton	Stephanie		\N	\N
+328	Chew	Ron		\N	\N
+329	Pottenger	Briannah	L	2004-04-22	\N
+330	Adams	Alex		\N	\N
+331	Farmer	Juliann		2004-05-25	\N
+332	Geis	Jenna		\N	\N
+334	Marshall	Cecilia		\N	\N
+335	Rosselot	Erin		\N	\N
+336	Harden	Justin		\N	\N
+337	Ellis	Erica		\N	\N
+338	Dick	Corey		2001-11-11	\N
+339	Berter	Garrett	R	2004-11-16	\N
+340	Holtke	Emma		2003-11-19	\N
+342	Dare	Mark		\N	\N
+344	Begg	Shelby		\N	\N
+345	Locke	Timothy		\N	\N
+346	Patrick	Todd		\N	\N
+347	Lane	Adam		\N	\N
+348	Pellegrini	John		\N	\N
+349	Foresbach	Tyler		\N	\N
+350	Key	Sammie		1999-02-10	\N
+351	Geiger	Natalie		\N	\N
+352	Holbrook	Emalee		\N	\N
+353	Crouch	Cory		\N	\N
+354	Zupancic	Sarah		\N	\N
+355	Lakes	Hannah		2004-03-05	\N
+356	Sullivan	Kelsey		\N	\N
+357	Stang	Randy		\N	\N
+358	Oldfield	Benjamin		2005-06-20	\N
+360	Tyson	Zac		\N	\N
+361	Byrd	Linda		\N	\N
+362	Allman	Michelle		\N	\N
+363	Bigler	Joe		1992-11-17	\N
+364	Banks	Don		\N	\N
+365	Banks	Eileen		\N	\N
+366	Ruthen	Linda		\N	\N
+367	Ruthen	Bud		\N	\N
+368	Cordeiro	Mike		\N	\N
+369	Cordeiro	Lois		\N	\N
+370	Proctor	Elmer		\N	\N
+371	Proctor	Gail		\N	\N
+372	Portwine	Jeremy		\N	\N
+373	Portwine	Kathy		\N	\N
+374	Johnson	Larry		\N	\N
+376	Adler	Devin		\N	\N
+377	Duban	Stephanie		\N	\N
+378	Goforth	James		\N	\N
+379	Goforth	Ines		\N	\N
+380	Johnson	Andrea		\N	\N
+381	Light	Hayley		\N	\N
+382	Braun	Tim		\N	\N
+383	Braun	Kim		\N	\N
+384	Harden	Steve		\N	\N
+385	Harden	Dick		\N	\N
+386	Harden	Charles		\N	\N
+387	Ervin	Jeremy		\N	\N
+388	Fredick	Timothy (TJ)		2005-03-21	\N
+389	Harden	Dawn		\N	\N
+390	Baribeay	Branden		1991-09-03	\N
+391	Zept	Rachael		1994-02-16	\N
+392	Martin	Amanda		\N	\N
+393	Hudek	Jenny		\N	\N
+394	Holbrook	Tony		\N	\N
+395	Holbrook	Kim		\N	\N
+396	Sudbrink	Bob		\N	\N
+397	Hill	Sarah		1992-07-20	\N
+398	Payne	Kelsey		1990-04-25	\N
+399	Dooley	Jeff		1990-02-26	\N
+401	Faine	Lindsay		1991-10-30	\N
+402	Helton	Aaron		1991-04-14	\N
+403	Chew	Robert		\N	\N
+404	Coffey	Jani		\N	\N
+405	Reithmeier	Zayden		2005-05-21	\N
+406	Herman	Anna		\N	\N
+408	Comingore	Zoe		\N	\N
+409	Morgan	Ayanna		\N	\N
+410	Vaughn	Emily		\N	\N
+411	Webber	April		\N	\N
+412	Ball	Nathan		\N	\N
+414	Turner	Blake		\N	\N
+415	Turner	Peyton		\N	\N
+416	Sizemore	Hailey		\N	\N
+417	Marcum	Trisha		\N	\N
+418	Lewis	Madison		2006-09-26	\N
+419	Brady	Ashlie		\N	\N
+420	Frederick	Kristin		\N	\N
+421	Bingle	Melanie		\N	\N
+422	Jasso	Martin		\N	\N
+425	Martin	Alex		\N	\N
+426	Smyers	T.J.		\N	\N
+427	Strunk	Dalton		\N	\N
+428	Halcomb	Daniel		\N	\N
+429	McQueen	Amber		1991-10-27	\N
+430	Pottenger	Jayden	M	2007-04-12	\N
+431	Clark	Brenda		\N	\N
+432	Gallaher	Kaitlyn		\N	\N
+433	Fagin	Kyle		\N	\N
+434	Lindsey	Aiden		2006-09-28	\N
+435	Clark	Matt		2001-04-23	\N
+436	Ngwyen	Elyssa		1991-02-05	\N
+437	Abney	Jacob		\N	\N
+438	Abney	Jaden		\N	\N
+440	McGuire	David		\N	\N
+441	Coffey	Eben		\N	\N
+442	Welcher	Katelyn		\N	\N
+445	Schmidt	Cody		2004-01-16	\N
+446	Schmidt	Carleigh		2005-03-13	\N
+447	Thompson	Cleta		\N	\N
+448	Cavender	Jimmy		\N	\N
+449	Johnson	Karla		\N	\N
+450	Hutchinson	Todd		\N	\N
+452	Richards	Briana		\N	\N
+453	Goodwin	Neal		1992-06-18	\N
+454	Goodwin	Todd		\N	\N
+455	Goodwin	Leah		\N	\N
+456	O'Connell	Linda		\N	\N
+457	Thompson	Luke		\N	\N
+458	Buckley	Addie		2006-03-28	\N
+459	Bauer	Maribel		\N	\N
+460	Powell	Ron		\N	\N
+461	Larken	Halaia		\N	\N
+462	Garrett	Geoff		\N	\N
+463	Phillips	Butch		\N	\N
+464	Phillips	Christine		\N	\N
+465	Elasmar	Ibrahim		\N	\N
+359	Schomaker	Paige	M	2005-06-27	\N
+451	Smith	Elaine		\N	\N
+466	Papcoski	Jillian		\N	\N
+467	Petra	Stephanie		\N	\N
+468	Goodwin	Nicholas		\N	\N
+469	Mobley	Brenton		\N	\N
+470	Larimore	Dave		\N	\N
+471	Larimore	Karen		\N	\N
+472	Elasmar	Lara		\N	\N
+473	Smith	Matthew		\N	\N
+333	Iliff	Taylor		\N	\N
+341	Dare	Luke		1997-09-05	\N
+407	Owens	Sharon		\N	\N
+375	Johnson	Debra		\N	\N
+321	Colyer	Wesley		2004-10-15	\N
+322	Colyer	Rita		2004-06-25	\N
+343	Dare	Jackie		\N	\N
+313	Tackett	Roger		\N	\N
+443	Martin	Brandon		1981-07-12	\N
+474	Franks	Steven		\N	\N
+475	Franks	Heather		\N	\N
+476	Robinson	Michael		\N	\N
+478	Oldfield	Hope		2008-11-25	\N
+480	Schoenig	Doris		\N	\N
+481	Bradford	Brian		\N	\N
+482	McCarthy	Kelleigh		\N	\N
+483	Baston	Nicholas		\N	\N
+484	Hanson	Shelby		\N	\N
+485	Lewis	Jackson		2008-12-25	\N
+486	Ashwell	Chris		\N	\N
+487	Hackman	Brian		\N	\N
+488	Thompson	Alyssa		\N	\N
+489	Thompson	Eli		\N	\N
+490	Beck	Tommy		\N	\N
+492	Rue	Nicole		\N	\N
+493	Barkley	David		1900-05-25	\N
+494	Goodwin	Nathan		\N	\N
+495	Johson	Amanda		\N	\N
+497	Robinson	Corey		\N	\N
+498	Boberschmidt	Jason		\N	\N
+499	Boberschmidt	Jenna		\N	\N
+500	Neidert	Jessi		1992-01-31	\N
+501	Powell	Brenda		\N	\N
+502	White	Richard		\N	\N
+504	Dickerson	Steve		\N	\N
+505	Burns	Jim		\N	\N
+506	McNerny	Joyce		\N	\N
+508	Geis	Jack		2009-11-01	\N
+509	McNerny	Brooke		\N	\N
+510	Perani	Erin		2005-02-12	\N
+511	Madden	Joe		\N	\N
+512	Madden	Sharon		\N	\N
+513	James	Kim		\N	\N
+514	Goodwin	Kara		\N	\N
+515	Ivey	Megan		\N	\N
+516	Brown	Justin		\N	\N
+517	Brown	Sabrina		\N	\N
+519	Maus	Connor		\N	\N
+520	Dare Jr.	Glenn		\N	\N
+521	Shinkle	Lois		\N	\N
+522	Ivey	Chris		\N	\N
+523	Ivey	Erica		\N	\N
+524	Lakes	Amanda		\N	\N
+528	Hill	Jana		\N	\N
+529	Myers	John		2010-01-28	\N
+533	Robinson	Samuel		2011-11-11	\N
+535	Elam	Kennadie		\N	\N
+536	Elam	Destiny		2004-09-04	\N
+537	Perkinson	Scott		\N	\N
+538	Goodwin	Rachel		\N	\N
+539	Semler	Trudi		\N	\N
+540	Brandenburg	Melissa		\N	\N
+541	Leno	Taylor		\N	\N
+542	Rue	Tonya		\N	\N
+543	Johnson	Gary		\N	\N
+545	Lindsey	Chris		\N	\N
+546	Sherron	Alli		\N	\N
+547	Cagle	Tyler		\N	\N
+548	Harrell	Janet		\N	\N
+549	Richmond	Hayden		\N	\N
+550	Ackenback	Jeff		\N	\N
+551	Mason	Mike		\N	\N
+553	Naber	Richard (Dick)		\N	\N
+555	Walters	David		\N	\N
+556	Walters	Meredith		\N	\N
+557	Walters	Don		\N	\N
+560	Collins	Madge		\N	\N
+561	Mullins	Elvie		1942-09-13	\N
+563	Sparks	Mackenzie		\N	\N
+564	Apple	Jessica		\N	\N
+565	Jarvis	Izaiah		2011-10-27	\N
+1559	Sparks	Bryanna		\N	\N
+1560	Whitis-Gunn	Raylyn		\N	\N
+1561	Peffer	Jenna		\N	\N
+1562	Miree	Kerry		\N	\N
+1564	Salyer	Sharon		\N	\N
+2559	Goodwin	Elizabeth		2015-04-30	\N
+20	Lee	Lori		2000-08-14	1989-07-08
+2563	Isaacs	Joshua		\N	\N
+562	Smith	Sherry		\N	\N
+2566	Smith	Rocky		2000-08-13	\N
+2565	Smith	Andrea		2000-02-16	\N
+2569	Bell	Jacob		2000-02-11	\N
+2568	Bell	Katie		2000-07-28	\N
+525	Lakes	Isley		2009-02-11	\N
+89	Perschke	Daniel		1979-05-30	2002-11-23
+1563	Salyer Sr.	Jim		\N	\N
+479	Schoenig	Rick		\N	\N
+2571	Smith	Stevie	Jane	2016-02-11	\N
+2572	Martin	Emma	Ann	2016-02-29	\N
+2573	Sparks	Regan		2014-09-24	\N
+503	Robinson	Joshua		2009-08-27	\N
+2575	Locke	Zeke		2010-03-02	\N
+2574	Locke	Calli		\N	\N
+496	Iliff	Caleb		2009-10-25	\N
+2578	Ard	Savannah		\N	\N
+2560	Day	William		1922-01-14	\N
+559	Daugherty	James		1990-11-30	\N
+187	Daugherty	Chelsey		1990-12-03	\N
+2582	Figueirdo	Rebecca		\N	\N
+2564	Forbes	Pete		\N	\N
+2588	Goodwin	Margaret		2017-02-21	\N
+530	Williams	Jacob		\N	\N
+531	Williams	Makenzie		\N	\N
+552	Mason	Beth		\N	\N
+413	Johnson	Kayla		2003-11-12	\N
+507	Mason	Clark		2010-04-10	\N
+532	Mason	Emmett		2011-09-22	\N
+2597	Turner	Bev		\N	\N
+2589	Smith	Aurora		2017-02-24	\N
+2585	Mason	Dean		2016-04-28	\N
+544	Jarvis	Reiden		\N	\N
+2586	Lasita	Mary Jo		\N	\N
+2581	Locke	Melanie		\N	\N
+2587	Riveron	Nicole		\N	\N
+2567	Smith	Freddy		2014-08-04	\N
+558	Jasso	Kaleb		2014-04-11	\N
+139	Sando	Ellen		1943-12-04	2000-11-17
+518	Brown	Jason		\N	\N
+2579	Colby	Hannah		\N	\N
+526	Myers	Josh		\N	\N
+527	Myers	Rachel		\N	\N
+477	Tackett	Ella		2008-11-04	\N
+534	Tackett	Olivia		2011-11-11	\N
+566	Sparks	Nicholas		2012-12-24	\N
+18	Martin	Jenny		1986-07-08	\N
+444	Martin	Andon		2003-01-12	\N
+554	Mason	Abram		2013-06-29	\N
+2590	n/a	Lydia		\N	\N
+2591	n/a	A. J.		\N	\N
+2592	n/a	Emmy		\N	\N
+2593	Wilkey	Sean		\N	\N
+2594	Hay	Rachel		\N	\N
+312	Eichler	John		\N	\N
+2595	Valma	Isabella		\N	\N
+2596	Reynolds	Marci		\N	\N
+\.
+
+
+--
+-- Data for Name: PeopleNotes; Type: TABLE DATA; Schema: public; Owner: cisadmin
+--
+
+COPY "PeopleNotes" ("Id", "Note", "PeopleId_id") FROM stdin;
+\.
+
+
+--
+-- Name: PeopleNotes_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: cisadmin
+--
+
+SELECT pg_catalog.setval('"PeopleNotes_Id_seq"', 1, false);
+
+
+--
+-- Name: People_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: cisadmin
+--
+
+SELECT pg_catalog.setval('"People_Id_seq"', 2597, true);
+
+
+--
+-- Data for Name: auth_group; Type: TABLE DATA; Schema: public; Owner: cisadmin
+--
+
+COPY auth_group (id, name) FROM stdin;
+\.
+
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: cisadmin
+--
+
+SELECT pg_catalog.setval('auth_group_id_seq', 1, false);
+
+
+--
+-- Data for Name: auth_group_permissions; Type: TABLE DATA; Schema: public; Owner: cisadmin
+--
+
+COPY auth_group_permissions (id, group_id, permission_id) FROM stdin;
+\.
+
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: cisadmin
+--
+
+SELECT pg_catalog.setval('auth_group_permissions_id_seq', 1, false);
+
+
+--
+-- Data for Name: auth_permission; Type: TABLE DATA; Schema: public; Owner: cisadmin
+--
+
+COPY auth_permission (id, name, content_type_id, codename) FROM stdin;
+1	Can add log entry	1	add_logentry
+2	Can change log entry	1	change_logentry
+3	Can delete log entry	1	delete_logentry
+4	Can add permission	2	add_permission
+5	Can change permission	2	change_permission
+6	Can delete permission	2	delete_permission
+7	Can add group	3	add_group
+8	Can change group	3	change_group
+9	Can delete group	3	delete_group
+10	Can add user	4	add_user
+11	Can change user	4	change_user
+12	Can delete user	4	delete_user
+13	Can add content type	5	add_contenttype
+14	Can change content type	5	change_contenttype
+15	Can delete content type	5	delete_contenttype
+16	Can add session	6	add_session
+17	Can change session	6	change_session
+18	Can delete session	6	delete_session
+19	Can add people	7	add_people
+20	Can change people	7	change_people
+21	Can delete people	7	delete_people
+22	Can add Contact Type	8	add_contacttypes
+23	Can change Contact Type	8	change_contacttypes
+24	Can delete Contact Type	8	delete_contacttypes
+25	Can add Contact Entry	9	add_contactentries
+26	Can change Contact Entry	9	change_contactentries
+27	Can delete Contact Entry	9	delete_contactentries
+28	Can add Family	10	add_families
+29	Can change Family	10	change_families
+30	Can delete Family	10	delete_families
+31	Can add Family Role	11	add_familyroles
+32	Can change Family Role	11	change_familyroles
+33	Can delete Family Role	11	delete_familyroles
+34	Can add Family Member	12	add_familymembers
+35	Can change Family Member	12	change_familymembers
+36	Can delete Family Member	12	delete_familymembers
+37	Can add Department	13	add_departments
+38	Can change Department	13	change_departments
+39	Can delete Department	13	delete_departments
+40	Can add Grade	14	add_grades
+41	Can change Grade	14	change_grades
+42	Can delete Grade	14	delete_grades
+43	Can add Group Type	15	add_grouptypes
+44	Can change Group Type	15	change_grouptypes
+45	Can delete Group Type	15	delete_grouptypes
+46	Can add Group	16	add_groups
+47	Can change Group	16	change_groups
+48	Can delete Group	16	delete_groups
+49	Can add Group Role	17	add_grouproles
+50	Can change Group Role	17	change_grouproles
+51	Can delete Group Role	17	delete_grouproles
+52	Can add Group Member	18	add_groupmembers
+53	Can change Group Member	18	change_groupmembers
+54	Can delete Group Member	18	delete_groupmembers
+55	Can add People Note	19	add_peoplenotes
+56	Can change People Note	19	change_peoplenotes
+57	Can delete People Note	19	delete_peoplenotes
+58	Can add Family Note	20	add_familynotes
+59	Can change Family Note	20	change_familynotes
+60	Can delete Family Note	20	delete_familynotes
+61	Can add Group Note	21	add_groupnotes
+62	Can change Group Note	21	change_groupnotes
+63	Can delete Group Note	21	delete_groupnotes
+\.
+
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: cisadmin
+--
+
+SELECT pg_catalog.setval('auth_permission_id_seq', 63, true);
+
+
+--
+-- Data for Name: auth_user; Type: TABLE DATA; Schema: public; Owner: cisadmin
+--
+
+COPY auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined) FROM stdin;
+1	pbkdf2_sha256$30000$1tTpcWc1yoFu$rFjArW/XLyTbxn0Bx1x3keC4I2kwTugptzjHH5hRovs=	2017-03-05 03:15:13.896512+00	t	joe	Joe	Lee	joe@sjlee.net	t	t	2015-11-30 22:25:06+00
+2	pbkdf2_sha256$30000$9AbrudwiWwMB$JnusDSLg9W/kKTVvdPYMgtKs3vLDkCWTPihQn//a9zg=	2017-03-13 04:44:43.59188+00	t	lori	Lori	Lee	office@tricountynaz.org	t	t	2016-03-29 16:31:15+00
+\.
+
+
+--
+-- Data for Name: auth_user_groups; Type: TABLE DATA; Schema: public; Owner: cisadmin
+--
+
+COPY auth_user_groups (id, user_id, group_id) FROM stdin;
+\.
+
+
+--
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE SET; Schema: public; Owner: cisadmin
+--
+
+SELECT pg_catalog.setval('auth_user_groups_id_seq', 1, false);
+
+
+--
+-- Name: auth_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: cisadmin
+--
+
+SELECT pg_catalog.setval('auth_user_id_seq', 2, true);
+
+
+--
+-- Data for Name: auth_user_user_permissions; Type: TABLE DATA; Schema: public; Owner: cisadmin
+--
+
+COPY auth_user_user_permissions (id, user_id, permission_id) FROM stdin;
+\.
+
+
+--
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: cisadmin
+--
+
+SELECT pg_catalog.setval('auth_user_user_permissions_id_seq', 1, false);
+
+
+--
+-- Data for Name: django_admin_log; Type: TABLE DATA; Schema: public; Owner: cisadmin
+--
+
+COPY django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) FROM stdin;
+1	2015-12-03 14:49:08.411439+00	21	Outreach	1		17	1
+2	2015-12-03 15:12:42.748601+00	2563	Ryan Mitchell Bible, a Teacher of the College & Career group	1		18	1
+3	2015-12-03 15:13:19.525007+00	144	Ryan Mitchell Bible, a Other Member of the Middle Adult 3 group	2	Changed GroupRoleId.	18	1
+4	2015-12-03 19:00:25.033557+00	405	 35 Thornill Drive, Hamilton, OH 45013	2	Changed Address, City, State and Zip.	9	1
+5	2015-12-03 19:04:30.267649+00	2563	Joshua  Isaacs	1		7	1
+6	2015-12-03 19:05:21.787426+00	2563	Joshua  Isaacs	2	Added Group Member "Joshua Isaacs, a Prospect of the Preteen group".	7	1
+7	2015-12-03 19:07:45.81407+00	444	Andon  Martin	2	Changed Address, City and Zip for Contact Entry "1805 Doman Court, Fairfield, OH 45014".	7	1
+8	2015-12-03 19:11:23.658695+00	443	Brandon  Martin	2	Changed Address, City and Zip for Contact Entry "1805 Damon Court, Fairfield, OH 45014".	7	1
+9	2015-12-03 19:11:44.076178+00	444	Andon  Martin	2	Changed Address for Contact Entry "1805 Damon Court, Fairfield, OH 45014".	7	1
+10	2015-12-03 19:11:49.382073+00	444	Andon  Martin	2	No fields changed.	7	1
+11	2015-12-03 19:12:04.955474+00	18	Jenny  Martin	2	Changed Address, City and Zip for Contact Entry "1805 Damon Court, Fairfield, OH 45014".	7	1
+12	2015-12-03 19:15:56.506829+00	562	Sherry  Smith	2	Changed Address, City and Zip for Contact Entry "3975 Arlington Avenue, Hamilton, OH 45015".	7	1
+13	2015-12-04 01:41:07.83813+00	2564	Pete  Forbes	1		7	1
+14	2015-12-04 01:43:12.695339+00	2565	Andrea  Smith	1		7	1
+15	2015-12-04 01:44:13.388378+00	2566	Rocky  Smith	1		7	1
+16	2015-12-04 01:44:23.390157+00	2565	Andrea  Smith	2	Changed Zip for Contact Entry "1482 Cold Water Drive, Monroe, OH 45015".	7	1
+17	2015-12-04 01:46:03.808241+00	2567	Freddy  Smith	1		7	1
+18	2015-12-04 01:49:35.035361+00	2568	Katie  Bell	1		7	1
+19	2015-12-04 01:51:39.295417+00	2569	Jacob  Bell	1		7	1
+20	2015-12-04 01:51:51.759196+00	2568	Katie  Bell	2	Changed Phone for Contact Entry "6234 Cavalcade Drive, Hamilton, OH 45011".	7	1
+21	2015-12-04 01:56:27.79495+00	525	Isley  Lakes	2	Changed Address and Phone for Contact Entry "91 Meadow Drive, Hamilton, OH 45013".	7	1
+22	2015-12-04 02:00:18.036729+00	2570	Miriam  Ahoujja	1		7	1
+23	2015-12-04 02:02:56.282163+00	559	James  Daugherty	2	Changed Address, City and Zip for Contact Entry "2705 Bradford Drive, Middletown, OH 45044".	7	1
+24	2015-12-04 02:03:24.878359+00	187	Chelsey  Daugherty	2	Changed Address, City and Zip for Contact Entry "2705 Bradford Drive, Middletown, OH 45044".	7	1
+25	2015-12-04 02:04:11.493808+00	191	Gordon  Farmer Jr.	2	Changed Phone for Contact Entry "2731 Hamilton Mason Road , Hamilton, OH 45011".	7	1
+26	2015-12-04 02:05:21.509481+00	130	Edythe  Voorhis	2	Changed Address and Phone for Contact Entry "4558 Aspen Drive, Hamilton, OH 45011".	7	1
+27	2015-12-04 02:07:51.927977+00	526	Josh  Myers	2	Changed Phone for Contact Entry "8647 US Route 127 N, West Manchester, OH 45382".	7	1
+28	2015-12-04 02:08:03.491278+00	527	Rachel  Myers	2	Changed Phone for Contact Entry "8647 US Route 127 N, West Manchester, OH 45382".	7	1
+29	2015-12-04 02:08:40.111835+00	206	Mary  Newman	2	Changed Phone for Contact Entry "7282 Dimmick Road , West Chester, OH 45069".	7	1
+30	2015-12-04 02:08:52.605383+00	232	Jack  Newman	2	Changed Phone for Contact Entry "7282 Dimmick Road , West Chester, OH 45069".	7	1
+31	2015-12-04 02:09:10.029521+00	204	Elizabeth  Newman	2	Changed Phone for Contact Entry "7282 Dimmick Road , West Chester, OH 45069".	7	1
+32	2015-12-04 02:10:12.392102+00	89	Daniel  Perschke	2	Changed Address, City, Zip and Phone for Contact Entry "6268 Amberley Court, Liberty Township, OH 45044".	7	1
+33	2015-12-04 02:10:34.978645+00	53	Katie  Perschke	2	Changed Address, City, Zip and Phone for Contact Entry "6268 Amberley Court, Liberty Township, OH 45044".	7	1
+34	2015-12-04 02:11:03.147421+00	32	Gary  Perschke	2	Changed Phone for Contact Entry "5466 Tallawanda Dr. , Fairfield, OH 45014".	7	1
+35	2015-12-04 02:11:15.931099+00	33	Pam  Perschke	2	Changed Phone for Contact Entry "5466 Tallawanda Dr. , Fairfield, OH 45014".	7	1
+36	2015-12-04 02:12:07.250153+00	1563	Jim  Salyer Sr.	2	Changed Phone for Contact Entry "5649 Autumn Drive, Middletown, OH 45042".	7	1
+37	2015-12-04 02:13:13.074221+00	172	Jim  Salyer	2	Changed Phone for Contact Entry "1910 Shaker Rd , Franklin, OH 45005".	7	1
+38	2015-12-04 02:14:08.215181+00	479	Rick  Schoenig	2	Changed Phone for Contact Entry "3430 Dawn Dr. , Hamilton, OH 45011".	7	1
+39	2015-12-04 02:14:36.213835+00	83	Brian  Schomaker	2	Changed Phone for Contact Entry "3357 Old Oxford Rd. , Hamilton, OH 45013".	7	1
+40	2015-12-04 02:14:51.245358+00	133	Michelle  Schomaker	2	Changed Phone for Contact Entry "3357 Old Oxford Rd. , Hamilton, OH 45013".	7	1
+41	2015-12-04 02:15:00.097243+00	258	Austin  Schomaker	2	Changed Phone for Contact Entry "3357 Old Oxford Rd. , Hamilton, OH 45013".	7	1
+42	2015-12-04 02:15:08.007199+00	207	Ian  Schomaker	2	Changed Phone for Contact Entry "3357 Old Oxford Rd. , Hamilton, OH 45013".	7	1
+43	2015-12-04 02:15:14.285503+00	359	Paige M Schomaker	2	Changed Phone for Contact Entry "3357 Old Oxford Rd. , Hamilton, OH 45013".	7	1
+44	2015-12-04 02:15:33.099078+00	51	Judy A Simmons	3		7	1
+45	2015-12-04 02:15:50.900423+00	451	Elaine  Smith	2	No fields changed.	7	1
+46	2015-12-04 02:16:38.907337+00	313	Roger  Tackett	2	Changed Address and Phone for Contact Entry "1957 Crucker Road, Hamilton, OH 45013".	7	1
+47	2015-12-04 02:16:48.331949+00	72	Denessa  Tackett	2	Changed Address for Contact Entry "1957 Crucker Road, Hamilton, OH 45013".	7	1
+48	2015-12-04 02:16:57.513085+00	477	Ella  Tackett	2	Changed Address for Contact Entry "1957 Crucker Road, Hamilton, OH 45013".	7	1
+49	2015-12-04 02:17:04.714784+00	534	Olivia  Tackett	2	Changed Address for Contact Entry "1957 Crucker Road, Hamilton, OH 45013".	7	1
+50	2016-03-03 22:30:54.619401+00	2571	Stevie Jane Smith	1		7	1
+51	2016-03-03 22:32:23.666984+00	2572	Emma Ann Martin	1		7	1
+52	2016-03-03 22:34:31.013206+00	2573	Regan  Sparks	1		7	1
+53	2016-03-03 22:36:28.254882+00	2574	Calli  Locke	1		7	1
+54	2016-03-03 22:37:14.585048+00	503	Joshua  Robinson	2	Changed GroupRoleId for Group Member "Joshua Robinson, a Student of the Kindergarten group".	7	1
+55	2016-03-03 22:38:57.868157+00	2575	Zeke  Locke	1		7	1
+56	2016-03-03 22:39:20.355826+00	2574	Calli  Locke	2	Changed Address for Contact Entry "261 North F Street, Hamilton, OH 45013".	7	1
+57	2016-03-03 22:42:07.286324+00	2576	Andrew  Ahouja	1		7	1
+58	2016-03-03 22:43:22.899267+00	496	Caleb  Iliff	2	Changed Address, City, Zip and Phone for Contact Entry "18 Ridge Wood Drive, Monroe, OH 45050".	7	1
+59	2016-03-03 22:44:10.160375+00	2576	Andrew  Ahoujja	2	Changed LastName.	7	1
+60	2016-03-03 22:46:48.03729+00	2577	Daniel  Ahoujja	1		7	1
+61	2016-03-03 22:50:53.610638+00	2578	Savannah  Ard	1		7	1
+62	2016-03-03 22:51:14.426753+00	2570	Miriam  Ahoujja	2	Changed GroupRoleId for Group Member "Miriam Ahoujja, a Student of the Senior High group".	7	1
+63	2016-03-03 22:52:39.741413+00	2579	Hannah  Colby	1		7	1
+64	2016-03-03 22:54:54.361935+00	2580	Kali  Ahoujja	1		7	1
+65	2016-03-03 22:56:23.1778+00	56	Kathleen  Cox	3		7	1
+66	2016-03-03 22:56:38.896416+00	24	Bob  McCarter	3		7	1
+67	2016-03-03 22:57:21.234497+00	2560	William  Day	2	Changed Birthday. Changed Zip for Contact Entry "855 Stalheber Road, Hamilton, OH 45013".	7	1
+68	2016-03-03 23:00:25.583404+00	2581	Melanie  Locke	1		7	1
+69	2016-03-03 23:01:27.863628+00	96	Devon  Walters	2	Changed GroupId for Group Member "Devon Walters, a Student of the College & Career group".	7	1
+70	2016-03-03 23:02:02.814948+00	559	James  Daugherty	2	Changed GroupId for Group Member "James Daugherty, a Student of the College & Career group".	7	1
+71	2016-03-03 23:02:13.794756+00	187	Chelsey  Daugherty	2	Changed GroupId for Group Member "Chelsey Daugherty, a Student of the College & Career group".	7	1
+72	2016-03-03 23:02:40.53602+00	102	Erik  Tomczewski	2	Changed GroupId for Group Member "Erik Tomczewski, a Student of the College & Career group".	7	1
+73	2016-03-03 23:04:14.412032+00	2582	Rebecca  Figueirdo	1		7	1
+74	2016-03-29 16:31:15.690059+00	2	lori	1	Added.	4	1
+75	2016-03-29 16:31:53.142709+00	2	lori	2	Changed first_name, last_name, email, is_staff and is_superuser.	4	1
+76	2016-03-29 16:36:49.783286+00	1	The Joe Lee Family	2	Added Family Member "Steven Lee, the Husband of the Lee family". Added Family Member "Lori Lee, the Wife of the Lee family".	10	2
+77	2016-03-29 16:39:08.245295+00	3	The Bob Huff Family	2	Added Family Member "Bob Huff, the Husband of the Huff family". Added Family Member "Crystal Huff, the Wife of the Huff family".	10	2
+78	2016-03-30 16:06:42.739995+00	2582	Rebecca  Figueirdo	2	Changed City for Contact Entry "7663 Overblend Drive, West Chester, OH 45069".	7	2
+79	2016-03-30 16:08:01.858443+00	205	Barbara  Downie	3		7	2
+80	2016-03-30 16:09:52.558209+00	2564	Pete  Forbes	2	Added Contact Entry "8300 South Port Dr., West Chester, OH 45069".	7	2
+81	2016-03-30 16:21:45.190854+00	2583	Lucy Lucia Lee	1	Added. Added Contact Entry "4953 Chablis Ct., Fairfield, OH 45014". Added Group Member "Lucy Lee, a Student of the Preschool group".	7	2
+82	2016-03-30 16:22:35.845649+00	2583	Lucy Lucia Lee	3		7	2
+83	2016-03-30 16:26:29.226438+00	7	College & Career	2	Changed Description.	16	2
+84	2016-04-04 17:27:01.397358+00	530	Jacob  Williams	2	Changed Address, City, Zip and Phone for Contact Entry "8839 Brook Knoll Dr., West Chester, OH 45069".	7	2
+85	2016-04-04 17:28:08.935752+00	530	Jacob  Williams	2	No fields changed.	7	2
+86	2016-04-04 17:29:52.152297+00	531	Makenzie  Williams	2	Changed Address, City, Zip and Phone for Contact Entry "8839 Brook Knoll Dr., West Chester, OH 45069".	7	2
+87	2016-04-04 17:32:03.174924+00	219	Alex  Williams	2	Changed Address, City, Zip and Phone for Contact Entry "8839 Brook Knoll Dr., West Chester, OH 45069".	7	2
+88	2016-05-02 15:34:01.811494+00	552	Beth  Mason	2	Changed Address, City and Zip for Contact Entry "4882 Pinnacle Ct., Hamilton, OH 45011".	7	2
+89	2016-05-02 15:35:00.381578+00	413	Kayla  Johnson	2	Changed Address, City and Zip for Contact Entry "4882 Pinnacle Ct., Hamilton, OH 45011".	7	2
+90	2016-05-02 15:35:46.666673+00	507	Clark  Mason	2	Changed Address, City and Zip for Contact Entry "4882 Pinnacle Ct., Hamilton, OH 45011".	7	2
+91	2016-05-02 15:36:44.286233+00	532	Emmett  Mason	2	Changed Address, City and Zip for Contact Entry "4882 Pinnacle Ct., Hamilton, OH 45011".	7	2
+92	2016-05-02 15:37:21.876761+00	554	Abram  Mason	2	Changed Address, City and Zip for Contact Entry "4882 Pinnacle Ct., Hamilton, OH 45011".	7	2
+93	2016-05-02 15:40:49.398405+00	2584	Dean  Mason	1	Added. Added Contact Entry "4882 Pinnacle Ct., Hamilton, OH 45011". Added Group Member "Dean Mason, a Prospect of the Nursery group".	7	2
+94	2016-06-01 17:37:38.213943+00	25	Doris  McCoy	3		7	2
+95	2016-06-01 17:45:20.064386+00	183	Don  Walters	3		7	2
+96	2016-06-01 17:46:57.974638+00	177	Cara  Walters	2	Changed Address for Contact Entry "6843 Gregory Creek Lane, West Chester, OH 45069". Changed GroupId for Group Member "Cara Walters, a Prospect of the Middle Adult 3 group".	7	2
+97	2016-06-01 17:49:11.700024+00	2580	Kali  Zagorianos	2	Changed LastName.	7	2
+98	2016-06-01 17:53:52.3301+00	2585	Dean  Mason	1	Added. Added Contact Entry "4882 Pinnacle Ct., Hamilton, OH 45011". Added Group Member "Dean Mason, a Student of the Nursery group".	7	2
+99	2016-06-01 17:57:45.354591+00	302	Cindy  Jasso	2	Changed Address for Contact Entry "3509 Freeman Ave., Hamilton, OH 45015". Deleted Group Member "Cindy Jasso, a Other Member of the Nursery group".	7	2
+100	2016-06-01 18:01:13.493295+00	206	Mary  Newman	2	Changed Address for Contact Entry "7282 Dimmick Road, West Chester, OH 45069". Added Group Member "Mary Newman, a Other Member of the Nursery group".	7	2
+101	2016-06-01 18:02:01.476209+00	177	Cara  Walters	2	Added Group Member "Cara Walters, a Other Member of the Nursery group".	7	2
+102	2016-06-01 18:06:06.595485+00	544	Reiden  Jarvis	2	Changed Address for Contact Entry ", ,  ". Changed GroupRoleId for Group Member "Reiden Jarvis, a Student of the Middler group".	7	2
+103	2016-06-06 16:07:35.101741+00	2584	Dean  Mason	3		7	2
+104	2016-07-20 17:53:35.781954+00	2586	Lasita  Mary Jo	1	Added. Added Contact Entry "4501 Randall Dr, Liberty Township, OH 45011". Added Group Member "Lasita Mary Jo, a Student of the Middle Adult 1 group".	7	2
+105	2016-07-20 17:55:34.356922+00	2586	Mary Jo  Lasita	2	Changed LastName and FirstName.	7	2
+106	2016-08-30 18:14:10.533994+00	14	Bill  Huff	2	Changed Address for Contact Entry "2897 Front St, Millville, OH 45013". Changed GroupId and GroupRoleId for Group Member "Bill Huff, a Student of the Middle Adult 3 group". Deleted Group Member "Bill Huff, a Other Member of the Middle Adult 1 group".	7	2
+107	2016-08-30 18:15:01.21899+00	14	Bill  Huff	2	No fields changed.	7	2
+108	2016-08-30 18:16:03.818652+00	71	Kathy  Huff	2	Changed Address for Contact Entry "2897 Front St., Millville, OH 45013". Changed GroupId and GroupRoleId for Group Member "Kathy Huff, a Student of the Middle Adult 3 group". Deleted Group Member "Kathy Huff, a Other Member of the Middle Adult 1 group".	7	2
+109	2016-08-30 18:16:50.749729+00	71	Kathy  Huff	2	No fields changed.	7	2
+110	2016-08-30 18:20:36.795381+00	2581	Melanie  Locke	2	Changed GroupId for Group Member "Melanie Locke, a Student of the College & Career group".	7	2
+111	2016-08-30 18:21:17.983418+00	2581	Melanie  Locke	2	No fields changed.	7	2
+112	2016-08-30 18:22:31.375041+00	2587	Nicole  Riveron	1	Added. Added Group Member "Nicole Riveron, a Student of the College & Career group".	7	2
+113	2016-08-30 18:24:03.543323+00	2580	Kali  Zagorianos	3		7	2
+114	2016-08-30 18:24:34.983965+00	2577	Daniel  Ahoujja	3		7	2
+115	2016-08-30 18:24:52.822091+00	2570	Miriam  Ahoujja	3		7	2
+116	2016-08-30 18:26:02.815072+00	2576	Andrew  Ahoujja	3		7	2
+117	2016-08-30 18:30:13.081147+00	2567	Freddy  Smith	2	Changed GroupId for Group Member "Freddy Smith, a Student of the Toddler group".	7	2
+118	2016-08-30 18:31:15.686198+00	558	Kaleb  Jasso	2	Changed GroupId for Group Member "Kaleb Jasso, a Student of the Toddler group".	7	2
+119	2016-08-30 18:32:26.290238+00	139	Ellen  Sando	2	Changed Address for Contact Entry "5883 Greencrest, Hamilton, OH 45011". Deleted Group Member "Ellen Sando, a Other Member of the Nursery group".	7	2
+120	2016-08-30 18:45:40.436679+00	15	Senior High	2	Changed GradeId for Group Member "Taylor Lawless, a Student of the Senior High group". Changed GradeId for Group Member "Coleman Salyer, a Student of the Senior High group". Changed GradeId for Group Member "Ethan Oldfield, a Student of the Senior High group". Changed GradeId for Group Member "Branden Iliff, a Prospect of the Senior High group". Changed GradeId for Group Member "Lee Anna Butz, a Student of the Senior High group". Changed GradeId for Group Member "Nicholas Jasso, a Student of the Senior High group". Changed GradeId for Group Member "Ian Schomaker, a Student of the Senior High group". Changed GradeId for Group Member "Bradley Williams, a Prospect of the Senior High group". Changed GradeId for Group Member "Conner Iliff, a Prospect of the Senior High group". Changed GradeId for Group Member "Ariana Blair, a Prospect of the Senior High group". Changed GradeId for Group Member "Trace George, a Prospect of the Senior High group". Changed GradeId for Group Member "Riley Parm, a Student of the Senior High group". Changed GradeId for Group Member "Ryan Parm, a Student of the Senior High group". Changed GradeId for Group Member "Brooke Adams, a Student of the Senior High group". Changed GradeId for Group Member "Megan Holtke, a Student of the Senior High group". Changed GradeId for Group Member "Jenna Geis, a Prospect of the Senior High group". Changed GradeId for Group Member "Sammie Key, a Prospect of the Senior High group". Changed GradeId for Group Member "Zac Tyson, a Prospect of the Senior High group". Changed GradeId for Group Member "Emily Vaughn, a Prospect of the Senior High group". Changed GradeId for Group Member "Trisha Marcum, a Prospect of the Senior High group". Changed GradeId for Group Member "Matt Clark, a Student of the Senior High group". Changed GradeId for Group Member "Justin Brown, a Student of the Senior High group". Changed GradeId for Group Member "Scott Perkinson, a Prospect of the Senior High group". Changed GradeId for Group Member "Taylor Leno, a Prospect of the Senior High group". Changed GradeId for Group Member "Meredith Walters, a Student of the Senior High group". Changed GradeId for Group Member "Jessica Apple, a Prospect of the Senior High group". Changed GradeId for Group Member "Raylyn Whitis-Gunn, a Prospect of the Senior High group". Changed GradeId for Group Member "Jenna Peffer, a Student of the Senior High group". Changed GradeId for Group Member "Jacob Bell, a Student of the Senior High group". Changed GradeId for Group Member "Savannah Ard, a Student of the Senior High group".	16	2
+121	2016-08-30 18:46:36.865719+00	166	Caelyn  Lewis	2	Changed Address for Contact Entry "3959 Carrington Way, Hamilton, OH 45011". Changed GroupId and GradeId for Group Member "Caelyn Lewis, a Student of the College & Career group".	7	2
+122	2016-08-30 18:47:00.274276+00	229	Ciara  Lewis	2	Changed Address for Contact Entry "1437 Clovernook Dr., Hamilton, OH 45013". Changed GroupId and GradeId for Group Member "Ciara Lewis, a Prospect of the College & Career group".	7	2
+123	2016-08-30 18:47:18.941268+00	256	Devon  Parm	2	Changed Address for Contact Entry "5860 N. Highwood Dr., Fairfield, OH 45014". Changed GroupId and GradeId for Group Member "Devon Parm, a Student of the College & Career group".	7	2
+124	2016-08-30 18:47:39.083635+00	260	Anna  Hall	2	Changed Address for Contact Entry "15 Cherokee Dr., Hamilton, OH 45013". Changed GroupId and GradeId for Group Member "Anna Hall, a Prospect of the College & Career group".	7	2
+125	2016-08-30 18:48:00.325003+00	279	Jade  Adams	2	Changed Address for Contact Entry "6756 Grange Ct., Cincinnati, OH 45239". Changed GroupId and GradeId for Group Member "Jade Adams, a Student of the College & Career group".	7	2
+126	2016-08-30 18:48:22.351554+00	333	Taylor  Iliff	2	Changed Address for Contact Entry "8301 Coppernail Drive, West Chester, OH 45069". Changed GroupId and GradeId for Group Member "Taylor Iliff, a Prospect of the College & Career group".	7	2
+127	2016-08-30 18:48:41.16961+00	341	Luke  Dare	2	Changed Address for Contact Entry "7814 Red Mill Dr., West Chester, OH 45069". Changed GroupId and GradeId for Group Member "Luke Dare, a Student of the College & Career group".	7	2
+128	2016-08-30 18:49:07.588244+00	407	Sharon  Owens	2	Changed Address for Contact Entry "925 Reservoir, Hamilton, OH 45011". Changed GroupId and GradeId for Group Member "Sharon Owens, a Prospect of the College & Career group".	7	2
+129	2016-08-30 18:49:41.989014+00	518	Jason  Brown	2	Changed Address for Contact Entry "417 West Church Street, Mason, OH 45040". Changed GroupId and GradeId for Group Member "Jason Brown, a Student of the College & Career group".	7	2
+130	2016-08-30 18:50:12.400163+00	2579	Hannah  Colby	2	Changed GroupId and GradeId for Group Member "Hannah Colby, a Student of the College & Career group".	7	2
+131	2016-08-30 18:52:30.427768+00	9	Junior High	2	Changed GradeId for Group Member "Austin Schomaker, a Student of the Junior High group". Changed GradeId for Group Member "Katelyn Farmer, a Student of the Junior High group". Changed GradeId for Group Member "Silas Walters, a Student of the Junior High group". Changed GradeId for Group Member "Rylee Oldfield, a Student of the Junior High group". Changed GradeId for Group Member "Raygan Parm, a Student of the Junior High group". Changed GradeId for Group Member "Cassandra Salyer, a Student of the Junior High group". Changed GradeId for Group Member "Corey Dick, a Student of the Junior High group". Changed GradeId for Group Member "Anna Herman, a Prospect of the Junior High group". Changed GradeId for Group Member "Hailey Sizemore, a Prospect of the Junior High group". Changed GradeId for Group Member "Alex Martin, a Prospect of the Junior High group". Changed GradeId for Group Member "Jacob Abney, a Prospect of the Junior High group". Changed GradeId for Group Member "Connor Maus, a Student of the Junior High group". Changed GradeId for Group Member "David Walters, a Student of the Junior High group". Changed GradeId for Group Member "Katie Bell, a Student of the Junior High group".	16	2
+132	2016-08-30 18:55:38.858477+00	8	Preteen	2	Changed GradeId for Group Member "Ian Cole, a Prospect of the Preteen group". Changed GradeId for Group Member "Alicia Kelley, a Prospect of the Preteen group". Changed GradeId for Group Member "Kendall Wepking, a Prospect of the Preteen group". Changed GradeId for Group Member "Jacob Lentz, a Prospect of the Preteen group". Changed GradeId for Group Member "Ian Lewis, a Prospect of the Preteen group". Changed GradeId for Group Member "Briannah Pottenger, a Student of the Preteen group". Changed GradeId for Group Member "Juliann Farmer, a Student of the Preteen group". Changed GradeId for Group Member "Garrett Berter, a Student of the Preteen group". Changed GradeId for Group Member "Emma Holtke, a Prospect of the Preteen group". Changed GradeId for Group Member "Tyler Foresbach, a Prospect of the Preteen group". Changed GradeId for Group Member "Hannah Lakes, a Student of the Preteen group". Changed GradeId for Group Member "Paige Schomaker, a Student of the Preteen group". Changed GradeId for Group Member "Kayla Johnson, a Student of the Preteen group". Changed GradeId for Group Member "Jaden Abney, a Prospect of the Preteen group". Changed GradeId for Group Member "Katelyn Welcher, a Prospect of the Preteen group". Changed GradeId for Group Member "Andon Martin, a Student of the Preteen group". Changed GradeId for Group Member "Cody Schmidt, a Student of the Preteen group". Changed GradeId for Group Member "Carleigh Schmidt, a Student of the Preteen group". Changed GradeId for Group Member "Alyssa Thompson, a Prospect of the Preteen group". Changed GradeId for Group Member "Caleb Iliff, a Student of the Preteen group". Changed GradeId for Group Member "Jacob Williams, a Prospect of the Preteen group". Changed GradeId for Group Member "Makenzie Williams, a Prospect of the Preteen group". Changed GradeId for Group Member "Destiny Elam, a Student of the Preteen group". Changed GradeId for Group Member "Bryanna Sparks, a Prospect of the Preteen group". Changed GradeId for Group Member "Joshua Isaacs, a Prospect of the Preteen group".	16	2
+133	2016-08-30 18:56:54.125984+00	11	Middler	2	Changed GradeId for Group Member "Benjamin Oldfield, a Student of the Middler group". Changed GradeId for Group Member "Timothy (TJ) Fredick, a Student of the Middler group". Changed GradeId for Group Member "Zayden Reithmeier, a Student of the Middler group". Changed GradeId for Group Member "Madison Lewis, a Student of the Middler group". Changed GradeId for Group Member "Jayden Pottenger, a Student of the Middler group". Changed GradeId for Group Member "Aiden Lindsey, a Student of the Middler group". Changed GradeId for Group Member "Addie Buckley, a Student of the Middler group". Changed GradeId for Group Member "Eli Thompson, a Prospect of the Middler group". Changed GradeId for Group Member "Erin Perani, a Student of the Middler group". Changed GradeId for Group Member "Reiden Jarvis, a Student of the Middler group".	16	2
+134	2016-08-30 18:57:44.875153+00	13	Primary	2	Changed GradeId for Group Member "Ella Tackett, a Student of the Primary group". Changed GradeId for Group Member "Hope Oldfield, a Student of the Primary group". Changed GradeId for Group Member "Jackson Lewis, a Student of the Primary group". Changed GradeId for Group Member "Kennadie Elam, a Prospect of the Primary group". Changed GradeId for Group Member "Mackenzie Sparks, a Prospect of the Primary group".	16	2
+135	2016-08-30 18:58:18.243606+00	10	Kindergarten	2	Changed GradeId for Group Member "Clark Mason, a Student of the Kindergarten group". Changed GradeId for Group Member "Jack Geis, a Student of the Kindergarten group". Changed GradeId for Group Member "Isley Lakes, a Prospect of the Kindergarten group". Changed GradeId for Group Member "John Myers, a Prospect of the Kindergarten group". Changed GradeId for Group Member "Zeke Locke, a Student of the Kindergarten group".	16	2
+136	2016-08-30 19:05:46.943416+00	9	Junior High	2	No fields changed.	16	2
+137	2016-08-30 19:06:03.458522+00	7	College & Career	2	No fields changed.	16	2
+138	2016-08-30 19:06:13.772884+00	9	Junior High	2	No fields changed.	16	2
+139	2016-08-31 13:02:37.314232+00	508	Jack Geis, a Student of the Primary group	2	Changed GroupId.	18	2
+140	2016-08-31 13:02:37.316618+00	525	Isley Lakes, a Prospect of the Primary group	2	Changed GroupId.	18	2
+141	2016-08-31 13:02:37.318622+00	2576	Zeke Locke, a Student of the Primary group	2	Changed GroupId.	18	2
+142	2016-08-31 13:02:37.32071+00	507	Clark Mason, a Student of the Primary group	2	Changed GroupId.	18	2
+143	2016-08-31 13:02:37.322672+00	529	John Myers, a Prospect of the Primary group	2	Changed GroupId.	18	2
+144	2016-08-31 13:02:37.324685+00	503	Joshua Robinson, a Student of the Primary group	2	Changed GroupId and GradeId.	18	2
+145	2016-08-31 13:03:21.876034+00	582	Mackenzie Sparks, a Prospect of the Middler group	2	Changed GroupId.	18	2
+146	2016-08-31 13:04:08.321058+00	458	Addie Buckley, a Student of the Preteen group	2	Changed GroupId.	18	2
+147	2016-08-31 13:04:08.323568+00	388	Timothy (TJ) Fredick, a Student of the Preteen group	2	Changed GroupId.	18	2
+148	2016-08-31 13:04:08.325739+00	358	Benjamin Oldfield, a Student of the Preteen group	2	Changed GroupId.	18	2
+149	2016-08-31 13:04:08.327689+00	510	Erin Perani, a Student of the Preteen group	2	Changed GroupId.	18	2
+150	2016-08-31 13:05:29.051816+00	438	Jaden Abney, a Prospect of the Junior High group	2	Changed GroupId.	18	2
+151	2016-08-31 13:05:29.054385+00	536	Destiny Elam, a Student of the Junior High group	2	Changed GroupId.	18	2
+152	2016-08-31 13:05:29.056278+00	331	Juliann Farmer, a Student of the Junior High group	2	Changed GroupId.	18	2
+153	2016-08-31 13:05:29.058279+00	340	Emma Holtke, a Prospect of the Junior High group	2	Changed GroupId.	18	2
+154	2016-08-31 13:05:29.060217+00	496	Caleb Iliff, a Student of the Junior High group	2	Changed GroupId.	18	2
+155	2016-08-31 13:05:29.062316+00	413	Kayla Johnson, a Student of the Junior High group	2	Changed GroupId.	18	2
+156	2016-08-31 13:05:29.064313+00	355	Hannah Lakes, a Student of the Junior High group	2	Changed GroupId.	18	2
+157	2016-08-31 13:05:29.066227+00	444	Andon Martin, a Student of the Junior High group	2	Changed GroupId.	18	2
+158	2016-08-31 13:06:37.441661+00	437	Jacob Abney, a Prospect of the Senior High group	2	Changed GroupId.	18	2
+159	2016-08-31 13:06:37.444185+00	338	Corey Dick, a Student of the Senior High group	2	Changed GroupId.	18	2
+160	2016-08-31 13:06:37.44622+00	262	Katelyn Farmer, a Student of the Senior High group	2	Changed GroupId.	18	2
+161	2016-08-31 13:10:23.977988+00	258	Austin Schomaker, a Student of the Senior High group	2	Changed GroupId.	18	2
+162	2016-08-31 13:11:54.095539+00	329	Briannah Pottenger, a Student of the Junior High group	2	Changed GroupId.	18	2
+163	2016-08-31 13:11:54.098136+00	445	Cody Schmidt, a Student of the Junior High group	2	Changed GroupId.	18	2
+164	2016-08-31 13:11:54.100265+00	442	Katelyn Welcher, a Prospect of the Junior High group	2	Changed GroupId.	18	2
+165	2016-08-31 13:11:54.102168+00	530	Jacob Williams, a Prospect of the Junior High group	2	Changed GroupId.	18	2
+166	2016-08-31 13:11:54.104149+00	531	Makenzie Williams, a Prospect of the Junior High group	2	Changed GroupId.	18	2
+167	2016-08-31 13:16:26.858212+00	279	Jade Adams, a Prospect of the College & Career group	2	Changed GroupRoleId.	18	2
+168	2016-08-31 13:16:26.860748+00	518	Jason Brown, a Prospect of the College & Career group	2	Changed GroupRoleId.	18	2
+169	2016-08-31 13:16:26.86287+00	79	Allison Bunger, a Prospect of the College & Career group	2	Changed GroupRoleId.	18	2
+170	2016-08-31 13:16:26.864905+00	107	Laurie Bunger, a Prospect of the College & Career group	2	Changed GroupRoleId.	18	2
+171	2016-08-31 13:16:26.866896+00	2580	Hannah Colby, a Prospect of the College & Career group	2	Changed GroupRoleId.	18	2
+172	2016-08-31 13:16:26.868929+00	58	Lara Farmer, a Prospect of the College & Career group	2	Changed GroupRoleId.	18	2
+173	2016-08-31 13:16:26.870831+00	119	Hannah Hale, a Prospect of the College & Career group	2	Changed GroupRoleId.	18	2
+174	2016-08-31 13:16:26.873149+00	162	Christian Lewis, a Prospect of the College & Career group	2	Changed GroupRoleId.	18	2
+175	2016-08-31 13:16:26.875448+00	196	Megan Turner, a Prospect of the College & Career group	2	Changed GroupRoleId.	18	2
+176	2016-08-31 14:51:54.901014+00	443	Brandon  Martin	2	Changed GroupId and GroupRoleId for Group Member "Brandon Martin, a Teacher of the Preschool group".	7	2
+177	2016-08-31 14:52:39.884631+00	18	Jenny  Martin	2	Changed GroupId and GroupRoleId for Group Member "Jenny Martin, a Teacher of the Preschool group".	7	2
+178	2016-11-02 18:05:00.080548+00	321	Wesley  Colyer	2	Changed Address and Phone for Contact Entry "4192 Valwood Dr., Cincinnati, OH 45248".	7	2
+179	2016-11-02 18:05:34.406067+00	322	Rita  Colyer	2	Changed Address and Phone for Contact Entry "4192 Valwood Dr., Cincinnati, OH 45248".	7	2
+180	2016-11-02 18:06:17.977058+00	343	Jackie  Dare	2	Changed Address and Phone for Contact Entry "7814 Red Mill Dr., West Chester, OH 45069".	7	2
+181	2016-11-02 18:07:12.440486+00	80	James  Drake	2	Changed Address and Phone for Contact Entry "4068 Jamie Dr., Indian Springs, OH 45011".	7	2
+182	2016-11-02 18:07:59.486748+00	59	Shirley  Drake	2	Changed Address and Phone for Contact Entry "4068 Jamie Dr., Hamilton, OH 45011".	7	2
+183	2016-11-02 18:09:40.580663+00	11	Gordon  Farmer	2	Changed Address and Phone for Contact Entry "7025 Logsdon Rd., Hamilton, OH 45011".	7	2
+184	2016-11-02 18:12:24.616535+00	65	Stephanie  Helton	2	Changed Address, City and Zip for Contact Entry "1264 Cold Water Dr., Monroe, OH 45050".	7	2
+185	2016-11-02 18:13:29.287405+00	160	Joey  Johnson	2	Changed Address, City and Zip for Contact Entry "1951 Sunset Dr., Madison, OH 45013".	7	2
+186	2016-11-02 18:18:03.563687+00	526	Josh  Myers	2	Changed Address, City, Zip and Phone for Contact Entry "8720 Huffman Rd., New Lebanon, OH 45345".	7	2
+187	2016-11-02 18:22:07.281799+00	527	Rachel  Myers	2	Changed Address, City, Zip and Phone for Contact Entry "8720 Huffman Rd., New Lebanon, OH 45345".	7	2
+188	2016-11-02 18:34:09.253967+00	130	Edythe  Voorhis	2	Changed Phone for Contact Entry "4558 Aspen Drive, Hamilton, OH 45011".	7	2
+189	2016-11-02 18:34:53.765054+00	313	Roger  Tackett	2	Changed Address for Contact Entry "1957 Krucker Road, Hamilton, OH 45013".	7	2
+190	2016-11-02 18:35:16.691059+00	72	Denessa  Tackett	2	Changed Address for Contact Entry "1957 Krucker Road, Hamilton, OH 45013".	7	2
+191	2016-11-02 18:35:45.582368+00	477	Ella  Tackett	2	Changed Address for Contact Entry "1957 Krucker Road, Hamilton, OH 45013".	7	2
+192	2016-11-02 18:36:31.411793+00	534	Olivia  Tackett	2	Changed Address for Contact Entry "1957 Krucker Road, Hamilton, OH 45013".	7	2
+193	2016-11-07 16:58:23.485077+00	221	Bob  Downie	2	Changed Address, City, State and Zip for Contact Entry "432 4th St. / PO Box 184, West College Corner, IN 47003".	7	2
+194	2017-03-02 23:01:30.244606+00	2588	Margaret  Goodwin	1	Added. Added Contact Entry "12043 Elkwood Drive, Cincinnat,, OH 45250". Added Group Member "Margaret Goodwin, a Student of the Nursery group".	7	2
+195	2017-03-02 23:11:24.536168+00	2589	Aurora  Smith	1	Added. Added Contact Entry "1482 Cold Water Drive, Monroe, OH 45050". Added Group Member "Aurora Smith, a Student of the Nursery group".	7	2
+196	2017-03-02 23:16:24.512909+00	566	Nicholas  Sparks	2	Changed GroupId for Group Member "Nicholas Sparks, a Prospect of the Preschool group".	7	2
+197	2017-03-02 23:18:11.336079+00	443	Brandon  Martin	2	Changed Phone for Contact Entry "1805 Damon Court, Fairfield, OH 45014".	7	2
+198	2017-03-02 23:18:29.807947+00	18	Jenny  Martin	2	Changed Phone for Contact Entry "1805 Damon Court, Fairfield, OH 45014".	7	2
+199	2017-03-02 23:19:31.428825+00	444	Andon  Martin	2	Changed Phone for Contact Entry "1805 Damon Court, Fairfield, OH 45014".	7	2
+200	2017-03-02 23:20:58.859271+00	554	Abram  Mason	2	Changed GroupId for Group Member "Abram Mason, a Student of the Preschool group".	7	2
+201	2017-03-02 23:24:55.178195+00	2590	Lydia  n/a	1	Added. Added Group Member "Lydia n/a, a Student of the Preschool group".	7	2
+202	2017-03-02 23:25:37.79804+00	2591	A. J.  n/a	1	Added. Added Group Member "A. J. n/a, a Student of the Preschool group".	7	2
+203	2017-03-02 23:29:47.335976+00	2592	Emmy  n/a	1	Added. Added Group Member "Emmy n/a, a Student of the Junior High group".	7	2
+204	2017-03-02 23:32:10.391271+00	2593	Sean  Wilkey	1	Added. Added Contact Entry "4307 Stone Meadow Drive, Hamilton, OH 45011". Added Group Member "Sean Wilkey, a Student of the College & Career group".	7	2
+205	2017-03-02 23:34:03.144268+00	2594	Rachel  Hay	1	Added. Added Contact Entry "3873 Belleau Wood Drive #8, Lexington, KY 40517". Added Group Member "Rachel Hay, a Student of the College & Career group".	7	2
+206	2017-03-02 23:36:30.150988+00	149	Stephanie  Tomczewski	2	Changed GroupId and GroupRoleId for Group Member "Stephanie Tomczewski, a Prospect of the College & Career group".	7	2
+207	2017-03-02 23:38:03.669068+00	312	John  Eichler	2	Changed Address, City, Zip and Phone for Contact Entry "c/o Artis 6200 Snider Road, Mason, OH 45040".	7	2
+208	2017-03-02 23:38:46.877502+00	21	Linda  Lewis	3		7	2
+209	2017-03-02 23:39:05.264225+00	62	Peggy  Farmer	3		7	2
+210	2017-03-02 23:40:36.860191+00	2595	Isabella  Valma	1	Added. Added Contact Entry "6906 Chestnet Oak Court, Fairfield Township, OH 45011". Added Group Member "Isabella Valma, a Student of the Middle Adult 1 group".	7	2
+211	2017-03-02 23:42:07.919067+00	2596	Marci  Reynolds	1	Added. Added Contact Entry "262 Hudson Avenue, Hamilton, OH 45011". Added Group Member "Marci Reynolds, a Student of the Middle Adult 1 group".	7	2
+212	2017-03-02 23:43:38.458581+00	2597	Bev  Turner	1	Added. Added Contact Entry "709 Holbrook Avenue, Lebanon, OH 45036". Added Group Member "Bev Turner, a Student of the Middle Adult 1 group".	7	2
+213	2017-03-02 23:45:29.031148+00	375	Debra  Johnson	2	Changed Address for Contact Entry "4869 Willow Ridge Dr., Liberty Twp., OH 45011". Changed GroupRoleId for Group Member "Debra Johnson, a Student of the Middle Adult 3 group". Deleted Group Member "Debra Johnson, a Teacher of the Toddler group".	7	2
+214	2017-03-05 03:13:04.777043+00	1	joe	2	[{"changed": {"fields": ["first_name", "last_name"]}}]	4	2
+215	2017-03-05 03:13:24.450682+00	1	joe	2	[{"changed": {"fields": ["password"]}}]	4	2
+216	2017-03-05 03:14:39.230237+00	1	joe	2	[{"changed": {"fields": ["password"]}}]	4	2
+\.
+
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: cisadmin
+--
+
+SELECT pg_catalog.setval('django_admin_log_id_seq', 216, true);
+
+
+--
+-- Data for Name: django_content_type; Type: TABLE DATA; Schema: public; Owner: cisadmin
+--
+
+COPY django_content_type (id, app_label, model) FROM stdin;
+1	admin	logentry
+2	auth	permission
+3	auth	group
+4	auth	user
+5	contenttypes	contenttype
+6	sessions	session
+7	api	people
+8	api	contacttypes
+9	api	contactentries
+10	api	families
+11	api	familyroles
+12	api	familymembers
+13	api	departments
+14	api	grades
+15	api	grouptypes
+16	api	groups
+17	api	grouproles
+18	api	groupmembers
+19	api	peoplenotes
+20	api	familynotes
+21	api	groupnotes
+\.
+
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: cisadmin
+--
+
+SELECT pg_catalog.setval('django_content_type_id_seq', 21, true);
+
+
+--
+-- Data for Name: django_migrations; Type: TABLE DATA; Schema: public; Owner: cisadmin
+--
+
+COPY django_migrations (id, app, name, applied) FROM stdin;
+1	contenttypes	0001_initial	2015-11-30 22:18:26.867729+00
+2	auth	0001_initial	2015-11-30 22:18:26.910414+00
+3	admin	0001_initial	2015-11-30 22:18:26.927183+00
+4	contenttypes	0002_remove_content_type_name	2015-11-30 22:21:24.641031+00
+5	auth	0002_alter_permission_name_max_length	2015-11-30 22:21:24.652697+00
+6	auth	0003_alter_user_email_max_length	2015-11-30 22:21:24.66378+00
+7	auth	0004_alter_user_username_opts	2015-11-30 22:21:24.676779+00
+8	auth	0005_alter_user_last_login_null	2015-11-30 22:21:24.688251+00
+9	auth	0006_require_contenttypes_0002	2015-11-30 22:21:24.689663+00
+10	sessions	0001_initial	2015-11-30 22:26:25.708702+00
+11	api	0001_initial	2015-12-16 20:21:41.7938+00
+12	api	0002_auto_20151005_2144	2015-12-16 20:21:41.79657+00
+13	api	0003_families_phone	2015-12-16 20:21:41.797806+00
+14	api	0004_remove_families_phone	2015-12-16 20:21:41.79904+00
+15	admin	0002_logentry_remove_auto_add	2016-03-29 15:50:04.296976+00
+16	auth	0007_alter_validators_add_error_messages	2016-03-29 15:50:04.468682+00
+17	auth	0008_alter_user_username_max_length	2017-03-05 03:06:00.853227+00
+\.
+
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: cisadmin
+--
+
+SELECT pg_catalog.setval('django_migrations_id_seq', 17, true);
+
+
+--
+-- Data for Name: django_session; Type: TABLE DATA; Schema: public; Owner: cisadmin
+--
+
+COPY django_session (session_key, session_data, expire_date) FROM stdin;
+3vpecf174424x7a2j3ehq4sarafcrdpf	Mzg0OTUzZmMzNDc5N2MxMjFmMjUwMzBmMzMwMjkwMGVlNjkwZDcxNTp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiI5YTkzZWNkMTM4ZjkxMzM5NjVmNjU0YTZmNGY3NGUxMTQ2OWM5NWJmIn0=	2015-12-14 22:26:37.946226+00
+twm8dlrw5rd6ks6c42d2ve2p3uxuwyli	ZDAxN2FiZDM3MzFiN2E5ZDUzMGUxMzY4M2VlZjU1MTI0YmRiZWFhMTp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9oYXNoIjoiOWE5M2VjZDEzOGY5MTMzOTY1ZjY1NGE2ZjRmNzRlMTE0NjljOTViZiIsIl9hdXRoX3VzZXJfaWQiOiIxIn0=	2016-03-11 14:55:26.660208+00
+5504uxo0ps9wnwhhkjmep3cvx137h2ev	NzA4NWUxY2YwN2FlZDNlZThhMzgyMDJiYTNkODE2OTAwZGFjMWZiYjp7Il9hdXRoX3VzZXJfaGFzaCI6ImFiMjBhNDYwMDY0NTlhY2M1YTU2ODUwODE2ZmYwMjlmOTJmYzVhMTUiLCJfYXV0aF91c2VyX2lkIjoiMiIsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIn0=	2016-04-12 16:32:31.360343+00
+z17rsntqcm9wawgnu0fa54b6i94bujv0	NzA4NWUxY2YwN2FlZDNlZThhMzgyMDJiYTNkODE2OTAwZGFjMWZiYjp7Il9hdXRoX3VzZXJfaGFzaCI6ImFiMjBhNDYwMDY0NTlhY2M1YTU2ODUwODE2ZmYwMjlmOTJmYzVhMTUiLCJfYXV0aF91c2VyX2lkIjoiMiIsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIn0=	2016-04-12 16:43:06.225414+00
+amlpz4yj6vd9mjxrzmuikjch7pecui6u	NDhhOTZiNWE2OTgxM2Y2NDllMzY5MDQxZGNiYWY2ZDcxNjI2ZjA2ODp7Il9hdXRoX3VzZXJfaWQiOiIyIiwiX2F1dGhfdXNlcl9oYXNoIjoiYWIyMGE0NjAwNjQ1OWFjYzVhNTY4NTA4MTZmZjAyOWY5MmZjNWExNSIsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIn0=	2016-04-13 14:14:20.796+00
+cilos3htxtg9mu03fhd0pqc05s4uawoo	NDhhOTZiNWE2OTgxM2Y2NDllMzY5MDQxZGNiYWY2ZDcxNjI2ZjA2ODp7Il9hdXRoX3VzZXJfaWQiOiIyIiwiX2F1dGhfdXNlcl9oYXNoIjoiYWIyMGE0NjAwNjQ1OWFjYzVhNTY4NTA4MTZmZjAyOWY5MmZjNWExNSIsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIn0=	2016-04-13 16:02:28.943653+00
+bs9bleycluiqb7rp7npwgq9rytwwgmzd	M2Y5YWEyMWNlOGEwYTI3Y2VlNDE2MWI0OTA3NDRkZTZjY2ViMWNiNTp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6IjIiLCJfYXV0aF91c2VyX2hhc2giOiJhYjIwYTQ2MDA2NDU5YWNjNWE1Njg1MDgxNmZmMDI5ZjkyZmM1YTE1In0=	2016-04-25 02:25:40.023491+00
+co1vd44sdjz2lvyv68z6c9trr1x3ccfw	NmU3NjgzMzZiOWZmOTRhOTZkMGFmZGE4MWI3NmM1YzFmNTE2ZmRiMDp7Il9hdXRoX3VzZXJfaGFzaCI6ImFiMjBhNDYwMDY0NTlhY2M1YTU2ODUwODE2ZmYwMjlmOTJmYzVhMTUiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIyIn0=	2016-04-29 16:15:53.612443+00
+k8j0zxau4hbuof4pd98hzu6vjh59h1ek	ZTM3YTkwNjQxYWFlMGYwNTU4ZDM2NWExZWFmOTdjMDM1ZWIwMmMwNDp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9oYXNoIjoiYWIyMGE0NjAwNjQ1OWFjYzVhNTY4NTA4MTZmZjAyOWY5MmZjNWExNSIsIl9hdXRoX3VzZXJfaWQiOiIyIn0=	2016-05-16 15:32:27.106275+00
+qzy723qrva2y0awrkbfci1vlyap4bzo2	NzA4NWUxY2YwN2FlZDNlZThhMzgyMDJiYTNkODE2OTAwZGFjMWZiYjp7Il9hdXRoX3VzZXJfaGFzaCI6ImFiMjBhNDYwMDY0NTlhY2M1YTU2ODUwODE2ZmYwMjlmOTJmYzVhMTUiLCJfYXV0aF91c2VyX2lkIjoiMiIsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIn0=	2016-05-18 19:54:24.40712+00
+0s8ujoqwq1xdokwozrjz6k0pruuijkg3	NmU3NjgzMzZiOWZmOTRhOTZkMGFmZGE4MWI3NmM1YzFmNTE2ZmRiMDp7Il9hdXRoX3VzZXJfaGFzaCI6ImFiMjBhNDYwMDY0NTlhY2M1YTU2ODUwODE2ZmYwMjlmOTJmYzVhMTUiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIyIn0=	2016-05-31 15:27:09.331955+00
+hxxb7o5tyznl39gtakzhneaxyxh7sjkv	NmU3NjgzMzZiOWZmOTRhOTZkMGFmZGE4MWI3NmM1YzFmNTE2ZmRiMDp7Il9hdXRoX3VzZXJfaGFzaCI6ImFiMjBhNDYwMDY0NTlhY2M1YTU2ODUwODE2ZmYwMjlmOTJmYzVhMTUiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIyIn0=	2016-06-05 13:03:59.126988+00
+z0jvvsf8vizing2odmf8zfs1a9g8lr0n	M2Y5YWEyMWNlOGEwYTI3Y2VlNDE2MWI0OTA3NDRkZTZjY2ViMWNiNTp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6IjIiLCJfYXV0aF91c2VyX2hhc2giOiJhYjIwYTQ2MDA2NDU5YWNjNWE1Njg1MDgxNmZmMDI5ZjkyZmM1YTE1In0=	2016-06-14 12:53:13.239944+00
+r1iqt2loux2mnc2ocn4o58mu6mxmpbgu	M2Y5YWEyMWNlOGEwYTI3Y2VlNDE2MWI0OTA3NDRkZTZjY2ViMWNiNTp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6IjIiLCJfYXV0aF91c2VyX2hhc2giOiJhYjIwYTQ2MDA2NDU5YWNjNWE1Njg1MDgxNmZmMDI5ZjkyZmM1YTE1In0=	2016-06-14 13:47:24.589707+00
+ba0cnqotqy5d7799464df1ahcm5fica6	M2Y5YWEyMWNlOGEwYTI3Y2VlNDE2MWI0OTA3NDRkZTZjY2ViMWNiNTp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6IjIiLCJfYXV0aF91c2VyX2hhc2giOiJhYjIwYTQ2MDA2NDU5YWNjNWE1Njg1MDgxNmZmMDI5ZjkyZmM1YTE1In0=	2016-06-30 19:04:10.536554+00
+kyu99zqmjj2g2ken4q3xt33fyvm83ze8	M2Y5YWEyMWNlOGEwYTI3Y2VlNDE2MWI0OTA3NDRkZTZjY2ViMWNiNTp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6IjIiLCJfYXV0aF91c2VyX2hhc2giOiJhYjIwYTQ2MDA2NDU5YWNjNWE1Njg1MDgxNmZmMDI5ZjkyZmM1YTE1In0=	2016-07-26 17:10:58.346087+00
+lhau367h7yx6d3f0q6bnvzu8g72grbq4	OWY0NGYyYjAwZWE1OGQzMjIxOTYyNjY3YjQwZjg2YzQyZDVjYjc1NDp7Il9hdXRoX3VzZXJfaWQiOiIyIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJhYjIwYTQ2MDA2NDU5YWNjNWE1Njg1MDgxNmZmMDI5ZjkyZmM1YTE1In0=	2016-08-03 17:51:25.885296+00
+m7dg4qy22mom945j1bzfpzbw8fcmk9lj	NzA4NWUxY2YwN2FlZDNlZThhMzgyMDJiYTNkODE2OTAwZGFjMWZiYjp7Il9hdXRoX3VzZXJfaGFzaCI6ImFiMjBhNDYwMDY0NTlhY2M1YTU2ODUwODE2ZmYwMjlmOTJmYzVhMTUiLCJfYXV0aF91c2VyX2lkIjoiMiIsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIn0=	2016-08-23 18:17:05.629088+00
+qbtrs1qqqotrza15a1cxdwa978h1ax8h	NDhhOTZiNWE2OTgxM2Y2NDllMzY5MDQxZGNiYWY2ZDcxNjI2ZjA2ODp7Il9hdXRoX3VzZXJfaWQiOiIyIiwiX2F1dGhfdXNlcl9oYXNoIjoiYWIyMGE0NjAwNjQ1OWFjYzVhNTY4NTA4MTZmZjAyOWY5MmZjNWExNSIsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIn0=	2016-09-13 16:19:18.10692+00
+erhw8y6hvy6y1z7zz6v04wtdpku96jqc	OWY0NGYyYjAwZWE1OGQzMjIxOTYyNjY3YjQwZjg2YzQyZDVjYjc1NDp7Il9hdXRoX3VzZXJfaWQiOiIyIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJhYjIwYTQ2MDA2NDU5YWNjNWE1Njg1MDgxNmZmMDI5ZjkyZmM1YTE1In0=	2016-09-14 13:01:06.475042+00
+maxgrk8010z5z2intcrujlka5l1rb5ge	ZTM3YTkwNjQxYWFlMGYwNTU4ZDM2NWExZWFmOTdjMDM1ZWIwMmMwNDp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9oYXNoIjoiYWIyMGE0NjAwNjQ1OWFjYzVhNTY4NTA4MTZmZjAyOWY5MmZjNWExNSIsIl9hdXRoX3VzZXJfaWQiOiIyIn0=	2016-09-16 16:38:15.980113+00
+mqg6u7r3mv0xukmbhlus5uva4f5az6ff	NDhhOTZiNWE2OTgxM2Y2NDllMzY5MDQxZGNiYWY2ZDcxNjI2ZjA2ODp7Il9hdXRoX3VzZXJfaWQiOiIyIiwiX2F1dGhfdXNlcl9oYXNoIjoiYWIyMGE0NjAwNjQ1OWFjYzVhNTY4NTA4MTZmZjAyOWY5MmZjNWExNSIsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIn0=	2016-11-05 19:23:22.403948+00
+l4yr1wgz1m6oan7mbpgduj16majflnwd	NDhhOTZiNWE2OTgxM2Y2NDllMzY5MDQxZGNiYWY2ZDcxNjI2ZjA2ODp7Il9hdXRoX3VzZXJfaWQiOiIyIiwiX2F1dGhfdXNlcl9oYXNoIjoiYWIyMGE0NjAwNjQ1OWFjYzVhNTY4NTA4MTZmZjAyOWY5MmZjNWExNSIsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIn0=	2016-11-14 19:35:41.622114+00
+3yk1r3gm3vpg91m7xnjoqzfk048evr28	NDhhOTZiNWE2OTgxM2Y2NDllMzY5MDQxZGNiYWY2ZDcxNjI2ZjA2ODp7Il9hdXRoX3VzZXJfaWQiOiIyIiwiX2F1dGhfdXNlcl9oYXNoIjoiYWIyMGE0NjAwNjQ1OWFjYzVhNTY4NTA4MTZmZjAyOWY5MmZjNWExNSIsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIn0=	2016-11-16 18:03:09.844465+00
+z8imvgpcxtl1ejtsp4ab8cep0zdmhtc3	ZjY1YzgxMzBjNDJjZGRmODI3NWY0MmVkNzY2NGRlMDAyYjNmMDMwYzp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9oYXNoIjoiNjZmNGIzODQ2ZjMxZjJlZDRkMDVlMDE1M2VhNDFmMWE4OGQzM2RlNSIsIl9hdXRoX3VzZXJfaWQiOiIxIn0=	2017-01-03 18:33:26.684901+00
+65utybpnvszbfw89lgfnyul4slqgkp6i	OWY0NGYyYjAwZWE1OGQzMjIxOTYyNjY3YjQwZjg2YzQyZDVjYjc1NDp7Il9hdXRoX3VzZXJfaWQiOiIyIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJhYjIwYTQ2MDA2NDU5YWNjNWE1Njg1MDgxNmZmMDI5ZjkyZmM1YTE1In0=	2017-03-16 22:53:52.199074+00
+ikx3nl7gkajb0xcih897q7cftbk3zda9	NTgzMTFkYTJkMGU5ZTU0NjExNWVlNjk0NGFmOTcxZDhiNTZmMTVlZTp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9oYXNoIjoiMGNlNDVhZjc2YTgyNDdlOTEwYjRmMjk0NjUwMjVlZTczZDA2YjQwMCIsIl9hdXRoX3VzZXJfaWQiOiIxIn0=	2017-03-19 03:15:13.907887+00
+acci1aq1yssvm9o418nr1z7rypcfi2wj	Zjc2ZjU5YWQyNDYwODI3MjMyNzEwMzlhMGY5M2ViYjVkMGU5ZmY3Yzp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6IjIiLCJfYXV0aF91c2VyX2hhc2giOiI4NGQ4M2M5ZmRiZjYzMmY5NzEwNjNjNjU2ZjI0YWJlMGZjYTE5YWMxIn0=	2017-03-27 04:44:43.607858+00
+\.
+
+
+--
+-- Name: ContactEntries_pkey; Type: CONSTRAINT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY "ContactEntries"
+    ADD CONSTRAINT "ContactEntries_pkey" PRIMARY KEY ("Id");
+
+
+--
+-- Name: ContactTypes_pkey; Type: CONSTRAINT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY "ContactTypes"
+    ADD CONSTRAINT "ContactTypes_pkey" PRIMARY KEY ("Id");
+
+
+--
+-- Name: Departments_pkey; Type: CONSTRAINT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY "Departments"
+    ADD CONSTRAINT "Departments_pkey" PRIMARY KEY ("Id");
+
+
+--
+-- Name: Families_pkey; Type: CONSTRAINT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY "Families"
+    ADD CONSTRAINT "Families_pkey" PRIMARY KEY ("Id");
+
+
+--
+-- Name: FamilyMembers_pkey; Type: CONSTRAINT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY "FamilyMembers"
+    ADD CONSTRAINT "FamilyMembers_pkey" PRIMARY KEY ("Id");
+
+
+--
+-- Name: FamilyNotes_pkey; Type: CONSTRAINT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY "FamilyNotes"
+    ADD CONSTRAINT "FamilyNotes_pkey" PRIMARY KEY ("Id");
+
+
+--
+-- Name: FamilyRoles_pkey; Type: CONSTRAINT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY "FamilyRoles"
+    ADD CONSTRAINT "FamilyRoles_pkey" PRIMARY KEY ("Id");
+
+
+--
+-- Name: Grades_pkey; Type: CONSTRAINT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY "Grades"
+    ADD CONSTRAINT "Grades_pkey" PRIMARY KEY ("Id");
+
+
+--
+-- Name: GroupMembers_pkey; Type: CONSTRAINT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY "GroupMembers"
+    ADD CONSTRAINT "GroupMembers_pkey" PRIMARY KEY ("Id");
+
+
+--
+-- Name: GroupNotes_pkey; Type: CONSTRAINT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY "GroupNotes"
+    ADD CONSTRAINT "GroupNotes_pkey" PRIMARY KEY ("Id");
+
+
+--
+-- Name: GroupRoles_pkey; Type: CONSTRAINT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY "GroupRoles"
+    ADD CONSTRAINT "GroupRoles_pkey" PRIMARY KEY ("Id");
+
+
+--
+-- Name: GroupTypes_pkey; Type: CONSTRAINT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY "GroupTypes"
+    ADD CONSTRAINT "GroupTypes_pkey" PRIMARY KEY ("Id");
+
+
+--
+-- Name: Groups_pkey; Type: CONSTRAINT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY "Groups"
+    ADD CONSTRAINT "Groups_pkey" PRIMARY KEY ("Id");
+
+
+--
+-- Name: PeopleNotes_pkey; Type: CONSTRAINT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY "PeopleNotes"
+    ADD CONSTRAINT "PeopleNotes_pkey" PRIMARY KEY ("Id");
+
+
+--
+-- Name: People_pkey; Type: CONSTRAINT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY "People"
+    ADD CONSTRAINT "People_pkey" PRIMARY KEY ("Id");
+
+
+--
+-- Name: auth_group_name_key; Type: CONSTRAINT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY auth_group
+    ADD CONSTRAINT auth_group_name_key UNIQUE (name);
+
+
+--
+-- Name: auth_group_permissions_group_id_permission_id_key; Type: CONSTRAINT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_group_id_permission_id_key UNIQUE (group_id, permission_id);
+
+
+--
+-- Name: auth_group_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_group_pkey; Type: CONSTRAINT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY auth_group
+    ADD CONSTRAINT auth_group_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_permission_content_type_id_codename_key; Type: CONSTRAINT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY auth_permission
+    ADD CONSTRAINT auth_permission_content_type_id_codename_key UNIQUE (content_type_id, codename);
+
+
+--
+-- Name: auth_permission_pkey; Type: CONSTRAINT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY auth_permission
+    ADD CONSTRAINT auth_permission_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY auth_user_groups
+    ADD CONSTRAINT auth_user_groups_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_groups_user_id_group_id_key; Type: CONSTRAINT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY auth_user_groups
+    ADD CONSTRAINT auth_user_groups_user_id_group_id_key UNIQUE (user_id, group_id);
+
+
+--
+-- Name: auth_user_pkey; Type: CONSTRAINT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY auth_user
+    ADD CONSTRAINT auth_user_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_user_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_user_permissions_user_id_permission_id_key; Type: CONSTRAINT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_user_id_permission_id_key UNIQUE (user_id, permission_id);
+
+
+--
+-- Name: auth_user_username_key; Type: CONSTRAINT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY auth_user
+    ADD CONSTRAINT auth_user_username_key UNIQUE (username);
+
+
+--
+-- Name: django_admin_log_pkey; Type: CONSTRAINT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY django_admin_log
+    ADD CONSTRAINT django_admin_log_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_content_type_app_label_69cbe8f8860e3c4b_uniq; Type: CONSTRAINT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY django_content_type
+    ADD CONSTRAINT django_content_type_app_label_69cbe8f8860e3c4b_uniq UNIQUE (app_label, model);
+
+
+--
+-- Name: django_content_type_pkey; Type: CONSTRAINT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY django_content_type
+    ADD CONSTRAINT django_content_type_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY django_migrations
+    ADD CONSTRAINT django_migrations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_session_pkey; Type: CONSTRAINT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY django_session
+    ADD CONSTRAINT django_session_pkey PRIMARY KEY (session_key);
+
+
+--
+-- Name: ContactEntries_1242c665; Type: INDEX; Schema: public; Owner: cisadmin
+--
+
+CREATE INDEX "ContactEntries_1242c665" ON "ContactEntries" USING btree ("ContactTypeId_id");
+
+
+--
+-- Name: ContactEntries_b7ab1fa0; Type: INDEX; Schema: public; Owner: cisadmin
+--
+
+CREATE INDEX "ContactEntries_b7ab1fa0" ON "ContactEntries" USING btree ("PeopleId_id");
+
+
+--
+-- Name: FamilyMembers_66c44a64; Type: INDEX; Schema: public; Owner: cisadmin
+--
+
+CREATE INDEX "FamilyMembers_66c44a64" ON "FamilyMembers" USING btree ("FamilyId_id");
+
+
+--
+-- Name: FamilyMembers_9a60a2fa; Type: INDEX; Schema: public; Owner: cisadmin
+--
+
+CREATE INDEX "FamilyMembers_9a60a2fa" ON "FamilyMembers" USING btree ("FamilyRoleId_id");
+
+
+--
+-- Name: FamilyMembers_b7ab1fa0; Type: INDEX; Schema: public; Owner: cisadmin
+--
+
+CREATE INDEX "FamilyMembers_b7ab1fa0" ON "FamilyMembers" USING btree ("PeopleId_id");
+
+
+--
+-- Name: FamilyNotes_66c44a64; Type: INDEX; Schema: public; Owner: cisadmin
+--
+
+CREATE INDEX "FamilyNotes_66c44a64" ON "FamilyNotes" USING btree ("FamilyId_id");
+
+
+--
+-- Name: GroupMembers_9f1ff75d; Type: INDEX; Schema: public; Owner: cisadmin
+--
+
+CREATE INDEX "GroupMembers_9f1ff75d" ON "GroupMembers" USING btree ("GroupRoleId_id");
+
+
+--
+-- Name: GroupMembers_b426c878; Type: INDEX; Schema: public; Owner: cisadmin
+--
+
+CREATE INDEX "GroupMembers_b426c878" ON "GroupMembers" USING btree ("GroupId_id");
+
+
+--
+-- Name: GroupMembers_b7ab1fa0; Type: INDEX; Schema: public; Owner: cisadmin
+--
+
+CREATE INDEX "GroupMembers_b7ab1fa0" ON "GroupMembers" USING btree ("PeopleId_id");
+
+
+--
+-- Name: GroupMembers_d214f22a; Type: INDEX; Schema: public; Owner: cisadmin
+--
+
+CREATE INDEX "GroupMembers_d214f22a" ON "GroupMembers" USING btree ("GradeId_id");
+
+
+--
+-- Name: GroupNotes_b426c878; Type: INDEX; Schema: public; Owner: cisadmin
+--
+
+CREATE INDEX "GroupNotes_b426c878" ON "GroupNotes" USING btree ("GroupId_id");
+
+
+--
+-- Name: Groups_9997bc12; Type: INDEX; Schema: public; Owner: cisadmin
+--
+
+CREATE INDEX "Groups_9997bc12" ON "Groups" USING btree ("GroupTypeId_id");
+
+
+--
+-- Name: Groups_df9cb402; Type: INDEX; Schema: public; Owner: cisadmin
+--
+
+CREATE INDEX "Groups_df9cb402" ON "Groups" USING btree ("DepartmentId_id");
+
+
+--
+-- Name: PeopleNotes_b7ab1fa0; Type: INDEX; Schema: public; Owner: cisadmin
+--
+
+CREATE INDEX "PeopleNotes_b7ab1fa0" ON "PeopleNotes" USING btree ("PeopleId_id");
+
+
+--
+-- Name: auth_group_name_4e580194b55c6de3_like; Type: INDEX; Schema: public; Owner: cisadmin
+--
+
+CREATE INDEX auth_group_name_4e580194b55c6de3_like ON auth_group USING btree (name varchar_pattern_ops);
+
+
+--
+-- Name: auth_group_permissions_0e939a4f; Type: INDEX; Schema: public; Owner: cisadmin
+--
+
+CREATE INDEX auth_group_permissions_0e939a4f ON auth_group_permissions USING btree (group_id);
+
+
+--
+-- Name: auth_group_permissions_8373b171; Type: INDEX; Schema: public; Owner: cisadmin
+--
+
+CREATE INDEX auth_group_permissions_8373b171 ON auth_group_permissions USING btree (permission_id);
+
+
+--
+-- Name: auth_permission_417f1b1c; Type: INDEX; Schema: public; Owner: cisadmin
+--
+
+CREATE INDEX auth_permission_417f1b1c ON auth_permission USING btree (content_type_id);
+
+
+--
+-- Name: auth_user_groups_0e939a4f; Type: INDEX; Schema: public; Owner: cisadmin
+--
+
+CREATE INDEX auth_user_groups_0e939a4f ON auth_user_groups USING btree (group_id);
+
+
+--
+-- Name: auth_user_groups_e8701ad4; Type: INDEX; Schema: public; Owner: cisadmin
+--
+
+CREATE INDEX auth_user_groups_e8701ad4 ON auth_user_groups USING btree (user_id);
+
+
+--
+-- Name: auth_user_user_permissions_8373b171; Type: INDEX; Schema: public; Owner: cisadmin
+--
+
+CREATE INDEX auth_user_user_permissions_8373b171 ON auth_user_user_permissions USING btree (permission_id);
+
+
+--
+-- Name: auth_user_user_permissions_e8701ad4; Type: INDEX; Schema: public; Owner: cisadmin
+--
+
+CREATE INDEX auth_user_user_permissions_e8701ad4 ON auth_user_user_permissions USING btree (user_id);
+
+
+--
+-- Name: auth_user_username_3baa172c8eecbcda_like; Type: INDEX; Schema: public; Owner: cisadmin
+--
+
+CREATE INDEX auth_user_username_3baa172c8eecbcda_like ON auth_user USING btree (username varchar_pattern_ops);
+
+
+--
+-- Name: django_admin_log_417f1b1c; Type: INDEX; Schema: public; Owner: cisadmin
+--
+
+CREATE INDEX django_admin_log_417f1b1c ON django_admin_log USING btree (content_type_id);
+
+
+--
+-- Name: django_admin_log_e8701ad4; Type: INDEX; Schema: public; Owner: cisadmin
+--
+
+CREATE INDEX django_admin_log_e8701ad4 ON django_admin_log USING btree (user_id);
+
+
+--
+-- Name: django_session_de54fa62; Type: INDEX; Schema: public; Owner: cisadmin
+--
+
+CREATE INDEX django_session_de54fa62 ON django_session USING btree (expire_date);
+
+
+--
+-- Name: django_session_session_key_673d0e97290e0b46_like; Type: INDEX; Schema: public; Owner: cisadmin
+--
+
+CREATE INDEX django_session_session_key_673d0e97290e0b46_like ON django_session USING btree (session_key varchar_pattern_ops);
+
+
+--
+-- Name: ContactEnt_ContactTypeId_id_69523d2b4b5c67c2_fk_ContactTypes_Id; Type: FK CONSTRAINT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY "ContactEntries"
+    ADD CONSTRAINT "ContactEnt_ContactTypeId_id_69523d2b4b5c67c2_fk_ContactTypes_Id" FOREIGN KEY ("ContactTypeId_id") REFERENCES "ContactTypes"("Id") DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: ContactEntries_PeopleId_id_1af2037cccdb6273_fk_People_Id; Type: FK CONSTRAINT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY "ContactEntries"
+    ADD CONSTRAINT "ContactEntries_PeopleId_id_1af2037cccdb6273_fk_People_Id" FOREIGN KEY ("PeopleId_id") REFERENCES "People"("Id") DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: FamilyMember_FamilyRoleId_id_1d57647d974330c3_fk_FamilyRoles_Id; Type: FK CONSTRAINT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY "FamilyMembers"
+    ADD CONSTRAINT "FamilyMember_FamilyRoleId_id_1d57647d974330c3_fk_FamilyRoles_Id" FOREIGN KEY ("FamilyRoleId_id") REFERENCES "FamilyRoles"("Id") DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: FamilyMembers_FamilyId_id_129f4f7cb4f56da0_fk_Families_Id; Type: FK CONSTRAINT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY "FamilyMembers"
+    ADD CONSTRAINT "FamilyMembers_FamilyId_id_129f4f7cb4f56da0_fk_Families_Id" FOREIGN KEY ("FamilyId_id") REFERENCES "Families"("Id") DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: FamilyMembers_PeopleId_id_72d4c547cf9be6c7_fk_People_Id; Type: FK CONSTRAINT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY "FamilyMembers"
+    ADD CONSTRAINT "FamilyMembers_PeopleId_id_72d4c547cf9be6c7_fk_People_Id" FOREIGN KEY ("PeopleId_id") REFERENCES "People"("Id") DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: FamilyNotes_FamilyId_id_4406aef21b337277_fk_Families_Id; Type: FK CONSTRAINT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY "FamilyNotes"
+    ADD CONSTRAINT "FamilyNotes_FamilyId_id_4406aef21b337277_fk_Families_Id" FOREIGN KEY ("FamilyId_id") REFERENCES "Families"("Id") DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: GroupMembers_GradeId_id_280ab09187a49ecf_fk_Grades_Id; Type: FK CONSTRAINT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY "GroupMembers"
+    ADD CONSTRAINT "GroupMembers_GradeId_id_280ab09187a49ecf_fk_Grades_Id" FOREIGN KEY ("GradeId_id") REFERENCES "Grades"("Id") DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: GroupMembers_GroupId_id_5aebab87513160d4_fk_Groups_Id; Type: FK CONSTRAINT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY "GroupMembers"
+    ADD CONSTRAINT "GroupMembers_GroupId_id_5aebab87513160d4_fk_Groups_Id" FOREIGN KEY ("GroupId_id") REFERENCES "Groups"("Id") DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: GroupMembers_GroupRoleId_id_2cd64b205c46a425_fk_GroupRoles_Id; Type: FK CONSTRAINT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY "GroupMembers"
+    ADD CONSTRAINT "GroupMembers_GroupRoleId_id_2cd64b205c46a425_fk_GroupRoles_Id" FOREIGN KEY ("GroupRoleId_id") REFERENCES "GroupRoles"("Id") DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: GroupMembers_PeopleId_id_285f3db711a914dd_fk_People_Id; Type: FK CONSTRAINT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY "GroupMembers"
+    ADD CONSTRAINT "GroupMembers_PeopleId_id_285f3db711a914dd_fk_People_Id" FOREIGN KEY ("PeopleId_id") REFERENCES "People"("Id") DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: GroupNotes_GroupId_id_4f13094c9c6c9b09_fk_Groups_Id; Type: FK CONSTRAINT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY "GroupNotes"
+    ADD CONSTRAINT "GroupNotes_GroupId_id_4f13094c9c6c9b09_fk_Groups_Id" FOREIGN KEY ("GroupId_id") REFERENCES "Groups"("Id") DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: Groups_DepartmentId_id_1fd2221bcc7c6999_fk_Departments_Id; Type: FK CONSTRAINT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY "Groups"
+    ADD CONSTRAINT "Groups_DepartmentId_id_1fd2221bcc7c6999_fk_Departments_Id" FOREIGN KEY ("DepartmentId_id") REFERENCES "Departments"("Id") DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: Groups_GroupTypeId_id_660c2068939cb343_fk_GroupTypes_Id; Type: FK CONSTRAINT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY "Groups"
+    ADD CONSTRAINT "Groups_GroupTypeId_id_660c2068939cb343_fk_GroupTypes_Id" FOREIGN KEY ("GroupTypeId_id") REFERENCES "GroupTypes"("Id") DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: PeopleNotes_PeopleId_id_5e454f14778567e5_fk_People_Id; Type: FK CONSTRAINT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY "PeopleNotes"
+    ADD CONSTRAINT "PeopleNotes_PeopleId_id_5e454f14778567e5_fk_People_Id" FOREIGN KEY ("PeopleId_id") REFERENCES "People"("Id") DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_content_type_id_28a8768a279c8196_fk_django_content_type_id; Type: FK CONSTRAINT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY auth_permission
+    ADD CONSTRAINT auth_content_type_id_28a8768a279c8196_fk_django_content_type_id FOREIGN KEY (content_type_id) REFERENCES django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_group_permissio_group_id_181e738b12afa77f_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT auth_group_permissio_group_id_181e738b12afa77f_fk_auth_group_id FOREIGN KEY (group_id) REFERENCES auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_group_permission_id_7f1d7f7f558c03f0_fk_auth_permission_id; Type: FK CONSTRAINT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT auth_group_permission_id_7f1d7f7f558c03f0_fk_auth_permission_id FOREIGN KEY (permission_id) REFERENCES auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user__permission_id_5c7814e2d3edea43_fk_auth_permission_id; Type: FK CONSTRAINT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY auth_user_user_permissions
+    ADD CONSTRAINT auth_user__permission_id_5c7814e2d3edea43_fk_auth_permission_id FOREIGN KEY (permission_id) REFERENCES auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_groups_group_id_39d938ca429ae2b6_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY auth_user_groups
+    ADD CONSTRAINT auth_user_groups_group_id_39d938ca429ae2b6_fk_auth_group_id FOREIGN KEY (group_id) REFERENCES auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_groups_user_id_4a70ae77c7552797_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY auth_user_groups
+    ADD CONSTRAINT auth_user_groups_user_id_4a70ae77c7552797_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_user_permiss_user_id_23ee5668564f25c7_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permiss_user_id_23ee5668564f25c7_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: djang_content_type_id_b87e6cf28123f49_fk_django_content_type_id; Type: FK CONSTRAINT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY django_admin_log
+    ADD CONSTRAINT djang_content_type_id_b87e6cf28123f49_fk_django_content_type_id FOREIGN KEY (content_type_id) REFERENCES django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: django_admin_log_user_id_5efe36e69614ded2_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: cisadmin
+--
+
+ALTER TABLE ONLY django_admin_log
+    ADD CONSTRAINT django_admin_log_user_id_5efe36e69614ded2_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+--
+-- PostgreSQL database dump complete
+--
+

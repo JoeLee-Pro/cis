@@ -1,0 +1,39 @@
+{% extends "website/base_website.html" %}
+
+{% load static %}
+
+{% block content %}
+
+      <div class="container col-md-12" style="height:87vh;overflow-y:scroll;background-color:transparent;margin-top:50px;padding-top:20px;">
+        <div class="col-md-5" style="background-color:transparent;">
+          &nbsp;
+        </div>
+        <div class="col-md-7">
+            <img class="center-block" style="height:30%;width:30%;padding-right:30px;padding-bottom:20px;" src="{% static "website/images/MissionVision.jpg" %}" alt="Generic placeholder image">
+            <h2 class="featurette-heading tcn-heading">
+                <span class="text-muted">Our</span> Vision
+            </h2>
+            <p class="lead">
+                Our vision is to be a <span style="font-weight: bold;">G.R.E.A.T.</span>  Church... <br /><br />
+                <span style="font-weight: bold;">G</span>row through evangelism. (Luke 14:23)<br />
+                <span style="font-weight: bold;">R</span>eproduce through discipleship. (Matthew 11:29)<br />
+                <span style="font-weight: bold;">E</span>quip believers for works of service. (Ephesians 4:12)<br />
+                <span style="font-weight: bold;">A</span>ssimilate new members into the local church. (Acts 2:47)<br />
+                <span style="font-weight: bold;">T</span>each and preach God’s word in a relevant way. (Acts 5:42)<br /><br />
+                <span style="font-weight: bold;">A Great Commission + A Great Commitment = A G.R.E.A.T. Church</span><br /><br />
+            </p>
+            <h2 class="featurette-heading tcn-heading">
+                <span class="text-muted">Our</span> Mission
+            </h2>
+            <p class="lead">
+                Our Purpose is to be a Great Commission Church, following Matthew 28:19-20 by...
+                <ol>
+                    <li class="lead">Reaching the unchurched of the Tri-County area for Christ.</li>
+                    <li class="lead">Making mature Disciples of Christ.</li>
+                    <li class="lead">Equipping believers for service.</li>
+                </ol>
+            </p>
+        </div>
+      </div>
+
+{% endblock %}

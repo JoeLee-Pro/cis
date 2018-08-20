@@ -1,0 +1,256 @@
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14pt;
+}
+
+/* GLOBAL STYLES
+-------------------------------------------------- */
+/* Padding below the footer and lighter body text */
+
+body {
+  margin-bottom: 10px;
+  color: #5a5a5a;
+  background-color: transparent;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+a.nav {
+  color: #545454;
+  font-size: 12pt;
+}
+
+a.dropdown-toggle {
+  color: #545454;
+  font-size: 12pt;
+  background-color: transparent;
+}
+
+.navbar {
+  background-color: transparent;
+  color: black;
+  float: right;
+}
+
+li.dropdown.navbar-inverse {
+  background-color: #4682b4;
+  background-image: none;
+}
+
+div.container3 {
+  width: 500px;
+  height: 400px;
+  position:absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  right: 0;
+}
+
+div.container3 p {
+  text-align: center;
+  color: #000000;
+  font-size: 32pt;
+}
+
+div.container3 p.address {
+  margin-top: 40px;
+  text-align: right;
+  color: #000000;
+  font-size: 12pt;
+  margin-right: 88px;
+}
+
+div.container3 p.services {
+  margin-top: 10px;
+  text-align: right;
+  color: #000000;
+  font-size: 12pt;
+  margin-right: 88px;
+}
+
+div.container3 img {
+  width: 409.6px;
+  height: 128.8px;
+  margin-bottom: 20px;
+  margin-left: 40px;
+}
+/* CUSTOMIZE THE NAVBAR
+-------------------------------------------------- */
+
+/* Special class on .container surrounding .navbar, used for positioning it into place. */
+.navbar-wrapper {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 20;
+}
+
+/* Flip around the padding for proper display in narrow viewports */
+.navbar-wrapper > .container {
+  padding-right: 0;
+  padding-left: 0;
+}
+.navbar-wrapper .navbar {
+  padding-right: 15px;
+  padding-left: 15px;
+  width: 100%;
+}
+.navbar-wrapper .navbar .container {
+  width: auto;
+}
+
+.navbar-toggle {
+  margin-top: 10px;
+  background-image: url('/static/website/images/HamburgerMenu.png');
+}
+
+ul.navbar {
+  float: right;
+}
+
+/* CUSTOMIZE THE CAROUSEL
+-------------------------------------------------- */
+
+/* Carousel base class */
+.carousel {
+  height: 500px;
+  margin-bottom: 60px;
+}
+/* Since positioning the image, we need to help out the caption */
+.carousel-caption {
+  z-index: 10;
+}
+
+/* Declare heights because of positioning of img element */
+.carousel .item {
+  height: 500px;
+  background-color: #777;
+}
+.carousel-inner > .item > img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  height: 500px;
+}
+
+.container {
+  background-color: #ffffff;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0px;
+  width: 770px;
+  height: 40px;
+  margin: auto;
+  background-color: transparent;
+  right: 0px;
+  text-align:right;
+  font-size: 10pt;
+  color: #4682b4;
+}
+
+.footer p {
+  margin-left: 25px;
+  margin-right: 10px;
+}
+
+.footer div p div {
+  color:#ffffff;
+  margin-top:-6px;
+}
+
+.footer a {
+  color: #545454;
+  text-decoration: underline;
+}
+
+.footer img {
+  margin-right: 15px;
+  float: left;
+}
+
+/* MARKETING CONTENT
+-------------------------------------------------- */
+
+/* Center align the text within the three columns below the carousel */
+.marketing .col-lg-4 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+.marketing h2 {
+  font-weight: normal;
+}
+.marketing .col-lg-4 p {
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+
+/* Featurettes
+------------------------- */
+
+.featurette-divider {
+  margin: 80px 0; /* Space out the Bootstrap <hr> more */
+}
+
+/* Thin out the marketing headings */
+.featurette-heading {
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -1px;
+}
+
+
+/* RESPONSIVE CSS
+-------------------------------------------------- */
+
+@media (min-width: 768px) {
+  /* Navbar positioning foo */
+  .navbar-wrapper {
+    margin-top: 20px;
+  }
+  .navbar-wrapper .container {
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+  .navbar-wrapper .navbar {
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  /* The navbar becomes detached from the top, so we round the corners */
+  .navbar-wrapper .navbar {
+    border-radius: 4px;
+  }
+
+  .navbar-nav {
+    float: right;
+    color: black;
+  } 
+
+  /* Bump up size of carousel content */
+  .carousel-caption p {
+    margin-bottom: 20px;
+    font-size: 21px;
+    line-height: 1.4;
+  }
+
+  .featurette-heading {
+    font-size: 50px;
+  }
+}
+
+@media (min-width: 992px) {
+  .featurette-heading {
+    margin-top: 80px;
+  }
+}
+
+.tcn-heading {
+  margin-top: 0px !important;
+}

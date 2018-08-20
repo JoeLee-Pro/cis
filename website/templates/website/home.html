@@ -1,0 +1,138 @@
+{% extends "website/base_website.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="container3">
+    <img src="{% static "website/images/TCNLogoNewLargeTrans.png" %}" />
+    <p>Making Disciples.</p>
+    <p class="address">4778 Tylersville Road / Hamilton, OH | 513-874-4575</p>
+    <p class="services">Sunday: 9:30 Sunday School / 10:40 Worship <br /> Wednesday: 6:00 Bible Studies & Children's Awana</p>
+</div>
+
+
+      <!-- Three columns of text below the carousel
+      <div class="row">
+        <div class="col-lg-4">
+            <p style="margin-bottom:25px;font-weight:bold;">
+                Guest Sermon - Pastor Martin - 1/26/12
+            </p>
+            <br />
+            <audio controls width="320" class="embed-responsive-item">
+                <source src="/media/PastorMartin1-26-12.mp3" type="audio/mp3" />
+            </audio><br />
+        </div>
+        <div class="col-lg-4">
+            <p style="margin-bottom:25px;font-weight:bold;">
+                Guest Sermon - Pastor Martin - 2/5/12
+            </p>
+            <br />
+            <audio controls width="320" class="embed-responsive-item">
+                <source src="/media/PastorMartin2-5-12.mp3" type="audio/mp3" />
+            </audio><br />
+         </div>
+        <div class="col-lg-4">
+            <p style="margin-bottom:25px;font-weight:bold;">
+                Guest Sermon - Pastor Martin - 7/2/17
+            </p>
+            <br />
+            <audio controls width="320" class="embed-responsive-item">
+                <source src="/media/PastorMartin7-2-17.mp3" type="audio/mp3" />
+            </audio><br />
+         </div>
+      </div> -->
+
+      <!-- START THE FEATURETTES -->
+      <!-- <hr class="featurette-divider"> -->
+      <!-- <div class="row featurette">
+        <div class="col-md-7">
+          <h2 class="featurette-heading">Abundant Life <span class="text-muted">Adult Ministries</span></h2>
+          <p class="lead">
+              Jesus said, “I am come that they might have life, and that they might have it more abundantly.” John 10:10 (KJV).
+              Abundant Life Adult Ministries seeks to assist adults in living the abundant life. In order to do so, we believe
+              that it is important that men and women have a MISSION in life, so that Tri-County Church of the Nazarene can be
+              a church with impact. Abundant Life Adult Ministries connects our adults to mission and purpose. We do this through
+              a variety of means.
+          </p>
+            <p class="lead">
+                <span style="font-weight:bold;">Life Groups/Sunday School</span> — Sundays at 9:30 a.m. and various times throughout the week.
+                <br /><br />
+                <span style="font-weight:bold;">Body Life</span> — A multi-level program aimed at developing spiritual maturity and
+                spiritual gift discovery and ministry placement within the body. Classes are ...
+            </p>
+              <p><a class="btn btn-lg btn-primary" href="/abundant-life-adults" role="button">Learn more</a></p>
+        </div>
+        <div class="col-md-5">
+          <img class="featurette-image img-responsive center-block" style="padding-top:120px;" src="{% static "website/images/SDMI-Logo.jpg" %}" alt="Generic placeholder image">
+        </div>
+      </div>
+
+      <hr class="featurette-divider">
+
+      <div class="row featurette">
+        <div class="col-md-7 col-md-push-5">
+          <h2 class="featurette-heading tcn-heading">Real Life <span class="text-muted">Youth Ministries</span></h2>
+          <p class="lead">
+              Real Life Youth Ministries exists to impact today’s generation, CONNECTING young people through
+              relationships, challenging them to EMBRACE God and THRIVE in their spiritual JOURNEY!
+              <br /><br />
+              Let’s get real... life is hard. And being a teenager doesn’t make it any easier. That’s where Real
+              Life Youth Ministries comes in. It’s all about experiencing Real Life... through real relationships...
+          </p>
+            <p><a class="btn btn-lg btn-primary" href="/real-life-youth" role="button">Learn more</a></p>
+        </div>
+        <div class="col-md-5 col-md-pull-7">
+          <img class="featurette-image img-responsive center-block" style="padding-top:125px;" src="{% static "website/images/NYI Global Logo.jpg" %}" alt="Generic placeholder image">
+            <div class="lead tcn-heading" align="center">
+                <br /><br />
+                Latest Youth Sermon
+                <br />
+                {% with sermon_name=sermon_name_list|first %}
+                    {{ sermon_name|slice:"5:7" }}/{{ sermon_name|slice:"8:10" }}/{{ sermon_name|slice:":4" }}
+                    <br />
+                    <span style="font-weight: bold;">{{ sermon_name|slice:"11:-4" }}</span>
+                    <br />
+                    <audio controls width="320" class="embed-responsive-item">
+                        <source src="/media/audio/{{ sermon_name }}" type="audio/mp3" />
+                    </audio><br />
+                {% endwith %}
+            </div>
+        </div>
+      </div>
+
+      <hr class="featurette-divider">
+
+      <div class="row featurette">
+        <div class="col-md-7">
+          <h2 class="featurette-heading">Kid's Life <span class="text-muted">Childrens Ministries</span></h2>
+          <p class="lead">
+              We in Kid’s Life believe that the lives of children are impacted most effectively by a holistic approach.
+              A holistic approach impacts lives mentally, physically, spiritually and socially.
+            <ul class="lead">
+                <li>Mentally through education to children’s minds.</li>
+                <li>Physically through compassion to have children’s basic needs met.</li>
+                <li>Spiritually through evangelism to reach children for Christ.</li>
+                <li>Socially through discipleship to strengthen children’s faith.</li>
+            </ul>
+          </p>
+            <p class="lead">
+                <span style="font-weight:bold;">Sunday School</span> — Children from newborn thru 6th grade participate in
+                age appropriate small group classes each Sunday morning at 9:30 a.m.
+                <br /><br />
+                <span style="font-weight:bold;">Children's Church</span> — Childrens Church implements fun and adventure
+                in our Children’s Church time each week for children in Kindergarten thru 4th grade on Sunday mornings.
+                Children participate in ...
+            </p>
+              <p><a class="btn btn-lg btn-primary" href="/kids-life-children" role="button">Learn more</a></p>
+        </div>
+        <div class="col-md-5">
+          <img class="featurette-image img-responsive center-block" style="padding-top:125px;" src="{% static "website/images/Childrens-Ministry-Kids-First.jpg" %}" alt="Generic placeholder image">
+        </div>
+      </div>
+
+      <hr class="featurette-divider"> -->
+
+      <!-- /END THE FEATURETTES -->
+
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "website/base_website.html" %}
+
+{% load static %}
+
+{% block content %}
+
+      <div class="container col-md-12" style="height:87vh;overflow-y:scroll;background-color:transparent;margin-top:50px;padding-top:20px;">
+        <div class="col-md-5" style="background-color:transparent;">
+          &nbsp;
+        </div>
+        <div class="col-md-7">
+            <img class="center-block" style="height:30%;width:30%;padding-right:30px;padding-bottom:20px;" src="{% static "website/images/Newsletter.png" %}" alt="Generic placeholder image">
+            <p class="lead">
+            <div class="lead" style="width:100%;margin:0px;padding:0px;margin-bottom:20px;">
+                <iframe src="http://tricountynaz.net/media/Weekender0727.pdf" height="800" width="100%" frameborder="0"></iframe>
+            </div>
+          </p>
+        </div>
+      </div>
+
+{% endblock %}
