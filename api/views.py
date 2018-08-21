@@ -1,6 +1,7 @@
 from django.shortcuts import render, render_to_response
 from django.http import HttpResponse
 from rest_framework.renderers import JSONRenderer
+from rest_framework_xml.renderers import XMLRenderer
 from api.models import *
 from api.serializers import *
 from urllib.parse import quote
@@ -18,6 +19,16 @@ class JSONResponse(HttpResponse):
         content = JSONRenderer().render(data)
         kwargs['content_type'] = 'application/json'
         super(JSONResponse, self).__init__(content, **kwargs)
+
+
+class XMLResponse(HttpResponse):
+    """
+    An HttpResponse that renders its content into JSON.
+    """
+    def __init__(self, data, **kwargs):
+        content = XMLRenderer().render(data)
+        kwargs['content_type'] = 'application/xml'
+        super(XMLResponse, self).__init__(content, **kwargs)
 
 
 def get_people(request):
@@ -68,7 +79,7 @@ def get_group_members(request):
     return JSONResponse(group_members_serializer.data)
 
 
-def get_youth_sermons(request):
+def get_youth_sermons():
     sermon_path_list = glob.glob("/home/joe/media/audio/*")
     sermon_names = []
 
@@ -94,6 +105,18 @@ def get_youth_sermons(request):
         sermon_information['title'] = sermon_title
         sermon_information['path'] = 'http://tricountynaz.net/media/audio/' + quote(sermon)
         sermon_list.append(sermon_information)
+
+    return sermon_list
+
+
+def youth_sermons_xml(request):
+    sermon_list = get_youth_sermons()
+
+    return XMLResponse(sermon_list)
+
+
+def youth_sermons_json(request):
+    sermon_list = get_youth_sermons()
 
     return JSONResponse(sermon_list)
 
