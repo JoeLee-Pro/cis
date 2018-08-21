@@ -35,7 +35,7 @@ DEBUG = True if ROLE in ['dev', 'local', 'localwithcache'] else False
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '*db%9xc1ni@r=x*e1c)k@p$ih6obfa+4n20y+g!)^x1e@hv3n9'
 
-ALLOWED_HOSTS = ['127.0.0.1','localhost','xlntwebdev.net','www.xlntwebdev.net','staging.tricountynaz.net'] if DEBUG else ['.tricountynaz.net','35.184.61.178','www.tricountynaz.net']
+ALLOWED_HOSTS = ['127.0.0.1','192.168.1.247','localhost','xlntwebdev.net','www.xlntwebdev.net','staging.tricountynaz.net'] if DEBUG else ['.tricountynaz.net','35.184.61.178','www.tricountynaz.net']
 
 
 # Application definition
@@ -100,12 +100,8 @@ WSGI_APPLICATION = 'ChurchInformationSystem.wsgi.application'
 if DEBUG:
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'cis',
-            'USER': 'cisadmin',
-            'PASSWORD': 'A1pha&0M3ga',
-            'HOST': 'localhost',
-            'PORT': '5432',
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR , 'db.sqlite3'),
         }
     }
 else:
