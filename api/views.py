@@ -1,4 +1,4 @@
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render
 from django.http import HttpResponse
 from rest_framework.renderers import JSONRenderer
 from rest_framework_xml.renderers import XMLRenderer

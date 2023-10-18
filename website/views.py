@@ -4,7 +4,7 @@ import glob
 import csv
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.shortcuts import render_to_response
+from django.shortcuts import render
 from django.http import HttpResponse
 
 
@@ -23,7 +23,7 @@ def home(request):
 
     print(sermon_name_list)
 
-    return render_to_response("website/home.html", {'sermon_name_list': sermon_name_list, 'bg_image': 'AS_Bible.jpg'})
+    return render(request, "website/home.html", {'sermon_name_list': sermon_name_list, 'bg_image': 'AS_Bible.jpg'})
 
 
 def youthsermonlibrary(request, page=1):
@@ -50,12 +50,12 @@ def youthsermonlibrary(request, page=1):
         # If page is out of range (e.g. 9999), deliver last page of results.
         sermon_name_list = paginator.page(paginator.num_pages)
 
-    return render_to_response("website/youthsermonlibrary.html", {'sermon_name_list': sermon_name_list, 'bg_image': 'YouthSermonLibrary.jpg'})
+    return render(request, "website/youthsermonlibrary.html", {'sermon_name_list': sermon_name_list, 'bg_image': 'YouthSermonLibrary.jpg'})
 
 
 def abundantlifeadults(request):
 
-    return render_to_response("website/abundantlifeadults.html", {'bg_image': 'Adults.jpg'})
+    return render(request, "website/abundantlifeadults.html", {'bg_image': 'Adults.jpg'})
 
 
 def reallifeyouth(request):
@@ -72,34 +72,34 @@ def reallifeyouth(request):
 
     print(sermon_name_list)
 
-    return render_to_response("website/reallifeyouth.html", {'sermon_name_list': sermon_name_list, 'bg_image': 'Youth.jpg'})
+    return render(request, "website/reallifeyouth.html", {'sermon_name_list': sermon_name_list, 'bg_image': 'Youth.jpg'})
 
 
 def kidslifechildren(request):
 
-    return render_to_response("website/kidslifechildren.html", {'bg_image': 'Childrens.jpg'})
+    return render(request, "website/kidslifechildren.html", {'bg_image': 'Childrens.jpg'})
 
 
 def beliefs(request):
 
-    return render_to_response("website/beliefs.html", {'bg_image': 'AS_CrossAlone.jpg'})
+    return render(request, "website/beliefs.html", {'bg_image': 'AS_CrossAlone.jpg'})
 
 
 def missionvision(request):
 
-    return render_to_response("website/missionvision.html", {'bg_image': 'MissionVisionBG.jpg'})
+    return render(request, "website/missionvision.html", {'bg_image': 'MissionVisionBG.jpg'})
 
 
 def leadership(request):
-    return render_to_response("website/leadership.html", {'bg_image': 'LeadershipBG.jpg'})
+    return render(request, "website/leadership.html", {'bg_image': 'LeadershipBG.jpg'})
 
 
 def sermonlibrary(request):
-    return render_to_response("website/sermonlibrary.html", {'bg_image': 'SermonLibrary.jpg'})
+    return render(request, "website/sermonlibrary.html", {'bg_image': 'SermonLibrary.jpg'})
 
 
 def unscriptedpodcast(request):
-    return render_to_response("website/unscriptedpodcast.html", {'bg_image': 'UnscriptedPodcast.jpg'})
+    return render(request, "website/unscriptedpodcast.html", {'bg_image': 'UnscriptedPodcast.jpg'})
 
 
 def calendar(request):
@@ -111,8 +111,8 @@ def calendar(request):
             calendar_item = row[0] + ' - ' + row[1]
             calendar_items.append(calendar_item)
 
-    return render_to_response("website/calendar.html", {'calendar_items': calendar_items})
-    #return render_to_response("website/calendar.html")
+    return render(request, "website/calendar.html", {'calendar_items': calendar_items})
+    #return render(request, "website/calendar.html")
 
 
 def newsletters(request):
@@ -153,10 +153,10 @@ def newsletters(request):
 
     newsletter_names.sort(reverse=True)
 
-    return render_to_response("website/newsletters.html", {'newsletter_names': newsletter_names, 'bg_image': 'WeekenderImage.jpg'})
+    return render(request, "website/newsletters.html", {'newsletter_names': newsletter_names, 'bg_image': 'WeekenderImage.jpg'})
 
 def contactdirections(request):
 
-    return render_to_response("website/contactdirections.html", {'bg_image': 'ContactUs.jpg'})
+    return render(request, "website/contactdirections.html", {'bg_image': 'ContactUs.jpg'})
 
 

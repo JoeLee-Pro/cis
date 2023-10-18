@@ -41,8 +41,8 @@ class ContactTypes(models.Model):
 
 class ContactEntries(models.Model):
     Id = models.AutoField(primary_key=True, db_column='Id')
-    PeopleId = models.ForeignKey(People, to_field='Id', verbose_name='People Id', related_name='CEPeopleId')
-    ContactTypeId = models.ForeignKey(ContactTypes, to_field='Id', verbose_name='Contact Type Id', related_name='CEContactTypeId')
+    PeopleId = models.ForeignKey(People, to_field='Id', verbose_name='People Id', on_delete=models.DO_NOTHING, related_name='CEPeopleId')
+    ContactTypeId = models.ForeignKey(ContactTypes, to_field='Id', verbose_name='Contact Type Id', on_delete=models.DO_NOTHING, related_name='CEContactTypeId')
     Address = models.CharField(max_length=254, db_column='Address', unique=False, blank=True, null=True, verbose_name='Address')
     City = models.CharField(max_length=100, db_column='City', unique=False, blank=True, null=True, verbose_name='City')
     State = models.CharField(max_length=2, db_column='State', unique=False, blank=True, null=True, verbose_name='State')
@@ -95,9 +95,9 @@ class FamilyRoles(models.Model):
 
 class FamilyMembers(models.Model):
     Id = models.AutoField(primary_key=True, db_column='Id')
-    PeopleId = models.ForeignKey(People, to_field='Id', verbose_name='People Id', related_name='FMPeopleId')
-    FamilyId = models.ForeignKey(Families, to_field='Id', verbose_name='Family', related_name='FMFamilyId')
-    FamilyRoleId = models.ForeignKey(FamilyRoles, to_field='Id', verbose_name='Family Roles', related_name='FMFamilyRoleId')
+    PeopleId = models.ForeignKey(People, to_field='Id', verbose_name='People Id', on_delete=models.DO_NOTHING, related_name='FMPeopleId')
+    FamilyId = models.ForeignKey(Families, to_field='Id', verbose_name='Family', on_delete=models.DO_NOTHING, related_name='FMFamilyId')
+    FamilyRoleId = models.ForeignKey(FamilyRoles, to_field='Id', verbose_name='Family Roles', on_delete=models.DO_NOTHING, related_name='FMFamilyRoleId')
     
     def __str__(self):
         return self.PeopleId.FirstName + " " + self.PeopleId.LastName + ', the ' + self.FamilyRoleId.Role + ' of the ' + self.FamilyId.Surname + ' family'
@@ -152,8 +152,8 @@ class GroupTypes(models.Model):
 class Groups(models.Model):
     Id = models.AutoField(primary_key=True, db_column='Id')
     Name = models.CharField(max_length=40, db_column='Name')
-    DepartmentId = models.ForeignKey(Departments, to_field='Id', verbose_name='Departments', related_name='GRDepartmentId')
-    GroupTypeId = models.ForeignKey(GroupTypes, to_field='Id', verbose_name='Group Types', related_name='GRGroupTypeId')
+    DepartmentId = models.ForeignKey(Departments, to_field='Id', verbose_name='Departments', on_delete=models.DO_NOTHING, related_name='GRDepartmentId')
+    GroupTypeId = models.ForeignKey(GroupTypes, to_field='Id', verbose_name='Group Types', on_delete=models.DO_NOTHING, related_name='GRGroupTypeId')
     Description = models.CharField(max_length=254, blank=True, null=True, db_column='Description')
     
     def __str__(self):
@@ -181,10 +181,10 @@ class GroupRoles(models.Model):
 
 class GroupMembers(models.Model):
     Id = models.AutoField(primary_key=True, db_column='Id')
-    PeopleId = models.ForeignKey(People, to_field='Id', verbose_name='People Id', related_name='GMPeopleId')
-    GroupId = models.ForeignKey(Groups, to_field='Id', verbose_name='Group', related_name='GMGroupId')
-    GradeId = models.ForeignKey(Grades, to_field='Id', verbose_name='Grade', related_name='GMGradeId')
-    GroupRoleId = models.ForeignKey(GroupRoles, to_field='Id', verbose_name='Group Roles', related_name='GMGroupRoleId')
+    PeopleId = models.ForeignKey(People, to_field='Id', verbose_name='People Id', on_delete=models.DO_NOTHING, related_name='GMPeopleId')
+    GroupId = models.ForeignKey(Groups, to_field='Id', verbose_name='Group', on_delete=models.DO_NOTHING, related_name='GMGroupId')
+    GradeId = models.ForeignKey(Grades, to_field='Id', verbose_name='Grade', on_delete=models.DO_NOTHING, related_name='GMGradeId')
+    GroupRoleId = models.ForeignKey(GroupRoles, to_field='Id', verbose_name='Group Roles', on_delete=models.DO_NOTHING, related_name='GMGroupRoleId')
     
     def __str__(self):
         return self.PeopleId.FirstName + " " + self.PeopleId.LastName + ', a ' + self.GroupRoleId.Role + ' of the ' + self.GroupId.Name + ' group'
@@ -197,7 +197,7 @@ class GroupMembers(models.Model):
 
 class PeopleNotes(models.Model):
     Id = models.AutoField(primary_key=True, db_column='Id')
-    PeopleId = models.ForeignKey(People, to_field='Id', verbose_name='People Id', related_name='PNPeopleId')
+    PeopleId = models.ForeignKey(People, to_field='Id', verbose_name='People Id', on_delete=models.DO_NOTHING, related_name='PNPeopleId')
     Note = models.TextField(max_length=2048, blank=True, null=True, db_column='Note')
 
     class Meta:
@@ -208,7 +208,7 @@ class PeopleNotes(models.Model):
 
 class FamilyNotes(models.Model):
     Id = models.AutoField(primary_key=True, db_column='Id')
-    FamilyId = models.ForeignKey(Families, to_field='Id', verbose_name='Family', related_name='FNFamilyId')
+    FamilyId = models.ForeignKey(Families, to_field='Id', verbose_name='Family', on_delete=models.DO_NOTHING, related_name='FNFamilyId')
     Note = models.TextField(max_length=2048, blank=True, null=True, db_column='Note')
 
     class Meta:
@@ -219,7 +219,7 @@ class FamilyNotes(models.Model):
 
 class GroupNotes(models.Model):
     Id = models.AutoField(primary_key=True, db_column='Id')
-    GroupId = models.ForeignKey(Groups, to_field='Id', verbose_name='Group', related_name='GNGroupId')
+    GroupId = models.ForeignKey(Groups, to_field='Id', verbose_name='Group', on_delete=models.DO_NOTHING, related_name='GNGroupId')
     Note = models.TextField(max_length=2048, blank=True, null=True, db_column='Note')
 
     class Meta:

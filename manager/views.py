@@ -1,7 +1,7 @@
 import sys
 import logging
 
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render
 from django.http.response import HttpResponse
 from django.http.request import HttpRequest
 from django.core import serializers
@@ -40,7 +40,7 @@ def home(request):
     sys.stdout.write(str(person_tree))
 
     contact_entries_json = serializers.serialize('json', ContactEntries.objects.order_by('Id'))
-    return render_to_response("manager/home.html", {'person_tree': person_tree, 'people_json': people_json, 'contact_entries_json': contact_entries_json})
+    return render_to_response(request, "manager/home.html", {'person_tree': person_tree, 'people_json': people_json, 'contact_entries_json': contact_entries_json})
 
 
 def generate_sunday_school_rolls(request):

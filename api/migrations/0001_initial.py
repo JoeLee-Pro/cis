@@ -70,7 +70,7 @@ class Migration(migrations.Migration):
             name='FamilyMembers',
             fields=[
                 ('Id', models.AutoField(serialize=False, primary_key=True, db_column='Id')),
-                ('FamilyId', models.ForeignKey(related_name='FMFamilyId', to='api.Families', verbose_name='Family')),
+                ('FamilyId', models.ForeignKey(on_delete=models.DO_NOTHING, related_name='FMFamilyId', to='api.Families', verbose_name='Family')),
             ],
             options={
                 'verbose_name_plural': 'Family Members',
@@ -83,7 +83,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('Id', models.AutoField(serialize=False, primary_key=True, db_column='Id')),
                 ('Note', models.TextField(null=True, max_length=2048, db_column='Note', blank=True)),
-                ('FamilyId', models.ForeignKey(related_name='FNFamilyId', to='api.Families', verbose_name='Family')),
+                ('FamilyId', models.ForeignKey(on_delete=models.DO_NOTHING, related_name='FNFamilyId', to='api.Families', verbose_name='Family')),
             ],
             options={
                 'verbose_name_plural': 'Family Notes',
@@ -120,7 +120,7 @@ class Migration(migrations.Migration):
             name='GroupMembers',
             fields=[
                 ('Id', models.AutoField(serialize=False, primary_key=True, db_column='Id')),
-                ('GradeId', models.ForeignKey(related_name='GMGradeId', to='api.Grades', verbose_name='Grade')),
+                ('GradeId', models.ForeignKey(on_delete=models.DO_NOTHING, related_name='GMGradeId', to='api.Grades', verbose_name='Grade')),
             ],
             options={
                 'verbose_name_plural': 'Group Members',
@@ -159,7 +159,7 @@ class Migration(migrations.Migration):
                 ('Id', models.AutoField(serialize=False, primary_key=True, db_column='Id')),
                 ('Name', models.CharField(max_length=40, db_column='Name')),
                 ('Description', models.CharField(null=True, max_length=254, db_column='Description', blank=True)),
-                ('DepartmentId', models.ForeignKey(related_name='GRDepartmentId', to='api.Departments', verbose_name='Departments')),
+                ('DepartmentId', models.ForeignKey(on_delete=models.DO_NOTHING, related_name='GRDepartmentId', to='api.Departments', verbose_name='Departments')),
             ],
             options={
                 'verbose_name_plural': 'Groups',
@@ -201,7 +201,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('Id', models.AutoField(serialize=False, primary_key=True, db_column='Id')),
                 ('Note', models.TextField(null=True, max_length=2048, db_column='Note', blank=True)),
-                ('PeopleId', models.ForeignKey(related_name='PNPeopleId', to='api.People', verbose_name='People Id')),
+                ('PeopleId', models.ForeignKey(on_delete=models.DO_NOTHING, related_name='PNPeopleId', to='api.People', verbose_name='People Id')),
             ],
             options={
                 'verbose_name_plural': 'People Notes',
@@ -212,46 +212,46 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='groups',
             name='GroupTypeId',
-            field=models.ForeignKey(related_name='GRGroupTypeId', to='api.GroupTypes', verbose_name='Group Types'),
+            field=models.ForeignKey(on_delete=models.DO_NOTHING, related_name='GRGroupTypeId', to='api.GroupTypes', verbose_name='Group Types'),
         ),
         migrations.AddField(
             model_name='groupnotes',
             name='GroupId',
-            field=models.ForeignKey(related_name='GNGroupId', to='api.Groups', verbose_name='Group'),
+            field=models.ForeignKey(on_delete=models.DO_NOTHING, related_name='GNGroupId', to='api.Groups', verbose_name='Group'),
         ),
         migrations.AddField(
             model_name='groupmembers',
             name='GroupId',
-            field=models.ForeignKey(related_name='GMGroupId', to='api.Groups', verbose_name='Group'),
+            field=models.ForeignKey(on_delete=models.DO_NOTHING, related_name='GMGroupId', to='api.Groups', verbose_name='Group'),
         ),
         migrations.AddField(
             model_name='groupmembers',
             name='GroupRoleId',
-            field=models.ForeignKey(related_name='GMGroupRoleId', to='api.GroupRoles', verbose_name='Group Roles'),
+            field=models.ForeignKey(on_delete=models.DO_NOTHING, related_name='GMGroupRoleId', to='api.GroupRoles', verbose_name='Group Roles'),
         ),
         migrations.AddField(
             model_name='groupmembers',
             name='PeopleId',
-            field=models.ForeignKey(related_name='GMPeopleId', to='api.People', verbose_name='People Id'),
+            field=models.ForeignKey(on_delete=models.DO_NOTHING, related_name='GMPeopleId', to='api.People', verbose_name='People Id'),
         ),
         migrations.AddField(
             model_name='familymembers',
             name='FamilyRoleId',
-            field=models.ForeignKey(related_name='FMFamilyRoleId', to='api.FamilyRoles', verbose_name='Family Roles'),
+            field=models.ForeignKey(on_delete=models.DO_NOTHING, related_name='FMFamilyRoleId', to='api.FamilyRoles', verbose_name='Family Roles'),
         ),
         migrations.AddField(
             model_name='familymembers',
             name='PeopleId',
-            field=models.ForeignKey(related_name='FMPeopleId', to='api.People', verbose_name='People Id'),
+            field=models.ForeignKey(on_delete=models.DO_NOTHING, related_name='FMPeopleId', to='api.People', verbose_name='People Id'),
         ),
         migrations.AddField(
             model_name='contactentries',
             name='ContactTypeId',
-            field=models.ForeignKey(related_name='CEContactTypeId', to='api.ContactTypes', verbose_name='Contact Type Id'),
+            field=models.ForeignKey(on_delete=models.DO_NOTHING, related_name='CEContactTypeId', to='api.ContactTypes', verbose_name='Contact Type Id'),
         ),
         migrations.AddField(
             model_name='contactentries',
             name='PeopleId',
-            field=models.ForeignKey(related_name='CEPeopleId', to='api.People', verbose_name='People Id'),
+            field=models.ForeignKey(on_delete=models.DO_NOTHING, related_name='CEPeopleId', to='api.People', verbose_name='People Id'),
         ),
     ]
